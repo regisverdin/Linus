@@ -7,9 +7,17 @@
 //
 
 #import "TimelineScene.h"
+#import "TimelineModel.h"
 
 @interface TimelineScene ()
+
 @property BOOL contentCreated;
+@property CGFloat gridMarkerHeight;
+@property TimelineModel *timelineModel;
+@property CGRect windowRect;
+@property CGFloat windowHeight;
+@property CGFloat windowWidth;
+
 @end
 
 @implementation TimelineScene
@@ -17,33 +25,18 @@
 -(id)initWithSize:(CGSize)size {
     
     if (self = [super initWithSize:size]) {
-        
         /* Setup your scene here */
-        
-        self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:0.0];
-        
-        // Create a simple label here - this is the equivalent of UILabel
-        
-        //        SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Times"];
-        //
-        //        myLabel.text = @"Testing";
-        //
-        //        myLabel.fontSize = 30;
-        //
-        //        myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
-        //
-        //                                       CGRectGetMidY(self.frame));
-        //
-        //        [self addChild:myLabel];
-        
+        self.backgroundColor = [SKColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.0];
+        self.gridMarkerHeight = 50;
+        self.screenTime = 5.0;  //screen (without scrolling or zooming) is 5 seconds long.
+        self.timelineModel = [[TimelineModel alloc] init]; //This is the data structure for storing each timepoint on timeline.
     }
-    
     return self;
-    
 }
 
-- (void)didMoveToView: (SKView *) view
-{
+
+- (void)didMoveToView: (SKView *) view {
+    
     if (!self.contentCreated)
     {
         [self createSceneContents];
@@ -52,83 +45,61 @@
 }
 
 
-- (void)createSceneContents
-{
-    self.backgroundColor = [SKColor blueColor];
-    self.scaleMode = SKSceneScaleModeAspectFill;
-    [self addChild: [self newHelloNode]];
-    
+- (void)createSceneContents {
+    // Get window size (move to initwithsize?)
+    self.windowRect = self.view.frame;
+    self.windowWidth = self.windowRect.size.width;
+    self.windowHeight = self.windowRect.size.height;
 }
 
 
 
-- (SKSpriteNode *)newGridMarker
-{
-    SKSpriteNode *gridMarker = [[SKSpriteNode alloc] initWithColor:[SKColor grayColor] size:CGSizeMake(64,32)];
+- (SKSpriteNode *)newGridMarker {
+    
+    SKSpriteNode *gridMarker = [[SKSpriteNode alloc] initWithColor:[SKColor grayColor] size:CGSizeMake(2, self.gridMarkerHeight)];
     return gridMarker;
 }
 
 
 
-- (SKLabelNode *)newHelloNode
-{
-    SKLabelNode *helloNode = [SKLabelNode labelNodeWithFontNamed:@"Times"];
-    helloNode.text = @"testing";
-    helloNode.fontSize = 42;
-    helloNode.position = CGPointMake(CGRectGetMidX(self.frame),CGRectGetMidY(self.frame));
-    
-    // Adding animation
-    helloNode.name = @"helloNode";
-    
-    return helloNode;
-}
+- (void)touchesBegan:(NSSet *) touches withEvent:(UIEvent *)event {
 
-
-//- (SKSpriteNode *)newGridNode
-//{
-//    SKSpriteNode *gridNode = [[SKSpriteNode alloc] initWithColor:[SKColor grayColor] size:CGSizeMake(64,32)];
-//    gridNode.position = CGPointMake(CGRec)
-//    return gridNode;
-//}
-
-
-
-
-- (void)touchesBegan:(NSSet *) touches withEvent:(UIEvent *)event
-{
-    
-    SKNode *helloNode = [self childNodeWithName:@"helloNode"];
-    if (helloNode != nil)
-    {
-        helloNode.name = nil;
-        SKAction *moveUp = [SKAction moveByX: 0 y: 100.0 duration: 0.5];
-        SKAction *zoom = [SKAction scaleTo: 2.0 duration: 0.25];
-        SKAction *pause = [SKAction waitForDuration: 0.5];
-        SKAction *fadeAway = [SKAction fadeOutWithDuration: 0.25];
-        SKAction *remove = [SKAction removeFromParent];
-        SKAction *moveSequence = [SKAction sequence:@[moveUp, zoom, pause, fadeAway, remove]];
-        [helloNode runAction: moveSequence];
-    }
 }
 
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    ///
+
+    // Get touch location
+    UITouch *touch = [touches anyObject];
+    CGPoint touchLocation = [touch locationInNode:self];
+    CGPoint markerLocation  = CGPointMake(touchLocation.x, 0);
+    self.gridMarkerHeight = touchLocation.y * 2;    //Awkward, but *2 because position is based on center of sprite.
+    double amplitude = (touchLocation.y / self.windowHeight) * 2;
+    
+    
+    //Add sprite node
     SKSpriteNode *gridMarker = [self newGridMarker];
-    gridMarker.position = CGPointMake(CGRectGetMidX(self.frame),
-                                     CGRectGetMidY(self.frame));
+    gridMarker.position = markerLocation;
     [self addChild:gridMarker];
+    
+    
+    //Store timepoint and node in array
+    [self.timelineModel storeTimePointWithLocation:touchLocation.x withWindowWidth:self.windowWidth withScreenTime:self.screenTime withTimeOffset:self.timeOffset withAmplitude:amplitude fromNode:gridMarker];
+    
+    
+    //print length
+    NSLog(@"%i", self.timelineModel.length);
+    
 }
 
 
-//
-//-(void)mouseDown:(NSEvent *)event
-//{
-//    mousePosition = [event locationInWindow];
-//    SKSpriteNode *gridNode = [self newGridNode];
-//    gridNode.position = CGPointMake(CGRectGetMidX(self.frame),
-//                                    CGRectGetMidY(self.frame));
-//}
+
+- (void)updateSceneContents {
+    for(int i = 0; i <= self.timelineModel.length; i++) {
+        //get scene 
+        break;
+    }
+}
 
 
 @end

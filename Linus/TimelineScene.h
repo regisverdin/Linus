@@ -11,4 +11,7 @@
 
 @interface TimelineScene : SKScene
 
+@property (nonatomic) double screenTime;
+@property (nonatomic) double timeOffset;
+
 @end

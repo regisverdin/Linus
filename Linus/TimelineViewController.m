@@ -14,33 +14,14 @@
     
     [super viewDidLoad];
     
-    //Creating an instance of SKView
-    
-    SKView * skView = [[SKView alloc] initWithFrame:CGRectMake(0, 0, 600, 600)];
-    
-    //Setting frames per second property to be true
-    
+    CGRect viewSize = [[super view] frame];    //Get size of container view, and make skView same size
+    SKView * skView = [[SKView alloc] initWithFrame:CGRectMake(0, 0, viewSize.size.width, viewSize.size.height)];    //Creating an instance of SKView
     skView.showsFPS = YES;
-    
-    //Setting count nodes property to be true because we want to know the number of nodes on the screen at any given time
-    
     skView.showsNodeCount = YES;
-    
-    // Create and configure the scene.
-    
-    SKScene * scene = [TimelineScene sceneWithSize:skView.bounds.size];
-    
-    //SKSceneScaleModeAspectFill will make sure that the scene is scaled properly in all orientations
-    
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    
-    //Making the view controllers view a skview
-    
-    self.view = skView;
-    
-    // Present the scene.
-    
-    [skView presentScene:scene];
+    SKScene * timelineScene = [TimelineScene sceneWithSize:skView.bounds.size];    // Create and configure the timeline scene.
+    timelineScene.scaleMode = SKSceneScaleModeResizeFill;
+    self.view = skView;     //Making the view controllers view a skview
+    [skView presentScene:timelineScene];     // Present the scene.
 }
 
 

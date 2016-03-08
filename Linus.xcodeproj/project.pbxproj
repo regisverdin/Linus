@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		39134AAA1C8E4B6600E5D83E /* TimelineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 39134AA91C8E4B6600E5D83E /* TimelineModel.m */; };
+		39134AAE1C8E66B200E5D83E /* TimePoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 39134AAD1C8E66B200E5D83E /* TimePoint.m */; };
 		395FC1051C7A849C00ED1E51 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 395FC1041C7A849C00ED1E51 /* main.m */; };
 		395FC1081C7A849C00ED1E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 395FC1071C7A849C00ED1E51 /* AppDelegate.m */; };
 		395FC10B1C7A849C00ED1E51 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 395FC10A1C7A849C00ED1E51 /* ViewController.m */; };
@@ -20,6 +22,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		39134AA81C8E4B6600E5D83E /* TimelineModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineModel.h; sourceTree = "<group>"; };
+		39134AA91C8E4B6600E5D83E /* TimelineModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineModel.m; sourceTree = "<group>"; };
+		39134AAC1C8E66B200E5D83E /* TimePoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimePoint.h; sourceTree = "<group>"; };
+		39134AAD1C8E66B200E5D83E /* TimePoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimePoint.m; sourceTree = "<group>"; };
 		395FC1001C7A849C00ED1E51 /* Linus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Linus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		395FC1041C7A849C00ED1E51 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		395FC1061C7A849C00ED1E51 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -51,6 +57,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		39134AAB1C8E4B6E00E5D83E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				39134AAC1C8E66B200E5D83E /* TimePoint.h */,
+				39134AAD1C8E66B200E5D83E /* TimePoint.m */,
+				39134AA81C8E4B6600E5D83E /* TimelineModel.h */,
+				39134AA91C8E4B6600E5D83E /* TimelineModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		395FC0F71C7A849C00ED1E51 = {
 			isa = PBXGroup;
 			children = (
@@ -73,6 +90,7 @@
 			children = (
 				395FC1061C7A849C00ED1E51 /* AppDelegate.h */,
 				395FC1071C7A849C00ED1E51 /* AppDelegate.m */,
+				39134AAB1C8E4B6E00E5D83E /* Model */,
 				395FC1261C7A927B00ED1E51 /* Scenes */,
 				395FC1201C7A902600ED1E51 /* View Controllers */,
 				395FC10C1C7A849C00ED1E51 /* Main.storyboard */,
@@ -145,6 +163,7 @@
 				TargetAttributes = {
 					395FC0FF1C7A849C00ED1E51 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 66RRVHUV28;
 					};
 				};
 			};
@@ -188,8 +207,10 @@
 				395FC1251C7A90AA00ED1E51 /* TimelineScene.m in Sources */,
 				395FC11C1C7A900A00ED1E51 /* TimelineViewController.m in Sources */,
 				395FC1081C7A849C00ED1E51 /* AppDelegate.m in Sources */,
+				39134AAA1C8E4B6600E5D83E /* TimelineModel.m in Sources */,
 				395FC1051C7A849C00ED1E51 /* main.m in Sources */,
 				395FC11F1C7A901B00ED1E51 /* TabViewController.m in Sources */,
+				39134AAE1C8E66B200E5D83E /* TimePoint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,10 +322,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Linus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rv.Linus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -312,10 +336,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Linus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rv.Linus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

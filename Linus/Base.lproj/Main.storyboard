@@ -20,13 +20,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gw0-6A-2Im">
-                                <rect key="frame" x="0.0" y="0.0" width="563" height="300"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
                                 <connections>
                                     <segue destination="Mcd-3P-wMc" kind="embed" id="mvr-cT-MHD"/>
                                 </connections>
                             </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Do-PP-nbU">
-                                <rect key="frame" x="299" y="300" width="301" height="300"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Do-PP-nbU">
+                                <rect key="frame" x="300" y="300" width="300" height="300"/>
                                 <connections>
                                     <segue destination="4iV-1B-4LZ" kind="embed" id="LzX-7y-ugJ"/>
                                 </connections>
@@ -35,7 +35,7 @@
                         <color key="backgroundColor" red="0.63962686567569338" green="0.64579924738219896" blue="0.62241136695965193" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="5Do-PP-nbU" firstAttribute="top" secondItem="Gw0-6A-2Im" secondAttribute="bottom" id="0LC-bh-M7M"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Gw0-6A-2Im" secondAttribute="trailing" constant="17" id="GmY-S5-Pst" userLabel="Container View.trailing = trailingMargin - 20"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Gw0-6A-2Im" secondAttribute="trailing" constant="-20" id="GmY-S5-Pst" userLabel="Container View.trailing = trailingMargin"/>
                             <constraint firstItem="5Do-PP-nbU" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="Jv2-3V-Ou0"/>
                             <constraint firstItem="Gw0-6A-2Im" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="VNy-dj-rlb" userLabel="Container View.leading = leadingMargin"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5Do-PP-nbU" secondAttribute="trailing" constant="-20" id="ZWr-Om-NVK" userLabel="trailingMargin = Container View.trailing"/>
@@ -58,14 +58,14 @@
                         <viewControllerLayoutGuide type="bottom" id="mX2-bI-klB"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Kjm-cN-xUD">
-                        <rect key="frame" x="0.0" y="0.0" width="563" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sqo-iV-zHF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="488.5" y="1042"/>
+            <point key="canvasLocation" x="1004.5" y="152"/>
         </scene>
         <!--Tab View Controller-->
         <scene sceneID="VPY-8v-8dh">
@@ -76,7 +76,7 @@
                         <viewControllerLayoutGuide type="bottom" id="b8U-1r-iC2"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dFR-aK-I2V">
-                        <rect key="frame" x="0.0" y="0.0" width="301" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
