@@ -88,18 +88,26 @@
     
     
     //print length
-    NSLog(@"%i", self.timelineModel.length);
+//    NSLog(@"%i", self.timelineModel.length);
     
 }
 
 
 
-- (void)updateSceneContents {
+- (void)updateSceneContents:(NSMutableArray *) timeline{
+    
+    //Based on start time of current view, change position of sprites. also...add or delete sprites from tree (is this necessary? save for later, with a check for ranges)
     for(int i = 0; i <= self.timelineModel.length; i++) {
         //get scene 
         break;
     }
 }
+
+
+- (void)updateSceneTime: (double) time {
+    //change the scenes time properties,
+}
+
 
 
 @end
