@@ -1,0 +1,430 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww33300\viewh19580\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs32 \cf0 \
+OTHER IDEAS:\
+	- grid height could also indicate an effect other than amplitude. choose an effect, and the grid heights change. \
+\
+	- NEED A LOOPING MECHANISM. FOR LIVE PLAYBACK AND COMPOSITION. \
+		- need a view that contains all of the tracks (for zooming, like ableton).\
+		- one loop control per track.\
+			- hold loopstart button to add loop start (subject to grid rules). same for loop end\
+			- what happens when playheads go out of sync w/different loop lengths on each track? (need make master playhead button on each track, or something like this)\
+\
+\
+\
+How to combine initial grid definition phase with grid editing phase? So there aren\'92t 2 modes\'85.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b \cf0 	need subdivision definer, and interpolation.\
+	need to be able to apply a grid to all future times. (also distinguish overwrite and up to next grid event, or for a period of time)\
+	\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "http://melodi.ee.washington.edu/~bilmes/mypubs/bilmes1992-musryth.pdf"}}{\fldrslt \cf0 http://melodi.ee.washington.edu/~bilmes/mypubs/bilmes1992-musryth.pdf}}\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+\
+Functions/elements/buttons/panels:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\i\b0 \cf0 italics
+\i0  indicate a button
+\b \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b0 \cf0 *
+\b or 
+\b0 indicates a button that can be pressed multiple times to toggle between diff states. Or some similar interface.
+\i \
+
+\i0 Level of states is indicated by indentation of \'95. Buttons at same level of indentation can\'92t be active simultaneously (except snap to grid). Grid mode is selected by default. 2nd level (draw/select) buttons are always active, because one of the main modes is always selected. 3rd level is grayed out until a Selection tool is chosen.\
+[description]
+\i \
+\
+\
+
+\i0 [in general: when a grid marker is placed in the middle of an existing clip, should it just shorten the clip to the next grid marker, or cut it? Definitely allow the cut option, this is important for some of the walkthroughs. But too limiting to not allow clips to be held past grid markers\'85]?
+\i \
+\
+
+\i0 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+Main Modes:
+\i \
+\
+\'95 grid
+\i0  
+\b or 
+\i\b0 clip 
+\i0 mode\
+	[toggle. applies to most other buttons.]\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\i \cf0 \'95 snap-to-grid
+\i0  mode
+\i \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\i0 \cf0 	[toggle snapping-to-grid on/off. Snapping occurs across all tracks in project\'85 so i can align an entry in track a with another in track b]\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\i \cf0 \'95 (insert)? 
+\i0 mode\
+	[might be useful for some cases (shifting instead of writing over elements)]\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97
+\i \
+	
+\i0 Draw
+\i  
+\i0 (just one button, toggle 3 states single/typing/off):\
+	\
+	[placing a grid marker on top of another does nothing (keeps the old one, and any associated clips)]
+\i \
+	\
+	\'95 single draw:\
+\
+		
+\b need better system for extending duration of clip beyond the following grid marker. options: \
+			add clip up to next grid marker. if full length of clip is less than this distance, add full length and no clip marker at end.\
+				DEFAULT: no grid marker at end of clip (or note off). MENU OPTION: add grid markers at end of clip. ANOTHER DEFAULT MENU OPTION: each grid marker within a clip makes a new buffer, for deleting segments of a clip.\
+
+\b0 \
+		
+\i0 [when drawing any new clips, dragging up down changes dynamics. height is shown on grid marker, and dynamics are determined by the grid marker]\
+		[Groups of grid markers or clips/gridmarkers can be drawn. Select this tool, tap a group in the Groups panel, and tap a location in the timeline to add it there. snapping can be applied]\
+
+\i \
+		
+\i0 [If grid mode: Tap to draw a single grid marker.]\
+			[If adding grid marker within a clip: cuts the clip in 2 parts, associates both parts with their respective grid markers. on backend, stores the same clip reference with the second marker, but indicating a diff clip playback start time (this start time is only changed like this, for now. drag the chopped clip and it remains the same). This is so we can do the subtractive rhythm thing\'85].\
+		\
+		[If clip mode: select a clip from Clips panel (it remains selected until diff tool or clip selected.), or a group from Groups panel.]\
+			[If snapping on: tap on (or to the right of) a grid marker in timeline to add full length of clip or length up to next grid marker (whichever comes first), starting at the grid marker. A grid marker is always added at the start of a clip (option to add at end of clip somewhere?).]\
+			[If snapping off, tap-drag in timeline to add custom length of clip.]\
+	\
+\
+\
+\
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b \cf0 IGNORE THIS MODE FOR NOW
+\b0 \
+	\'95 
+\i typing draw:\
+		
+\i0 [Snapping turns on by default, can be turned off]
+\i\b \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\i0\b0 \cf0 		([If grid mode: Clips panel does nothing. Groups panel opens by default. Tap a location in the timeline for cursor (if none, leftmost by default), tap grid group and it is added to the location. They can be typed in sequentially.])?\
+		[If clip mode: Clips panel opens by default. Tap location in timeline for cursor (leftmost by default). Tap a clip in Clips panel to add it to cursor location. Cursor moves forward to next grid marker (or end of clip if no more grid markers, or if snapping off). Tap another clip, etc. \'93minus-clip\'94 deletes segment of current clip at location (need to check if deleting full clip or close, so can remove clip assignment from array), \'93plus-clip\'94 holds last entered clip to the next grid marker (or just moves cursor forward if clip ended]\
+			[some cases missing here\'85 need to be careful. maybe omit the - / + functions for now. Basically 4 functions: add clip, hold last clip, insert silence, skip (esp. if clip is already there). Skip can be accomplished by just tapping in the timeline. Edge cases to consider: grid marker in middle of current clip (important for insert silence!), no more clips, no more grid markers, etc.]\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+	Select:\
+	[for all: switching between grid and clip mode in mid-selection will deselect everything.]\
+	\
+	\'95 
+\i group/single\
+		
+\i0 [If tap in timeline on grid or clip, select it. If tap on empty space, deselect all. If tap-drag in timeline, group selection. 
+\i Hold
+\i0  button adds to selection.]\
+		[Clips always have a grid marker attached to their start (clips are always associated with grid), so this is selected as well]\
+		([tap a clip from Clips panel to replace all selected. places new clip at each selected grid marker, overwriting any old ones.])?\
+	\'95 
+\i all ->
+\i0  
+\b or
+\b0  
+\i <- all
+\i0 \
+		[selects all to left or right of tapped grid marker or clip, inclusive of tapped.]\
+	\'95 
+\i hold
+\i0 \
+		[hold this down to keep selecting/deselecting, like shift key]\
+	\'95 
+\i pattern (
+\i0 also works as
+\i  select-every-nth)\
+		
+\i0 [Clips panel automatically opens. It is used as a number pad here. Type in the code for a sequence to be selected. For example, \'931+ 2-\'94 selects every 3rd element (1 on 2 off, repeated). \'933- 2+ 1- 2+\'94 skips 3, selects 2, skips 1, selects 2. (better code for this?)]\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\i \cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\i0 \cf0 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97
+\i \
+
+\i0 		Modify:\
+		\
+		[first, use any of the selection tools]\
+		[after using a modify tool, any new elements are added to selection]\
+		[placing a grid marker on top of another does nothing (keeps the old one, and any associated clips)]\
+	\
+		\'95 
+\i shift 
+\i0 (still some questions about this one?)
+\i \
+			
+\i0 [If grid mode: Shifts position of selected grid marker(s) when dragged left/right. (if clip is at marker: actually generates a new marker to be dragged starting at clip position, so that clip still has a grid associated. this rule should also apply to 
+\i scale. 
+\i0 example, could be used to copy an irregular grid , offset by a subdivision between two of the grid elements, with the user dragging until the shifting group is aligned with that subdiv)?]\
+				[if snapping: snaps the marker you are dragging (you only hold one to drag the whole group), but none of the others]\
+			[if clip mode: ]\
+				[if snapping, with multiple selected: shifting groups should snap to next grid marker. (option to snap each to grid marker nearest to unsnapped location of shifting group?)?]\
+				[if not snapping: Shifts position of selected clip(s) + grid marker(s), drag left/right]\
+			[dragging one grid or clip onto another deletes the clip/grid that we are placing ours onto. (option to cut the old clip?)?]\
+		\'95 
+\i scale\
+
+\i0 			[if grid mode: only works for multiple grid markers. First, use selection tool to make a selection of multiple items in the timeline. Then, tap 
+\i scale
+\i0 . Drag one of the selected grid markers, and all are squashed or stretched given the outermost grid markers (unless dragging the outermost ones). So if i have 5 grid markers selected, and i \'93scale\'94 the middle one and drag it left, then everything except the first and last element in the group moves left. Elements left of dragged grid marker are scaled shorter, and those to the right are scaled longer. Uniform scaling within each side of the dragged element. Notice that if i drag the first or last element, it just scales the whole group uniformly. Could be interesting when applied to long selections.]
+\i \
+			
+\i0 [if clip mode: same as above, but moves the clips as well. scales the clip durations as well (up to full duration of clip).\
+\
+		\'95 
+\i subdivide
+\i0  - depends on current group selection, and number box. between every element selected, insert n grid markers.\
+			[forces snap to grid mode, locked]\
+			[If grid mode: select any number of grid markers w/ selection tool. select a number in the slider. tap subdivide. n equal subdivisions are made between each consecutive selected marker.\
+			[If clip mode: same as above, but cutting the existing clips as necessary.]\
+\
+		\'95 reverse\
+			[reverses the selected grid or clip selection.]\
+		\'95 rotate\
+			[forces snapped mode, locked]\
+			[if grid mode: rotates the selected grid an element at a time. cyclic permutation, 1234 becomes 2341, etc.]\
+			[if clip mode: rotates the selected clips an element at a time along their grids. the grids do not move here!]\
+		\'95 
+\i delete\
+			
+\i0 [if clip mode: delete only the clips (keep the grid markers)]\
+			[if grid mode: delete both the clips and the grid markers (this is a bit weird\'85 but don\'92t want to introduce the option of selecting clip and/or grid, b/c it implies that you can add clips without grid, which you can\'92t)?]\
+				[first grid marker can\'92t be deleted]
+\i \
+		\
+		(\'95 shift sample start time)?\
+
+\i0 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+		Fill: \
+		[requires using selection tool first, for a location mostly]\
+		[after using one of these tools, any new elements are added to selection]\
+\
+\
+		use cases:\
+			\'95 
+\i fill n-times with group
+\i0 : tap this button, make a selection (in groups). tap fill n-times. then drag number slider. pattern is filled n-times, starting on last (right-most) grid marker of selection.\
+			\'95 hybrid rhythm: transition between 2 groups, filling n-times (can use this with 1-time-fill to generate a single hybrid measure. consider just having user define the grids in the timeline, not in separate interface. separate interface is just for assigning beats to each other.).\
+			\'95 
+\i fill n-times with pattern:
+\i0  type a pattern (like make beat) of clips or groups in sequence thingy. fill n-times with this. (important for clip mode, where it assigns every clip sequentially to the next grid marker).\
+\
+\
+\
+\
+\
+		\'95 
+\i group transition\
+			
+\i0 [this is where we do the interpolation thingy, for groups. Tap this button. Groups bank opens. Choose 2 groups (of grids only). They can be of same or different lengths. For example, scaling from a longer to a shorter clip length.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\i \cf0 		\'95 n-times (can this be replaced by pattern?)\
+			
+\i0 \
+		\'95 
+\i pattern\
+			
+\i0 [If grid mode: \
+			[If clip mode: Clips panel opens. Enter a sequence of clips i want to be added (incl. silence and hold). Basically a GUI for makebeat\
+				[If snapping off:\
+			[example: note that patterns can contain random elements! the ? in clips/grids picks a random clip from bank, or generates a random sequence in the groups (how to set random sequence parameters?)]\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+	dynamics:
+\b \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b0 \cf0 \
+	sequence display
+\b \
+\
+
+\b0 play/pause\
+	[incl. record function\'85 live input from Clips panel, tapped in.]\
+back to start\
+(loop)?\
+volume slider\
+number box\
+clips panel\
+	[each bank entry is numbered. entries start gray, gain color when a clip is loaded into it.]\
+	[- symbol clip: adds a silence.]\
+	[+ symbol clip: extends previous clip]\
+	[? symbol clip: picks a random clip from above, including +/-.]\
+groups panel\
+	make this work for both clip and grid mode\'85 on grid mode, pasting these groups only\
+	note that this takes the place of copy/paste. select a section, store as group, draw mode, tap timeline to add it.\
+	[? symbol group: generates a random pattern. not sure of constraints here]\
+	(separate tab for clipless-groups?)?\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\i \cf0 undo
+\i0 \
+
+\i save/load/presets/etc.
+\i0 \
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b \cf0 \
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+Adding custom grid (easy way):\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b0 \cf0 1. tap 
+\b draw-grid
+\b0 \
+2. (notice that the 0\'94 point is already a grid marker). tap 4 grid markers anywhere into the timeline.\
+3. tap 
+\b select - group/single
+\b0 . tap drag across the grid markers. \
+4. tap 
+\b \'93fill - n times\'94
+\b0 . choose a number from the metronome slider.\
+5. tap first (or last) grid marker. the grid is pasted n times.\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b \cf0 Add subdivisions to previous grid:
+\b0 \
+1. 
+\b \
+ \
+Adding a custom grid:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b0 \cf0 1. tap \'93
+\b grid draw mode
+\b0 \'94\
+2. tap a few locations in the timeline, track 1, to add grid markers (including next measure\'92s first beat)\
+3. tap \'93
+\b group selection
+\b0 \'94 tool\
+4. select the entered grid markers; on release, selected grid markers are highlighted (color change).\
+5. (optional) tap 
+\b \'93groups\'94
+\b0  tab, tap empty bank button to save currently selected group.\
+6. with our group still selected, click \'93
+\b shift
+\b0 \'94 tool. (make sure \'93snap to grid\'94 is selected). move all selected grid markers left, snap to 0 second marker (which is actually a default grid marker).\
+7. tap \'93
+\b fill n times
+\b0 \'94. choose number of times from sliding number display box (multi-purpose metro display). (alt: select saved group from group bank) tap last grid marker currently in timeline. The currently selected grid is pasted n times.\
+8. We insert the same grid for track 2: keeping the same current selections from step 7, simply tap the 0 second marker on track 2. \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b \cf0 \
+\
+Add beats to grid:\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b0 \cf0 1. tap to choose a clip from \'93clips\'94 panel.\
+2. tap first grid marker in first track. clip is added to this marker, ending at next grid marker (or length of clip, if shorter).\
+3. 
+\b \
+\
+\
+\
+Create grid that transitions to diff grid over time:
+\b0 \
+1. Press 2 grid groups simultaneously. Both are selected. Grid editor panel opens.\
+2. choose beats to assign to each other (if not the same number of beats in both seqs, multiple will need to be mapped to one). Can also choose interpolation amount w/slider, but not needed here.\
+3. Tap \'93
+\b fill n times
+\b0 \'94, and choose n in metronome display. Tap a grid marker. Transition will take place over those n repetitions.
+\b \
+\
+\
+\
+\
+\
+\
+\
+Walkthrough 3 (subtractive rhythms on longer clips)\
+
+\b0 add a long clip. add grid markers within it (MAKE SURE CLIPS DON\'92T AUTO RESIZE TO FIT GRID MARKERS, unless specified?\'bf). fill-pattern with silent clip. subtractive rhythm! and the clip keeps playing back underneath :) Q: need to consider more carefully how this works with other parts\'85
+\b \
+\
+\
+\
+\
+Walkthrough 0 (assuming no free-draw mode, but still have snap on/off setting):
+\b0 \
+1. tap \'93grid mode\'94.\
+2. define grid in top right. choose a subdivision, click to add markers to grid from that subdiv. option to add another rhythm to interpolate. grid is added to entire selected track(s).\
+3. tap \'93clip mode\'94. select clip to add. tap grid marker to paste in, hold and drag to
+\b \
+\
+\
+-\
+Walkthrough 1:
+\b0 \
+\
+1. tap \'93Clip Mode\'94 to toggle.\
+2. Open \'93Clip Bank\'94\
+3. Select a clip (one at a time)\
+4. Tap location in timeline to add. Adds full length of clip.\
+5. Want to only add part, so we resize clip. Tap Hold \'93Scale\'94 button. \
+5. Repeat until i have about 8 clips added to 1 track.\
+6. Tap \'93Grid Mode\'94\
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b \cf0 Walkthrough 2:
+\b0 \
+1. define a grid (somehow)\
+2. add a long clip.\
+3. select \'93silent\'94 clip.\
+4. cut out parts of long clip (along the grid)\
+5. select the whole initial clip duration w/ selection tool.\
+6. tap the \'93tile to end\'94 button\
+\
+\
+\
+\
+\
+\
+\
+\
+
+\b USER GOALS/TASKS:\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b0 \cf0 - Given a grid, select every nth (or if multiple selected, not necessarily next to each other, this selects). Slide them all together, independently of the other grid elements.\
+- {\field{\*\fldinst{HYPERLINK "http://melodi.ee.washington.edu/~bilmes/mypubs/bilmes1992-musryth.pdf"}}{\fldrslt http://melodi.ee.washington.edu/~bilmes/mypubs/bilmes1992-musryth.pdf}}\
+\
+}
