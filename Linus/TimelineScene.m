@@ -18,6 +18,7 @@
 @property CGFloat windowHeight;
 @property CGFloat windowWidth;
 
+
 @end
 
 @implementation TimelineScene
@@ -30,6 +31,8 @@
         self.gridMarkerHeight = 50;
         self.screenTime = 5.0;  //screen (without scrolling or zooming) is 5 seconds long.
         self.timelineModel = [[TimelineModel alloc] init]; //This is the data structure for storing each timepoint on timeline.
+
+        
     }
     return self;
 }
@@ -50,6 +53,11 @@
     self.windowRect = self.view.frame;
     self.windowWidth = self.windowRect.size.width;
     self.windowHeight = self.windowRect.size.height;
+    
+    //Add playhead at 0 time
+    SKSpriteNode *playhead = [[SKSpriteNode alloc] initWithColor:[SKColor redColor] size:CGSizeMake(2, self.windowHeight)];
+    playhead.position = CGPointMake(1, 0);
+    [self addChild:playhead];
 }
 
 
@@ -94,19 +102,22 @@
 
 
 
-- (void)updateSceneContents:(NSMutableArray *) timeline{
-    
-    //Based on start time of current view, change position of sprites. also...add or delete sprites from tree (is this necessary? save for later, with a check for ranges)
-    for(int i = 0; i <= self.timelineModel.length; i++) {
-        //get scene 
-        break;
-    }
-}
+//- (void)updateSceneContents:(NSMutableArray *) timeline{
+//    
+//    //Based on start time of current view, change position of sprites. also...add or delete sprites from tree (is this necessary? save for later, with a check for ranges)
+//    for(int i = 0; i <= self.timelineModel.length; i++) {
+//        //get sprite position
+//        
+//        break;
+//    }
+//}
 
 
 - (void)updateSceneTime: (double) time {
     //change the scenes time properties,
 }
+
+
 
 
 
