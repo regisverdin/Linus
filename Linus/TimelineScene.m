@@ -17,7 +17,11 @@
 @property CGRect windowRect;
 @property CGFloat windowHeight;
 @property CGFloat windowWidth;
-
+@property CGFloat trackWidth;
+@property CGFloat trackInfoWidth;
+@property CGFloat trackHeight;
+@property NSMutableArray *tracks;
+@property int numTracks;
 
 @end
 
@@ -27,16 +31,17 @@
     
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
+        self.tracks = [[NSMutableArray alloc] initWithCapacity:16];
+        self.numTracks = 2;
+        
         self.backgroundColor = [SKColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.0];
         self.gridMarkerHeight = 50;
         self.screenTime = 5.0;  //screen (without scrolling or zooming) is 5 seconds long.
         self.timelineModel = [[TimelineModel alloc] init]; //This is the data structure for storing each timepoint on timeline.
-
         
     }
     return self;
 }
-
 
 - (void)didMoveToView: (SKView *) view {
     
@@ -47,24 +52,38 @@
     }
 }
 
-
 - (void)createSceneContents {
     // Get window size (move to initwithsize?)
-    self.windowRect = self.view.frame;
+    self.windowRect = super.view.frame;
     self.windowWidth = self.windowRect.size.width;
     self.windowHeight = self.windowRect.size.height;
+    self.trackWidth = self.windowWidth * 0.9;
+    self.trackInfoWidth = self.windowWidth * 0.1;
+    self.trackHeight = self.windowHeight / 2.0;
     
-    //Add playhead at 0 time
-    SKSpriteNode *playhead = [[SKSpriteNode alloc] initWithColor:[SKColor redColor] size:CGSizeMake(2, self.windowHeight)];
-    playhead.position = CGPointMake(1, 0);
-    [self addChild:playhead];
-}
+    
+    for (int i = 0; i < self.numTracks; i++) {
+        
+        // Add a track (each track is a parent node for its contents) to track array.
+        SKSpriteNode *trackNode = [[SKSpriteNode alloc] initWithColor:[SKColor blackColor] size:CGSizeMake(self.trackWidth, 4)];
+        trackNode.anchorPoint = CGPointMake(0,0);
+        trackNode.position = CGPointMake(self.trackInfoWidth, self.windowHeight - (self.trackHeight * (i+1)) );
+        [self addChild:trackNode];
+        self.tracks[i] = trackNode;
+        
+        //Add playhead at 0 time on each track.
+        SKSpriteNode *playhead = [[SKSpriteNode alloc] initWithColor:[SKColor redColor] size:CGSizeMake(1, self.trackHeight)];
+        playhead.anchorPoint = CGPointMake(0,0);
+        playhead.position = CGPointMake(0,0);
+        [self.tracks[i] addChild:playhead];
+    }
 
+}
 
 
 - (SKSpriteNode *)newGridMarker {
     
-    SKSpriteNode *gridMarker = [[SKSpriteNode alloc] initWithColor:[SKColor grayColor] size:CGSizeMake(2, self.gridMarkerHeight)];
+    SKSpriteNode *gridMarker = [[SKSpriteNode alloc] initWithColor:[SKColor whiteColor] size:CGSizeMake(2, self.gridMarkerHeight)];
     return gridMarker;
 }
 
@@ -83,6 +102,9 @@
     CGPoint markerLocation  = CGPointMake(touchLocation.x, 0);
     self.gridMarkerHeight = touchLocation.y * 2;    //Awkward, but *2 because position is based on center of sprite.
     double amplitude = (touchLocation.y / self.windowHeight) * 2;
+    
+    NSLog(@"x: %f", touchLocation.x);
+    NSLog(@"y: %f", touchLocation.y);
     
     
     //Add sprite node
