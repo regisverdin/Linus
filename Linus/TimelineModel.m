@@ -12,6 +12,7 @@
 
 @interface TimelineModel ()
 
+@property NSMutableArray *tracks;   //holds both tracks
 @property NSMutableArray *events;
 
 @end
