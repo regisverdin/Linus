@@ -120,10 +120,6 @@
         Boolean  matches = [regex numberOfMatchesInString:node.name options:0 range:range] > 0;
         NSLog(@"%i", matches);
         if(matches == 1){
-                //get track number
-//            NSString * trackNum = [node.name substringWithRange:NSMakeRange(5, 1)];
-//            int trackInt = [trackNum integerValue];
-//            NSLog(@"%i", trackInt);
             
             //Add grid marker to correct track
             CGPoint nodeTouchLocation = [touch locationInNode:node];
@@ -133,7 +129,6 @@
             gridMarker.anchorPoint = CGPointMake(0,0);
             gridMarker.position = markerLocation;
             [node addChild:gridMarker];
-            
             
             //Store timepoint and node in array
             double amplitude = self.trackHeight*0.2

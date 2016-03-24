@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3901AF231C91E29800FA536B /* Scheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3901AF221C91E29800FA536B /* Scheduler.m */; };
+		391291751CA3364200C7D295 /* TrackModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 391291741CA3364200C7D295 /* TrackModel.m */; };
 		39134AAA1C8E4B6600E5D83E /* TimelineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 39134AA91C8E4B6600E5D83E /* TimelineModel.m */; };
 		39134AAE1C8E66B200E5D83E /* TimePoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 39134AAD1C8E66B200E5D83E /* TimePoint.m */; };
 		395FC1051C7A849C00ED1E51 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 395FC1041C7A849C00ED1E51 /* main.m */; };
@@ -25,6 +26,8 @@
 /* Begin PBXFileReference section */
 		3901AF211C91E29800FA536B /* Scheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scheduler.h; sourceTree = "<group>"; };
 		3901AF221C91E29800FA536B /* Scheduler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Scheduler.m; sourceTree = "<group>"; };
+		391291731CA3364200C7D295 /* TrackModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackModel.h; sourceTree = "<group>"; };
+		391291741CA3364200C7D295 /* TrackModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackModel.m; sourceTree = "<group>"; };
 		39134AA81C8E4B6600E5D83E /* TimelineModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineModel.h; sourceTree = "<group>"; };
 		39134AA91C8E4B6600E5D83E /* TimelineModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineModel.m; sourceTree = "<group>"; };
 		39134AAC1C8E66B200E5D83E /* TimePoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimePoint.h; sourceTree = "<group>"; };
@@ -65,6 +68,8 @@
 			children = (
 				39134AAC1C8E66B200E5D83E /* TimePoint.h */,
 				39134AAD1C8E66B200E5D83E /* TimePoint.m */,
+				391291731CA3364200C7D295 /* TrackModel.h */,
+				391291741CA3364200C7D295 /* TrackModel.m */,
 				39134AA81C8E4B6600E5D83E /* TimelineModel.h */,
 				39134AA91C8E4B6600E5D83E /* TimelineModel.m */,
 				3901AF211C91E29800FA536B /* Scheduler.h */,
@@ -217,6 +222,7 @@
 				395FC1051C7A849C00ED1E51 /* main.m in Sources */,
 				395FC11F1C7A901B00ED1E51 /* TabViewController.m in Sources */,
 				39134AAE1C8E66B200E5D83E /* TimePoint.m in Sources */,
+				391291751CA3364200C7D295 /* TrackModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,8 +11,6 @@
 
 @interface TimelineModel : NSObject
 
-@property int length;
-
 - (void)storeTimePointWithLocation:(float)loc withWindowWidth:(float)win withScreenTime:(double)screenT withTimeOffset:(double)tOffset withAmplitude:(float)amp fromNode:(SKSpriteNode*)n;
 
 @end
