@@ -110,7 +110,7 @@
     CGPoint touchLocation = [touch locationInNode:self];
     SKNode *node = [self nodeAtPoint:touchLocation];
     
-    //use regex to determine if name==track + num
+    //Check if name=="track" + tracknum
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"track\\d" options:NSRegularExpressionCaseInsensitive error:&error];
     
@@ -131,37 +131,10 @@
             [node addChild:gridMarker];
             
             //Store timepoint and node in array
-            double amplitude = self.trackHeight*0.2
+            double amplitude = nodeTouchLocation.y/self.trackHeight*0.2;
             [self.timelineModel storeTimePointWithLocation:touchLocation.x withWindowWidth:self.windowWidth withScreenTime:self.screenTime withTimeOffset:self.timeOffset withAmplitude:amplitude fromNode:gridMarker];
-
         }
     }
-    
-    
-//    
-//    // Get touch location
-//    UITouch *touch = [touches anyObject];
-//    CGPoint touchLocation = [touch locationInNode:self];
-//    CGPoint markerLocation  = CGPointMake(touchLocation.x, 0);
-//    self.gridMarkerHeight = touchLocation.y * 2;    //Awkward, but *2 because position is based on center of sprite.
-//    double amplitude = (touchLocation.y / self.windowHeight) * 2;
-//    
-//    NSLog(@"x: %f", touchLocation.x);
-//    NSLog(@"y: %f", touchLocation.y);
-//    
-//    //Add sprite node
-//    SKSpriteNode *gridMarker = [self newGridMarker];
-//    gridMarker.position = markerLocation;
-//    [self addChild:gridMarker];
-//    
-//    
-//    //Store timepoint and node in array
-//    [self.timelineModel storeTimePointWithLocation:touchLocation.x withWindowWidth:self.windowWidth withScreenTime:self.screenTime withTimeOffset:self.timeOffset withAmplitude:amplitude fromNode:gridMarker];
-//    
-    
-//     print length
-//    NSLog(@"%i", self.timelineModel.length);
-    
 }
 
 

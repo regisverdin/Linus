@@ -24,37 +24,30 @@
     self = [super init];
     if (self != nil) {
         self.tracks = [[NSMutableArray alloc] initWithCapacity: 50];
+        
+        //ADD TWO TRACKS TO ARRAY (this is temp for testing)
+        for (int i =0; i < 2; i++){
+            TrackModel *track = [[TrackModel alloc] init];
+            [self.tracks insertObject:track atIndex:i];
+        }
+        
     }
     return self;
 }
 
 
-- (void) storeTimePointWithLocation:(float)loc withWindowWidth:(float)win withScreenTime:(double)screenT withTimeOffset:(double)tOffset withAmplitude:(float)amp fromNode:(SKSpriteNode*)n {
+- (void) storeTimePointWithLocation:(float)loc withWindowWidth:(float)win withScreenTime:(double)screenT withTimeOffset:(double)tOffset withAmplitude:(float)amp fromNode:(SKSpriteNode*)n{
     
     //Get track number
-    NSInteger trackIndex = [[n.name substringWithRange:NSMakeRange(5, 1)] integerValue];
+    int trackIndex = (int)[[n.parent.name substringWithRange:NSMakeRange(5, 1)] integerValue];
+    NSLog(@"parentname%@", n.parent.name);
     
     //Access trackmodel
-    TrackModel *track = [self.tracks objectAtIndex:trackIndex];
+    TrackModel *track = [self.tracks objectAtIndex:trackIndex]; //(need to handle "too many tracks" error somewhere)
     
     //call "addTimePoint" on correct trackModel.
     [track addTimePointWithLocation:loc windowWidth:win screenTime:screenT timeOffset:tOffset amplitude:amp node:n];
-    
-    
-    
-//        (trackmodel should find correct insertion index... move that code to that class)
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //EVERYTHING BELOW HERE NEEDS TO BE CHANGED>>>
-    
+    NSLog(@"added to track %i", trackIndex);
 }
 
 
