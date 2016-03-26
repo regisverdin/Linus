@@ -40,5 +40,17 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>audioshare.import</string>
+		<string>audiosharecmd</string>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>Linus.audioshare</string>
+		</dict>
+	</array>
 </dict>
 </plist>

@@ -6,9 +6,18 @@
 //  Copyright © 2016 Regis Verdin. All rights reserved.
 //
 
+@import AudioToolbox;
 #import "AppDelegate.h"
+#import "AEAudioController.h"
+#import "AEBlockChannel.h"
+#import <UIKit/UIKit.h>
+#import "AudioShareSDK.h"
 
-@interface AppDelegate ()
+@interface AppDelegate()
+
+@property (nonatomic) AEAudioController *audioController;
+@property AEBlockChannel *channel;
+
 
 @end
 
@@ -17,6 +26,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
     return YES;
 }
 
@@ -40,6 +50,26 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+
+    if([[AudioShare sharedInstance] checkPendingImport:url withBlock:^(NSString *path) {
+        
+        // Move the temporary file into our Documents folder
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *destination = [documentsDirectory stringByAppendingPathComponent:[path lastPathComponent]];
+        [[NSFileManager defaultManager] moveItemAtPath:path toPath:destination error:nil];
+        
+        // Load the imported file
+//        [mySoundEngine loadSample:destination];
+        
+    }]) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 @end

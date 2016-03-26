@@ -21,6 +21,10 @@
 		395FC11F1C7A901B00ED1E51 /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 395FC11E1C7A901B00ED1E51 /* TabViewController.m */; };
 		395FC1221C7A906500ED1E51 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 395FC1211C7A906500ED1E51 /* SpriteKit.framework */; };
 		395FC1251C7A90AA00ED1E51 /* TimelineScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 395FC1241C7A90AA00ED1E51 /* TimelineScene.m */; };
+		39C741241CA74A4A004EB1B3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39C741231CA74A4A004EB1B3 /* MobileCoreServices.framework */; };
+		39C7412A1CA75423004EB1B3 /* AudioShareSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 39C741291CA75423004EB1B3 /* AudioShareSDK.m */; };
+		39F04E9D1CA498CA0048743A /* Loop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 39F04E9C1CA498CA0048743A /* Loop.mp3 */; };
+		8DDC7FE495F2D6D796CA14B6 /* libPods-Linus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F3DB0C5F1C2EE6E63EB28E /* libPods-Linus.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +41,7 @@
 		395FC1061C7A849C00ED1E51 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		395FC1071C7A849C00ED1E51 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		395FC1091C7A849C00ED1E51 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		395FC10A1C7A849C00ED1E51 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		395FC10A1C7A849C00ED1E51 /* ViewController.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		395FC10D1C7A849C00ED1E51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		395FC10F1C7A849C00ED1E51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		395FC1121C7A849C00ED1E51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +53,13 @@
 		395FC1211C7A906500ED1E51 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		395FC1231C7A90AA00ED1E51 /* TimelineScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineScene.h; sourceTree = "<group>"; };
 		395FC1241C7A90AA00ED1E51 /* TimelineScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineScene.m; sourceTree = "<group>"; };
+		39C741231CA74A4A004EB1B3 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		39C741281CA75423004EB1B3 /* AudioShareSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioShareSDK.h; path = "../../../../Downloads/AudioShareSDK-master/AudioShareSDK.h"; sourceTree = "<group>"; };
+		39C741291CA75423004EB1B3 /* AudioShareSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioShareSDK.m; path = "../../../../Downloads/AudioShareSDK-master/AudioShareSDK.m"; sourceTree = "<group>"; };
+		39F04E9C1CA498CA0048743A /* Loop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Loop.mp3; path = ../../../../Desktop/Loop.mp3; sourceTree = "<group>"; };
+		49F3DB0C5F1C2EE6E63EB28E /* libPods-Linus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Linus.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		957B742110470F650921057F /* Pods-Linus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Linus.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Linus/Pods-Linus.debug.xcconfig"; sourceTree = "<group>"; };
+		A583A5FD3F0972120E51B609 /* Pods-Linus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Linus.release.xcconfig"; path = "Pods/Target Support Files/Pods-Linus/Pods-Linus.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,13 +67,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39C741241CA74A4A004EB1B3 /* MobileCoreServices.framework in Frameworks */,
 				395FC1221C7A906500ED1E51 /* SpriteKit.framework in Frameworks */,
+				8DDC7FE495F2D6D796CA14B6 /* libPods-Linus.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E1336D6EEF3F60176F5ED32 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				957B742110470F650921057F /* Pods-Linus.debug.xcconfig */,
+				A583A5FD3F0972120E51B609 /* Pods-Linus.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		39134AAB1C8E4B6E00E5D83E /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +106,8 @@
 				395FC1211C7A906500ED1E51 /* SpriteKit.framework */,
 				395FC1021C7A849C00ED1E51 /* Linus */,
 				395FC1011C7A849C00ED1E51 /* Products */,
+				0E1336D6EEF3F60176F5ED32 /* Pods */,
+				4E18FE0D5D3749442ABDDBE6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,6 +122,8 @@
 		395FC1021C7A849C00ED1E51 /* Linus */ = {
 			isa = PBXGroup;
 			children = (
+				39F04E9C1CA498CA0048743A /* Loop.mp3 */,
+				39C7412B1CA75427004EB1B3 /* AudioShareSDK */,
 				395FC1061C7A849C00ED1E51 /* AppDelegate.h */,
 				395FC1071C7A849C00ED1E51 /* AppDelegate.m */,
 				39134AAB1C8E4B6E00E5D83E /* Model */,
@@ -107,6 +133,7 @@
 				395FC10F1C7A849C00ED1E51 /* Assets.xcassets */,
 				395FC1111C7A849C00ED1E51 /* LaunchScreen.storyboard */,
 				395FC1141C7A849C00ED1E51 /* Info.plist */,
+				39F04E9B1CA498620048743A /* AudioFiles */,
 				395FC1031C7A849C00ED1E51 /* Supporting Files */,
 			);
 			path = Linus;
@@ -142,6 +169,31 @@
 			name = Scenes;
 			sourceTree = "<group>";
 		};
+		39C7412B1CA75427004EB1B3 /* AudioShareSDK */ = {
+			isa = PBXGroup;
+			children = (
+				39C741281CA75423004EB1B3 /* AudioShareSDK.h */,
+				39C741291CA75423004EB1B3 /* AudioShareSDK.m */,
+			);
+			name = AudioShareSDK;
+			sourceTree = "<group>";
+		};
+		39F04E9B1CA498620048743A /* AudioFiles */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = AudioFiles;
+			sourceTree = "<group>";
+		};
+		4E18FE0D5D3749442ABDDBE6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				39C741231CA74A4A004EB1B3 /* MobileCoreServices.framework */,
+				49F3DB0C5F1C2EE6E63EB28E /* libPods-Linus.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -149,9 +201,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 395FC1171C7A849C00ED1E51 /* Build configuration list for PBXNativeTarget "Linus" */;
 			buildPhases = (
+				1AFC744B5A260B129CBA45B1 /* Check Pods Manifest.lock */,
 				395FC0FC1C7A849C00ED1E51 /* Sources */,
 				395FC0FD1C7A849C00ED1E51 /* Frameworks */,
 				395FC0FE1C7A849C00ED1E51 /* Resources */,
+				7B74360C3579AA91492AED4E /* Embed Pods Frameworks */,
+				436747D40A213DB2F54F6FE7 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -200,6 +255,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39F04E9D1CA498CA0048743A /* Loop.mp3 in Resources */,
 				395FC1131C7A849C00ED1E51 /* LaunchScreen.storyboard in Resources */,
 				395FC1101C7A849C00ED1E51 /* Assets.xcassets in Resources */,
 				395FC10E1C7A849C00ED1E51 /* Main.storyboard in Resources */,
@@ -207,6 +263,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1AFC744B5A260B129CBA45B1 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		436747D40A213DB2F54F6FE7 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Linus/Pods-Linus-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7B74360C3579AA91492AED4E /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Linus/Pods-Linus-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		395FC0FC1C7A849C00ED1E51 /* Sources */ = {
@@ -222,6 +326,7 @@
 				395FC1051C7A849C00ED1E51 /* main.m in Sources */,
 				395FC11F1C7A901B00ED1E51 /* TabViewController.m in Sources */,
 				39134AAE1C8E66B200E5D83E /* TimePoint.m in Sources */,
+				39C7412A1CA75423004EB1B3 /* AudioShareSDK.m in Sources */,
 				391291751CA3364200C7D295 /* TrackModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -332,6 +437,7 @@
 		};
 		395FC1181C7A849C00ED1E51 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 957B742110470F650921057F /* Pods-Linus.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -346,6 +452,7 @@
 		};
 		395FC1191C7A849C00ED1E51 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A583A5FD3F0972120E51B609 /* Pods-Linus.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

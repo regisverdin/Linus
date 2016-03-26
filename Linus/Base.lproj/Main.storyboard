@@ -57,6 +57,13 @@
                                     <action selector="changeVolume:" destination="BYZ-38-t0r" eventType="valueChanged" id="zZO-wN-DlZ"/>
                                 </connections>
                             </slider>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YpZ-Vm-Sci">
+                                <rect key="frame" x="20" y="550" width="94" height="30"/>
+                                <state key="normal" title="Import Audio"/>
+                                <connections>
+                                    <action selector="importAudio:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4wc-1G-ZYp"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.63962686567569338" green="0.64579924738219896" blue="0.62241136695965193" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
