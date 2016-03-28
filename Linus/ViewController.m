@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
+    [MidiBusClient startWithApp:@"Linus" andDelegate:self];
     
 //    //Setup audiocontroller
 //    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate]; //see here for cast info: http://stackoverflow.com/questions/231947/referencing-appdelegate-instance-variables
@@ -49,6 +49,14 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+// define the mandatory delegate method
+#pragma mark MidiBus protocol methods
+
+- (void)receivedMidiBusClientEvent:(MIDIBUS_MIDI_EVENT*)event
+{
+    // do something with a received MIDI event
 }
 
 
@@ -97,10 +105,10 @@
     NSLog(@"%f", self.volumeSlider.value);
 }
 
-
 - (IBAction)importAudio:(id)sender {
     [[AudioShare sharedInstance] initiateSoundImport];
 }
+
 
 
 

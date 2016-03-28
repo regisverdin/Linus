@@ -7,11 +7,14 @@
 //
 
 @import AudioToolbox;
+@import CoreMIDI;
 #import "AppDelegate.h"
 #import "AEAudioController.h"
 #import "AEBlockChannel.h"
 #import <UIKit/UIKit.h>
 #import "AudioShareSDK.h"
+
+#import "AEUtilities.h"
 
 @interface AppDelegate()
 
@@ -52,8 +55,23 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
 
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
+    
+    
+    
+    // Create an instance of the audio controller
+    self.audioController = [[AEAudioController alloc]
+                            initWithAudioDescription:
+                            AEAudioStreamBasicDescriptionNonInterleavedFloatStereo];
+    
+    // Start the audio engine.
+    [_audioController start:NULL];
+    
+    
+    
+    
+    //FOR IMPORTING FILES FROM AUDIOSHARE
     if([[AudioShare sharedInstance] checkPendingImport:url withBlock:^(NSString *path) {
         
         // Move the temporary file into our Documents folder
@@ -62,8 +80,28 @@
         NSString *destination = [documentsDirectory stringByAppendingPathComponent:[path lastPathComponent]];
         [[NSFileManager defaultManager] moveItemAtPath:path toPath:destination error:nil];
         
-        // Load the imported file
-//        [mySoundEngine loadSample:destination];
+        
+        
+//        // Load the imported file
+////        [mySoundEngine loadSample:destination];
+//        AudioBufferList *buffers = AEAudioBufferListCreate(AEAudioStreamBasicDescriptionNonInterleavedFloatStereo, 0);
+//        buffers->mBuffers[0].mData = &destination;
+//        
+//        self.channel = [AEBlockChannel channelWithBlock:^(const AudioTimeStamp *time,
+//                                                          UInt32 frames,
+//                                                          AudioBufferList *audio) {
+//            // TODO: Generate audio in 'audio'
+//            audio = buffers->mBuffers[0].mData;
+//        }];
+//
+//        [self.audioController addChannels:@[_channel]];
+//        _channel.channelIsPlaying = YES;
+//        _channel.channelIsMuted = NO;
+//        
+        
+        
+        
+        
         
     }]) {
         return YES;
