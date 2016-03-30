@@ -31,15 +31,8 @@
                                     <segue destination="4iV-1B-4LZ" kind="embed" id="LzX-7y-ugJ"/>
                                 </connections>
                             </containerView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CuA-bh-uUn">
-                                <rect key="frame" x="277" y="9" width="46" height="30"/>
-                                <state key="normal" title="Back"/>
-                                <connections>
-                                    <action selector="backToBeginning:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wPH-W1-16q"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DID-we-A3o">
-                                <rect key="frame" x="331" y="9" width="82" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DID-we-A3o">
+                                <rect key="frame" x="344" y="9" width="82" height="30"/>
                                 <state key="normal" title="Play/Pause"/>
                                 <connections>
                                     <action selector="playPause:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pQ4-pZ-qlY"/>
@@ -51,30 +44,41 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="4pC-n5-xQB">
+                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="4pC-n5-xQB">
                                 <rect key="frame" x="432" y="9" width="150" height="31"/>
                                 <connections>
                                     <action selector="changeVolume:" destination="BYZ-38-t0r" eventType="valueChanged" id="zZO-wN-DlZ"/>
                                 </connections>
                             </slider>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YpZ-Vm-Sci">
-                                <rect key="frame" x="20" y="550" width="94" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YpZ-Vm-Sci">
+                                <rect key="frame" x="195" y="9" width="94" height="30"/>
                                 <state key="normal" title="Import Audio"/>
                                 <connections>
                                     <action selector="importAudio:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4wc-1G-ZYp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JxH-27-LF4">
+                                <rect key="frame" x="58" y="440" width="119" height="30"/>
+                                <state key="normal" title="Test Midi Out"/>
+                                <connections>
+                                    <action selector="testMidiOut:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KK3-ft-Xah"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.63962686567569338" green="0.64579924738219896" blue="0.62241136695965193" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="5Do-PP-nbU" firstAttribute="top" secondItem="Gw0-6A-2Im" secondAttribute="bottom" id="0LC-bh-M7M"/>
+                            <constraint firstItem="4pC-n5-xQB" firstAttribute="leading" secondItem="DID-we-A3o" secondAttribute="trailing" constant="21" id="2HD-a2-VeW"/>
+                            <constraint firstItem="YpZ-Vm-Sci" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FZ6-8a-Y54"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Gw0-6A-2Im" secondAttribute="trailing" constant="-20" id="GmY-S5-Pst" userLabel="Container View.trailing = trailingMargin"/>
                             <constraint firstItem="5Do-PP-nbU" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="Jv2-3V-Ou0"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="4pC-n5-xQB" secondAttribute="trailing" id="NGE-QM-C9f"/>
                             <constraint firstItem="5Do-PP-nbU" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.416667" id="Pcm-rL-Eoa"/>
                             <constraint firstItem="Gw0-6A-2Im" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="VNy-dj-rlb" userLabel="Container View.leading = leadingMargin"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5Do-PP-nbU" secondAttribute="trailing" constant="-20" id="ZWr-Om-NVK" userLabel="trailingMargin = Container View.trailing"/>
                             <constraint firstItem="Gw0-6A-2Im" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="eSq-fX-Edx"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="5Do-PP-nbU" secondAttribute="bottom" id="reR-VH-J65"/>
+                            <constraint firstItem="DID-we-A3o" firstAttribute="leading" secondItem="YpZ-Vm-Sci" secondAttribute="trailing" constant="55" id="wc8-UJ-dIV"/>
                         </constraints>
                     </view>
                     <connections>

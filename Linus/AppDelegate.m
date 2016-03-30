@@ -58,19 +58,6 @@
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
     
-    
-    
-    // Create an instance of the audio controller
-    self.audioController = [[AEAudioController alloc]
-                            initWithAudioDescription:
-                            AEAudioStreamBasicDescriptionNonInterleavedFloatStereo];
-    
-    // Start the audio engine.
-    [_audioController start:NULL];
-    
-    
-    
-    
     //FOR IMPORTING FILES FROM AUDIOSHARE
     if([[AudioShare sharedInstance] checkPendingImport:url withBlock:^(NSString *path) {
         
@@ -79,7 +66,6 @@
         NSString *documentsDirectory = [paths objectAtIndex:0];
         NSString *destination = [documentsDirectory stringByAppendingPathComponent:[path lastPathComponent]];
         [[NSFileManager defaultManager] moveItemAtPath:path toPath:destination error:nil];
-        
         
         
 //        // Load the imported file
@@ -97,11 +83,7 @@
 //        [self.audioController addChannels:@[_channel]];
 //        _channel.channelIsPlaying = YES;
 //        _channel.channelIsMuted = NO;
-//        
-        
-        
-        
-        
+//
         
     }]) {
         return YES;

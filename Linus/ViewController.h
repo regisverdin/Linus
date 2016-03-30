@@ -9,10 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MidiBusClient.h"
 
-@interface ViewController : UIViewController
-
-// tell your controller to adhere to the MidiBusClientDelegate
-<MidiBusClientDelegate>
+@interface ViewController : UIViewController <MidiBusClientDelegate>
 
 
 @end

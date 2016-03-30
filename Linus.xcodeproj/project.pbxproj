@@ -8,10 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3901AF231C91E29800FA536B /* Scheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3901AF221C91E29800FA536B /* Scheduler.m */; };
-		390411031CA8B3CF00630290 /* libMidiBus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 390410FB1CA8B3CF00630290 /* libMidiBus.a */; };
-		390411041CA8B3CF00630290 /* libMidiBusMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 390410FC1CA8B3CF00630290 /* libMidiBusMac.a */; };
-		390411051CA8B3CF00630290 /* MidiBusClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 390411001CA8B3CF00630290 /* MidiBusClient.m */; };
-		390411061CA8B3CF00630290 /* omac_apps.plist in Resources */ = {isa = PBXBuildFile; fileRef = 390411011CA8B3CF00630290 /* omac_apps.plist */; };
 		391291751CA3364200C7D295 /* TrackModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 391291741CA3364200C7D295 /* TrackModel.m */; };
 		39134AAA1C8E4B6600E5D83E /* TimelineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 39134AA91C8E4B6600E5D83E /* TimelineModel.m */; };
 		39134AAE1C8E66B200E5D83E /* TimePoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 39134AAD1C8E66B200E5D83E /* TimePoint.m */; };
@@ -25,23 +21,18 @@
 		395FC11F1C7A901B00ED1E51 /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 395FC11E1C7A901B00ED1E51 /* TabViewController.m */; };
 		395FC1221C7A906500ED1E51 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 395FC1211C7A906500ED1E51 /* SpriteKit.framework */; };
 		395FC1251C7A90AA00ED1E51 /* TimelineScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 395FC1241C7A90AA00ED1E51 /* TimelineScene.m */; };
+		399BD59C1CA99E5A00D48AD0 /* Loop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 399BD59B1CA99E5A00D48AD0 /* Loop.mp3 */; };
 		39C741241CA74A4A004EB1B3 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39C741231CA74A4A004EB1B3 /* MobileCoreServices.framework */; };
 		39C7412A1CA75423004EB1B3 /* AudioShareSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 39C741291CA75423004EB1B3 /* AudioShareSDK.m */; };
-		39F04E9D1CA498CA0048743A /* Loop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 39F04E9C1CA498CA0048743A /* Loop.mp3 */; };
+		39EE449A1CAAF219008B1502 /* libMidiBus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 39EE44931CAAF219008B1502 /* libMidiBus.a */; };
+		39EE449B1CAAF219008B1502 /* MidiBusClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 39EE44971CAAF219008B1502 /* MidiBusClient.m */; };
+		39EE449C1CAAF219008B1502 /* omac_apps.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39EE44981CAAF219008B1502 /* omac_apps.plist */; };
 		8DDC7FE495F2D6D796CA14B6 /* libPods-Linus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F3DB0C5F1C2EE6E63EB28E /* libPods-Linus.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3901AF211C91E29800FA536B /* Scheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scheduler.h; sourceTree = "<group>"; };
 		3901AF221C91E29800FA536B /* Scheduler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Scheduler.m; sourceTree = "<group>"; };
-		390410FB1CA8B3CF00630290 /* libMidiBus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMidiBus.a; sourceTree = "<group>"; };
-		390410FC1CA8B3CF00630290 /* libMidiBusMac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMidiBusMac.a; sourceTree = "<group>"; };
-		390410FD1CA8B3CF00630290 /* midibus_enums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = midibus_enums.h; sourceTree = "<group>"; };
-		390410FE1CA8B3CF00630290 /* midibus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = midibus.h; sourceTree = "<group>"; };
-		390410FF1CA8B3CF00630290 /* MidiBusClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiBusClient.h; sourceTree = "<group>"; };
-		390411001CA8B3CF00630290 /* MidiBusClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidiBusClient.m; sourceTree = "<group>"; };
-		390411011CA8B3CF00630290 /* omac_apps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = omac_apps.plist; sourceTree = "<group>"; };
-		390411021CA8B3CF00630290 /* OMACApplicationRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMACApplicationRegistry.h; sourceTree = "<group>"; };
 		391291731CA3364200C7D295 /* TrackModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackModel.h; sourceTree = "<group>"; };
 		391291741CA3364200C7D295 /* TrackModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackModel.m; sourceTree = "<group>"; };
 		39134AA81C8E4B6600E5D83E /* TimelineModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineModel.h; sourceTree = "<group>"; };
@@ -65,10 +56,17 @@
 		395FC1211C7A906500ED1E51 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		395FC1231C7A90AA00ED1E51 /* TimelineScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineScene.h; sourceTree = "<group>"; };
 		395FC1241C7A90AA00ED1E51 /* TimelineScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineScene.m; sourceTree = "<group>"; };
+		399BD59B1CA99E5A00D48AD0 /* Loop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Loop.mp3; sourceTree = "<group>"; };
 		39C741231CA74A4A004EB1B3 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		39C741281CA75423004EB1B3 /* AudioShareSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioShareSDK.h; path = "../../../../Downloads/AudioShareSDK-master/AudioShareSDK.h"; sourceTree = "<group>"; };
 		39C741291CA75423004EB1B3 /* AudioShareSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioShareSDK.m; path = "../../../../Downloads/AudioShareSDK-master/AudioShareSDK.m"; sourceTree = "<group>"; };
-		39F04E9C1CA498CA0048743A /* Loop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Loop.mp3; path = ../../../../Desktop/Loop.mp3; sourceTree = "<group>"; };
+		39EE44931CAAF219008B1502 /* libMidiBus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMidiBus.a; sourceTree = "<group>"; };
+		39EE44941CAAF219008B1502 /* midibus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = midibus.h; sourceTree = "<group>"; };
+		39EE44951CAAF219008B1502 /* midibus_enums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = midibus_enums.h; sourceTree = "<group>"; };
+		39EE44961CAAF219008B1502 /* MidiBusClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiBusClient.h; sourceTree = "<group>"; };
+		39EE44971CAAF219008B1502 /* MidiBusClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidiBusClient.m; sourceTree = "<group>"; };
+		39EE44981CAAF219008B1502 /* omac_apps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = omac_apps.plist; sourceTree = "<group>"; };
+		39EE44991CAAF219008B1502 /* OMACApplicationRegistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OMACApplicationRegistry.h; sourceTree = "<group>"; };
 		49F3DB0C5F1C2EE6E63EB28E /* libPods-Linus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Linus.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		957B742110470F650921057F /* Pods-Linus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Linus.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Linus/Pods-Linus.debug.xcconfig"; sourceTree = "<group>"; };
 		A583A5FD3F0972120E51B609 /* Pods-Linus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Linus.release.xcconfig"; path = "Pods/Target Support Files/Pods-Linus/Pods-Linus.release.xcconfig"; sourceTree = "<group>"; };
@@ -82,8 +80,7 @@
 				39C741241CA74A4A004EB1B3 /* MobileCoreServices.framework in Frameworks */,
 				395FC1221C7A906500ED1E51 /* SpriteKit.framework in Frameworks */,
 				8DDC7FE495F2D6D796CA14B6 /* libPods-Linus.a in Frameworks */,
-				390411041CA8B3CF00630290 /* libMidiBusMac.a in Frameworks */,
-				390411031CA8B3CF00630290 /* libMidiBus.a in Frameworks */,
+				39EE449A1CAAF219008B1502 /* libMidiBus.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,21 +94,6 @@
 				A583A5FD3F0972120E51B609 /* Pods-Linus.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		390411071CA8B3D800630290 /* MidibusSDK */ = {
-			isa = PBXGroup;
-			children = (
-				390410FB1CA8B3CF00630290 /* libMidiBus.a */,
-				390410FC1CA8B3CF00630290 /* libMidiBusMac.a */,
-				390410FD1CA8B3CF00630290 /* midibus_enums.h */,
-				390410FE1CA8B3CF00630290 /* midibus.h */,
-				390410FF1CA8B3CF00630290 /* MidiBusClient.h */,
-				390411001CA8B3CF00630290 /* MidiBusClient.m */,
-				390411011CA8B3CF00630290 /* omac_apps.plist */,
-				390411021CA8B3CF00630290 /* OMACApplicationRegistry.h */,
-			);
-			name = MidibusSDK;
 			sourceTree = "<group>";
 		};
 		39134AAB1C8E4B6E00E5D83E /* Model */ = {
@@ -151,8 +133,8 @@
 		395FC1021C7A849C00ED1E51 /* Linus */ = {
 			isa = PBXGroup;
 			children = (
-				39F04E9C1CA498CA0048743A /* Loop.mp3 */,
-				390411071CA8B3D800630290 /* MidibusSDK */,
+				399BD59B1CA99E5A00D48AD0 /* Loop.mp3 */,
+				39EE44921CAAF219008B1502 /* Midibus */,
 				39C7412B1CA75427004EB1B3 /* AudioShareSDK */,
 				395FC1061C7A849C00ED1E51 /* AppDelegate.h */,
 				395FC1071C7A849C00ED1E51 /* AppDelegate.m */,
@@ -206,6 +188,21 @@
 				39C741291CA75423004EB1B3 /* AudioShareSDK.m */,
 			);
 			name = AudioShareSDK;
+			sourceTree = "<group>";
+		};
+		39EE44921CAAF219008B1502 /* Midibus */ = {
+			isa = PBXGroup;
+			children = (
+				39EE44931CAAF219008B1502 /* libMidiBus.a */,
+				39EE44941CAAF219008B1502 /* midibus.h */,
+				39EE44951CAAF219008B1502 /* midibus_enums.h */,
+				39EE44961CAAF219008B1502 /* MidiBusClient.h */,
+				39EE44971CAAF219008B1502 /* MidiBusClient.m */,
+				39EE44981CAAF219008B1502 /* omac_apps.plist */,
+				39EE44991CAAF219008B1502 /* OMACApplicationRegistry.h */,
+			);
+			name = Midibus;
+			path = Library;
 			sourceTree = "<group>";
 		};
 		39F04E9B1CA498620048743A /* AudioFiles */ = {
@@ -285,11 +282,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				39F04E9D1CA498CA0048743A /* Loop.mp3 in Resources */,
 				395FC1131C7A849C00ED1E51 /* LaunchScreen.storyboard in Resources */,
 				395FC1101C7A849C00ED1E51 /* Assets.xcassets in Resources */,
+				399BD59C1CA99E5A00D48AD0 /* Loop.mp3 in Resources */,
 				395FC10E1C7A849C00ED1E51 /* Main.storyboard in Resources */,
-				390411061CA8B3CF00630290 /* omac_apps.plist in Resources */,
+				39EE449C1CAAF219008B1502 /* omac_apps.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,7 +347,7 @@
 			files = (
 				395FC10B1C7A849C00ED1E51 /* ViewController.m in Sources */,
 				395FC1251C7A90AA00ED1E51 /* TimelineScene.m in Sources */,
-				390411051CA8B3CF00630290 /* MidiBusClient.m in Sources */,
+				39EE449B1CAAF219008B1502 /* MidiBusClient.m in Sources */,
 				395FC11C1C7A900A00ED1E51 /* TimelineViewController.m in Sources */,
 				395FC1081C7A849C00ED1E51 /* AppDelegate.m in Sources */,
 				3901AF231C91E29800FA536B /* Scheduler.m in Sources */,
@@ -474,11 +471,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Linus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Linus",
+					"$(PROJECT_DIR)/Linus/Library",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rv.Linus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -493,11 +492,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Linus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Linus",
+					"$(PROJECT_DIR)/Linus/Library",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rv.Linus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
