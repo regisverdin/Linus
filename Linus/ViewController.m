@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "AppDelegate.h"
+
 #import "AEAudioController.h"
 #import "AEAudioFilePlayer.h"
 #import "AEBlockChannel.h"
@@ -58,19 +59,8 @@
 
 
 ////////////////////MIDI SETUP/////////////////////////
-
-
-
-
-
-
 #pragma
 
-- (void)receivedMidiBusClientEvent:(MIDIBUS_MIDI_EVENT*)event
-{
-    // do something with a received MIDI event
-    
-}
 
 - (eMidiBusVirtualMode) virtualMidiBusMode
 {
@@ -93,28 +83,15 @@
                  initWithFilter:MIDIBUS_INTERFACE_FILTER_ALL_INTERFACES];
     NSArray* interfaces = [query getInterfaces];
     
-    
-    
     // Enable all interfaces
-    
     for (MidiBusInterface* obj in interfaces)
     {
         MIDIBUS_INTERFACE* interface = obj->interface;
-        
         interface->enabled = (bool_t) '1';
-        
-        // do something with the interface
     }
-    
-    NSLog(@"asdf");
 }
 
-
-
-
 - (IBAction)testMidiOut:(id)sender {
-    // enable interface
-    
     
     // create an event and initialise it
     MIDIBUS_MIDI_EVENT* event = [MidiBusClient setupSmallEvent];
@@ -142,19 +119,22 @@
 
 
 
-- (IBAction)playPause:(id)sender {
+- (IBAction)onPlayPause:(id)sender {
     
+    //Pause
     if(self.playing) {
         self.playing = false;
         NSLog(@"paused!");
+//        [_sequencer pause];
         
         _track1.channelIsMuted = TRUE;
         _track1.channelIsPlaying = FALSE;
         
-        
+    //Play
     } else {
         self.playing = true;
         NSLog(@"playing!");
+//        [_sequencer play];
 
         // Create an instance of the audio controller
         self.audioController = [[AEAudioController alloc]
@@ -178,7 +158,8 @@
     
 }
 
-- (IBAction)backToBeginning:(id)sender {
+- (IBAction)onBackToStart:(id)sender {
+
 }
 
 - (IBAction)changeVolume:(id)sender {

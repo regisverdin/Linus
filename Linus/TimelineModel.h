@@ -11,6 +11,8 @@
 
 @interface TimelineModel : NSObject
 
-- (void)storeTimePointWithLocation:(float)loc withWindowWidth:(float)win withScreenTime:(double)screenT withTimeOffset:(double)tOffset withAmplitude:(float)amp fromNode:(SKSpriteNode*)n;
+- (void)storeTimePointWithLocation:(float)loc windowWidth:(float)win screenTime:(double)screenT timeOffset:(double)tOffset amplitude:(float)amp node:(SKSpriteNode*)n;
+
+- (void) setClipNumber:(NSString*) clipNum;
 
 @end

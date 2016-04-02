@@ -28,7 +28,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Do-PP-nbU">
                                 <rect key="frame" x="300" y="350" width="300" height="250"/>
                                 <connections>
-                                    <segue destination="4iV-1B-4LZ" kind="embed" id="LzX-7y-ugJ"/>
+                                    <segue destination="B8I-O3-fyI" kind="embed" id="UKb-fe-qiF"/>
                                 </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DID-we-A3o">
@@ -107,23 +107,178 @@
             </objects>
             <point key="canvasLocation" x="1004.5" y="152"/>
         </scene>
-        <!--Tab View Controller-->
-        <scene sceneID="VPY-8v-8dh">
+        <!--Item 2-->
+        <scene sceneID="9yN-cf-stx">
             <objects>
-                <viewController id="4iV-1B-4LZ" customClass="TabViewController" sceneMemberID="viewController">
+                <viewController id="GfZ-IB-teJ" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="DyY-dT-6JZ"/>
-                        <viewControllerLayoutGuide type="bottom" id="b8U-1r-iC2"/>
+                        <viewControllerLayoutGuide type="top" id="fGh-N3-asE"/>
+                        <viewControllerLayoutGuide type="bottom" id="vKr-6k-1wc"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="dFR-aK-I2V">
+                    <view key="view" contentMode="scaleToFill" id="9BZ-Nj-X7X">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="250"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item 2" id="bfh-y6-N7f"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sER-uw-vF6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k4p-df-sYH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="873.5" y="541"/>
+            <point key="canvasLocation" x="1344" y="956"/>
+        </scene>
+        <!--Item 1-->
+        <scene sceneID="uin-ck-WM0">
+            <objects>
+                <viewController id="04A-EZ-1Fb" customClass="ClipViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9r4-aT-ZUN"/>
+                        <viewControllerLayoutGuide type="bottom" id="ePv-je-Bmy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eMv-OH-FYT">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="250"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fav-nU-Epq">
+                                <rect key="frame" x="20" y="15" width="46" height="46"/>
+                                <state key="normal" title="1" backgroundImage="button.png"/>
+                                <connections>
+                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="Sph-m0-0CO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xY9-Mb-fBB">
+                                <rect key="frame" x="91" y="16" width="46" height="46"/>
+                                <state key="normal" title="2" backgroundImage="button.png"/>
+                                <connections>
+                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="bwL-q4-1M4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qcq-R5-elZ">
+                                <rect key="frame" x="164" y="16" width="46" height="46"/>
+                                <state key="normal" title="3" backgroundImage="button.png"/>
+                                <connections>
+                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="Dz9-7b-SyA"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tSO-tw-myR">
+                                <rect key="frame" x="234" y="16" width="46" height="46"/>
+                                <state key="normal" title="4" backgroundImage="button.png"/>
+                                <connections>
+                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="qXn-FJ-aAR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wuh-Ir-NQJ">
+                                <rect key="frame" x="20" y="63" width="46" height="46"/>
+                                <state key="normal" title="5" backgroundImage="button.png"/>
+                                <connections>
+                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="bi8-K4-scO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MDS-CU-orv">
+                                <rect key="frame" x="91" y="63" width="46" height="46"/>
+                                <state key="normal" title="6" backgroundImage="button.png"/>
+                                <connections>
+                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="Lyz-8G-OLf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bwP-MM-ENP">
+                                <rect key="frame" x="164" y="63" width="46" height="46"/>
+                                <state key="normal" title="7" backgroundImage="button.png"/>
+                                <connections>
+                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="DSa-Qw-zLj"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZz-7h-IoJ">
+                                <rect key="frame" x="234" y="63" width="46" height="46"/>
+                                <state key="normal" title="8" backgroundImage="button.png"/>
+                                <connections>
+                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="ddF-eo-Zoc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ixn-3R-E2X">
+                                <rect key="frame" x="20" y="109" width="46" height="46"/>
+                                <state key="normal" title="9" backgroundImage="button.png"/>
+                                <connections>
+                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="a3c-px-tpf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r1O-ts-XS7">
+                                <rect key="frame" x="91" y="109" width="46" height="46"/>
+                                <state key="normal" title="10" backgroundImage="button.png"/>
+                                <connections>
+                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="Vul-YD-BBL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lMk-iV-9OC">
+                                <rect key="frame" x="164" y="109" width="46" height="46"/>
+                                <state key="normal" title="11" backgroundImage="button.png"/>
+                                <connections>
+                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="bRv-nA-Nw9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHD-vi-NsC">
+                                <rect key="frame" x="234" y="109" width="46" height="46"/>
+                                <state key="normal" title="12" backgroundImage="button.png"/>
+                                <connections>
+                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="qcB-84-UfS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a01-S9-Ef4">
+                                <rect key="frame" x="20" y="155" width="46" height="46"/>
+                                <state key="normal" title="13" backgroundImage="button.png"/>
+                                <connections>
+                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="5ch-wR-tt5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QYR-Te-qLj">
+                                <rect key="frame" x="91" y="155" width="46" height="45"/>
+                                <state key="normal" title="14" backgroundImage="button.png"/>
+                                <connections>
+                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="wFB-84-QFY"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uz4-hz-USV">
+                                <rect key="frame" x="164" y="155" width="46" height="46"/>
+                                <state key="normal" title="+" backgroundImage="button.png"/>
+                                <connections>
+                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="P7l-mN-NWR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3vZ-TU-gaS">
+                                <rect key="frame" x="234" y="155" width="46" height="46"/>
+                                <state key="normal" title="-" backgroundImage="button.png"/>
+                                <connections>
+                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="JD0-JG-JL6"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="hEW-G1-q0x"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G40-UM-6zw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1344" y="529"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="Q6u-lM-scM">
+            <objects>
+                <tabBarController id="B8I-O3-fyI" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="pGA-P6-yaS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="04A-EZ-1Fb" kind="relationship" relationship="viewControllers" id="O4J-ec-fpZ"/>
+                        <segue destination="GfZ-IB-teJ" kind="relationship" relationship="viewControllers" id="EOS-n1-fec"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W0R-aD-Bb6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="854" y="529"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="button.png" width="197" height="197"/>
+    </resources>
 </document>

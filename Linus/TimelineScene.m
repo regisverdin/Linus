@@ -107,6 +107,20 @@
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
     UITouch *touch = [touches anyObject];
+    [self addGridMarkerOnTouch:touch];
+}
+
+
+
+
+
+
+
+
+
+
+
+- (void)addGridMarkerOnTouch:(UITouch*) touch {
     CGPoint touchLocation = [touch locationInNode:self];
     SKNode *node = [self nodeAtPoint:touchLocation];
     
@@ -130,24 +144,12 @@
             gridMarker.position = markerLocation;
             [node addChild:gridMarker];
             
-            //Store timepoint and node in array
+            //Store timepoint and node in timeline
             double amplitude = nodeTouchLocation.y/self.trackHeight*0.2;
-            [self.timelineModel storeTimePointWithLocation:touchLocation.x withWindowWidth:self.windowWidth withScreenTime:self.screenTime withTimeOffset:self.timeOffset withAmplitude:amplitude fromNode:gridMarker];
+            [self.timelineModel storeTimePointWithLocation:touchLocation.x windowWidth:self.windowWidth screenTime:self.screenTime timeOffset:self.timeOffset amplitude:amplitude node:gridMarker];
         }
     }
 }
-
-
-
-//- (void)updateSceneContents:(NSMutableArray *) timeline{
-//    
-//    //Based on start time of current view, change position of sprites. also...add or delete sprites from tree (is this necessary? save for later, with a check for ranges)
-//    for(int i = 0; i <= self.timelineModel.length; i++) {
-//        //get sprite position
-//        
-//        break;
-//    }
-//}
 
 
 - (void)updateSceneTime: (double) time {

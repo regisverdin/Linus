@@ -14,6 +14,7 @@
 @interface TimelineModel ()
 
 @property NSMutableArray *tracks;   //holds all tracks (which contain arrays of timepoints)
+@property NSString *selectedClipNumber;
 
 @end
 
@@ -36,7 +37,7 @@
 }
 
 
-- (void) storeTimePointWithLocation:(float)loc withWindowWidth:(float)win withScreenTime:(double)screenT withTimeOffset:(double)tOffset withAmplitude:(float)amp fromNode:(SKSpriteNode*)n{
+- (void) storeTimePointWithLocation:(float)loc windowWidth:(float)win screenTime:(double)screenT timeOffset:(double)tOffset amplitude:(float)amp node:(SKSpriteNode*)n{
     
     //Get track number
     int trackIndex = (int)[[n.parent.name substringWithRange:NSMakeRange(5, 1)] integerValue];
@@ -48,8 +49,11 @@
     //call "addTimePoint" on correct trackModel.
     [track addTimePointWithLocation:loc windowWidth:win screenTime:screenT timeOffset:tOffset amplitude:amp node:n];
     NSLog(@"added to track %i", trackIndex);
+    
 }
 
-
+- (void) setClipNumber:(NSString*) clipNum {
+    self.selectedClipNumber = clipNum;
+}
 
 @end
