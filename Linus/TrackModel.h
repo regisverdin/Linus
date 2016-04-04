@@ -14,8 +14,12 @@
 @property int length;
 
 
-- (void)addTimePointWithLocation:(float)loc windowWidth:(float)win screenTime:(double)screenT timeOffset:(double)tOffset amplitude:(double)amp node:(SKSpriteNode*)n;
+- (void)addTimePointWithTime:(double)time amplitude:(double)amp node:(SKSpriteNode*)n;
 
 - (int) findInsertionIndex:(float)insertionTime;
+
+- (NSMutableArray*) getNearestNodesAndIndices:(double)time;
+
+- (void)addClip:(int)clipNum atIndex:(int)index;
 
 @end

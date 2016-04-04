@@ -17,9 +17,17 @@
 }
 
 - (IBAction)selectButton:(UIButton *)sender {
-    NSLog(@"%@", sender.titleLabel.text);
-    TimelineModel *timeline = [[TimelineModel alloc] init];
-    [timeline setClipNumber:sender.titleLabel.text];
+    
+    //Set selectedClipNumber classVariable to current button selected (with flags for + and -)
+    if ([sender.titleLabel.text  isEqual: @"+"]) {
+        [TimelineModel setSelectedClipNumber:-1];
+        
+    } else if ([sender.titleLabel.text  isEqual: @"-"]) {
+        [TimelineModel setSelectedClipNumber:-2];
+    } else {
+        int clipNumber = [sender.titleLabel.text intValue];
+        [TimelineModel setSelectedClipNumber:clipNumber];
+    }
 }
 
 @end

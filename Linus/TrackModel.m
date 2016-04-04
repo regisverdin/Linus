@@ -27,21 +27,13 @@
     return self;
 }
 
-- (void)addTimePointWithLocation:(float)loc windowWidth:(float)win screenTime:(double)screenT timeOffset:(double)tOffset amplitude:(double)amp node:(SKSpriteNode*)n {
+- (void)addTimePointWithTime:(double)t amplitude:(double)amp node:(SKSpriteNode*)n {
     
     //Make new TimePoint with these params
     TimePoint *point = [[TimePoint alloc] init];
     point.amplitude = amp;
     point.node = n;
-
-    //Calculate time for point
-    point.time = ((loc/win) * screenT) + tOffset;
-
-    //    NSLog(@"%f", loc);
-    //    NSLog(@"%f", win);
-    //    NSLog(@"%f", screenT);
-    //    NSLog(@"%f", tOffset);
-    //    NSLog(@"%f", amp);
+    point.time = t;
 
     //Insert into event array
     int i = [self findInsertionIndex:point.time];
@@ -53,6 +45,32 @@
         NSLog(@"%f", a);
     }
 }
+
+- (void)addClip:(int)clipNum atIndex:(int)index{
+    TimePoint *tp = [self.trackEvents objectAtIndex:index];
+    tp.clipNumber = clipNum;
+}
+
+
+- (NSMutableArray*) getNearestNodesAndIndices:(double)time {
+
+    int leftIndex = [self findInsertionIndex:time];
+    SKNode *leftNode = [[self.trackEvents objectAtIndex:leftIndex] node];
+    
+    NSMutableArray *nodesAndIndices = [[NSMutableArray alloc] initWithCapacity: 2];
+    NSMutableArray *leftNodeAndIndex = [[NSMutableArray alloc] initWithObjects:leftNode, [NSNumber numberWithInt:leftIndex], nil];  //using nsnumber because nsarray can't hold primitive types
+    [nodesAndIndices insertObject:leftNodeAndIndex atIndex:0];
+    
+    if(leftIndex != self.trackEvents.count) {   //Check if a right node exists (i.e. we aren't at end of timepoint array)
+        int rightIndex = leftIndex + 1;
+        SKNode *rightNode = [[self.trackEvents objectAtIndex:rightIndex] node];
+        NSMutableArray *rightNodeAndIndex = [[NSMutableArray alloc] initWithObjects:rightNode, [NSNumber numberWithInt:rightIndex], nil];
+        [nodesAndIndices insertObject:rightNodeAndIndex atIndex:1];
+    }
+    
+    return nodesAndIndices;
+}
+
 
 - (int) findInsertionIndex:(float)insertionTime{
     //RETURNS AN INDEX FOR TIMEPOINT TO BE INSERTED BEFORE (i.e. shift everything from index to end right, insert timepoint at index)

@@ -6,13 +6,20 @@
 //  Copyright © 2016 Regis Verdin. All rights reserved.
 //
 
+@class TimelineScene;
+
 #import <Foundation/Foundation.h>
 #import <SpriteKit/SpriteKit.h>
 
 @interface TimelineModel : NSObject
 
-- (void)storeTimePointWithLocation:(float)loc windowWidth:(float)win screenTime:(double)screenT timeOffset:(double)tOffset amplitude:(float)amp node:(SKSpriteNode*)n;
++ (void)setSelectedClipNumber:(int)clip;
 
-- (void) setClipNumber:(NSString*) clipNum;
+- (void)storeTimePointWithLocation:(float)loc amplitude:(float)amp node:(SKSpriteNode*)n;
+
+- (void) addClipToTrack:(int)trackNum atIndex:(int)index;
+
+- (NSMutableArray*)getNearestNodes:(CGPoint)touchLocation onTrack:(int)trackNum;
+
 
 @end

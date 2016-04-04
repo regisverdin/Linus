@@ -13,6 +13,7 @@
 
 @property double time;
 @property float amplitude;
+@property int clipNumber;
 @property SKSpriteNode *node;
 
 @end

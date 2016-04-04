@@ -15,6 +15,8 @@
 #import "AEReverbFilter.h"
 #import "AudioShareSDK.h"
 
+#import "TimelineScene.h"
+
 @interface ViewController ()
 
 @property (weak, nonatomic) IBOutlet UISlider *volumeSlider;
@@ -61,6 +63,11 @@
 ////////////////////MIDI SETUP/////////////////////////
 #pragma
 
+
+- (void)receivedMidiBusClientEvent:(MIDIBUS_MIDI_EVENT*)event
+{
+    // do something with a received MIDI event
+}
 
 - (eMidiBusVirtualMode) virtualMidiBusMode
 {
@@ -171,6 +178,18 @@
 }
 
 
+
+
+/////////////////////////MAIN MODE SETTINGS/////////////////////////////
+
+
+- (IBAction)toggleGridClipMode:(id)sender {
+    if ([TimelineScene getGridClipMode] == 0) { //0 is grid, 1 is clip
+        [TimelineScene setGridClipMode:1];
+    } else {
+        [TimelineScene setGridClipMode:0];
+    }
+}
 
 
 
