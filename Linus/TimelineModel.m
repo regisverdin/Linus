@@ -50,11 +50,11 @@ static int selectedClipNumber;
 
 
 - (void) storeTimePointWithLocation:(float)loc amplitude:(float)amp node:(SKSpriteNode*)n{
-    float win = [TimelineScene getWindowWidth];
+    float trackWidth = [TimelineScene getTrackWidth];
     float screenT = [TimelineScene getScreenTime];
     double tOffset = [TimelineScene getTimeOffset];
     
-    double timeOfTouchLocation = ((loc/win) * screenT) + tOffset;
+    double timeOfTouchLocation = ((loc/trackWidth) * screenT) + tOffset;
     
     //Get track number
     int trackIndex = (int)[[n.parent.name substringWithRange:NSMakeRange(5, 1)] integerValue];
@@ -76,11 +76,12 @@ static int selectedClipNumber;
 }
 
 - (NSMutableArray*)getNearestNodes:(CGPoint)touchLocation onTrack:(int)trackNum{
-    float win = [TimelineScene getWindowWidth];
+    float trackWidth = [TimelineScene getTrackWidth];
     float screenT = [TimelineScene getScreenTime];
     double tOffset = [TimelineScene getTimeOffset];
     
-    double timeOfTouchLocation = ((touchLocation.x/win) * screenT) + tOffset;
+    double timeOfTouchLocation = ((touchLocation.x/trackWidth) * screenT) + tOffset;
+    
     
     NSMutableArray *nodesAndIndices;
     nodesAndIndices = [[self.tracks objectAtIndex:trackNum] getNearestNodesAndIndices:timeOfTouchLocation];

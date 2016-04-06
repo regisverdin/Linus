@@ -37,7 +37,6 @@
 
     //Insert into event array
     int i = [self findInsertionIndex:point.time];
-    NSLog(@"Insertion Index : %i", i);
     [self.trackEvents insertObject:point atIndex:i];
 
     for(TimePoint *tp in self.trackEvents) {
@@ -49,13 +48,16 @@
 - (void)addClip:(int)clipNum atIndex:(int)index{
     TimePoint *tp = [self.trackEvents objectAtIndex:index];
     tp.clipNumber = clipNum;
+    NSLog(@"Clip Index: %i", index);
+    
 }
 
 
 - (NSMutableArray*) getNearestNodesAndIndices:(double)time {
 
-    int leftIndex = [self findInsertionIndex:time];
+    int leftIndex = [self findInsertionIndex:time] - 1; // -1 because this should return the left node index, not the insertion point.
     SKNode *leftNode = [[self.trackEvents objectAtIndex:leftIndex] node];
+    NSLog(@"Insert Time: %f", time);
     
     NSMutableArray *nodesAndIndices = [[NSMutableArray alloc] initWithCapacity: 2];
     NSMutableArray *leftNodeAndIndex = [[NSMutableArray alloc] initWithObjects:leftNode, [NSNumber numberWithInt:leftIndex], nil];  //using nsnumber because nsarray can't hold primitive types

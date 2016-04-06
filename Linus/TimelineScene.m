@@ -15,7 +15,7 @@
 @property CGFloat gridMarkerHeight;
 @property CGRect windowRect;
 @property CGFloat windowHeight;
-//@property CGFloat windowWidth;
+@property CGFloat windowWidth;
 @property CGFloat trackWidth;
 @property CGFloat trackInfoWidth;
 @property CGFloat trackHeight;
@@ -26,7 +26,7 @@
 @end
 
 static int gridClipMode;
-static CGFloat windowWidth;
+static CGFloat trackWidth;
 static double screenTime;
 static double timeOffset;
 
@@ -43,12 +43,12 @@ static double timeOffset;
     return gridClipMode;
 }
 
-+ (float) getWindowWidth {
-    return windowWidth;
++ (float) getTrackWidth {
+    return trackWidth;
 }
 
-+ (void) setWindowWidth:(float)width {
-    windowWidth = width;
++ (void) setTrackWidth:(float)width {
+    trackWidth = width;
 }
 
 + (double) getScreenTime {
@@ -102,15 +102,15 @@ static double timeOffset;
     // Get window size (move to initwithsize?)
     self.windowRect = super.view.frame;
     
-    [TimelineScene setWindowWidth:self.windowRect.size.width];
+    self.windowWidth = self.windowRect.size.width;
     [TimelineScene setScreenTime:10.0];
     [TimelineScene setTimeOffset:0.0];
     
     self.windowHeight = self.windowRect.size.height;
-    self.trackWidth = [TimelineScene getWindowWidth] * 0.9;
-    self.trackInfoWidth = [TimelineScene getWindowWidth] * 0.1;
+    self.trackWidth = self.windowWidth * 0.9;
+    [TimelineScene setTrackWidth:self.trackWidth];
+    self.trackInfoWidth = self.windowWidth * 0.1;
     self.trackHeight = self.windowHeight / 2.0;
-    
     
     //ADD TRACKS
     for (int i = 0; i < self.numTracks; i++) {
@@ -178,14 +178,15 @@ static double timeOffset;
             CGPoint nodeTouchLocation = [touch locationInNode:node];
             CGPoint markerLocation  = CGPointMake(nodeTouchLocation.x, 0);
             int markerHeight = MAX(self.trackHeight*0.2, nodeTouchLocation.y);
-            SKSpriteNode *gridMarker = [[SKSpriteNode alloc] initWithColor:[SKColor whiteColor] size:CGSizeMake(2, markerHeight)];
+            SKSpriteNode *gridMarker = [[SKSpriteNode alloc] initWithColor:[SKColor whiteColor] size:CGSizeMake(self.gridMarkerWidth, markerHeight)];
             gridMarker.anchorPoint = CGPointMake(0,0);
             gridMarker.position = markerLocation;
             [node addChild:gridMarker];
-            
+        
             //Store timepoint and node in timeline
             double amplitude = nodeTouchLocation.y/self.trackHeight*0.2;
-            [self.timelineModel storeTimePointWithLocation:touchLocation.x amplitude:amplitude node:gridMarker];
+            [self.timelineModel storeTimePointWithLocation:markerLocation.x amplitude:amplitude node:gridMarker];
+            NSLog(@"loc: %f", markerLocation.x);
     }
 }
 

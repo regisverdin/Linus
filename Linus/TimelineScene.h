@@ -27,8 +27,8 @@
 
 + (void) setGridClipMode:(int) mode;
 + (int) getGridClipMode;
-+ (float) getWindowWidth;
-+ (void) setWindowWidth:(float)width;
++ (float) getTrackWidth;
++ (void) setTrackWidth:(float)width;
 + (double) getScreenTime;
 + (double) getTimeOffset;
 
