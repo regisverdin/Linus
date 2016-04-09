@@ -5,7 +5,5 @@
 
 target 'Linus' do
 
-	pod 'TheAmazingAudioEngine'
-
 end
 

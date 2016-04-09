@@ -21,5 +21,4 @@
 
 - (NSMutableArray*)getNearestNodes:(CGPoint)touchLocation onTrack:(int)trackNum;
 
-
 @end

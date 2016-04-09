@@ -22,4 +22,6 @@
 
 - (void)addClip:(int)clipNum atIndex:(int)index;
 
+- (NSMutableArray*) getTrackEvents;
+
 @end

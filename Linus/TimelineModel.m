@@ -11,10 +11,13 @@
 #import "TrackModel.h"
 #import <SpriteKit/SpriteKit.h>
 #import "TimelineScene.h"
+#import "TheAmazingAudioEngine.h"
+#import "AudioController.h"
 
 @interface TimelineModel ()
 
 @property NSMutableArray *tracks;   //holds all tracks (which contain arrays of timepoints)
+@property AudioController *audioController;
 
 @end
 
@@ -43,6 +46,17 @@ static int selectedClipNumber;
             TrackModel *track = [[TrackModel alloc] init];
             [self.tracks insertObject:track atIndex:i];
         }
+        
+        
+        //Setup Audio Controller
+        @try {
+            self.audioController = [[AudioController alloc] init];
+//            [self.audioController start:NULL];
+        }
+        @catch (NSException *exception){
+            NSLog(@"Audio not available!");
+        }
+        
 
     }
     return self;
@@ -73,6 +87,16 @@ static int selectedClipNumber;
     
     TrackModel *track = [self.tracks objectAtIndex:trackNum];
     [track addClip:selectedClipNumber atIndex:index];
+    
+    
+    //Update Audio Buffers
+    for (TrackModel *track in self.tracks) {
+        int trackNum = 0;
+        NSMutableArray *trackEvents = [track getTrackEvents];
+        //Pass each track model to the audio controller
+        [_audioController updateAudioSchedule:trackEvents forTrack:trackNum];
+        trackNum++;
+    }
 }
 
 - (NSMutableArray*)getNearestNodes:(CGPoint)touchLocation onTrack:(int)trackNum{
@@ -89,6 +113,8 @@ static int selectedClipNumber;
     return nodesAndIndices;
 }
 
-
+- (void)play {
+    //return time for updating
+}
 
 @end

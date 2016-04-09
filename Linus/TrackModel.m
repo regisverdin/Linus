@@ -50,6 +50,7 @@
     tp.clipNumber = clipNum;
     NSLog(@"Clip Index: %i", index);
     
+    
 }
 
 
@@ -112,7 +113,8 @@
     return -1;
 }
 
-
-
+- (NSMutableArray*) getTrackEvents {
+    return _trackEvents;
+}
 
 @end

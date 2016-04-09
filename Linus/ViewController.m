@@ -9,10 +9,6 @@
 #import "ViewController.h"
 #import "AppDelegate.h"
 
-#import "AEAudioController.h"
-#import "AEAudioFilePlayer.h"
-#import "AEBlockChannel.h"
-#import "AEReverbFilter.h"
 #import "AudioShareSDK.h"
 
 #import "TimelineScene.h"
@@ -22,10 +18,6 @@
 @property (weak, nonatomic) IBOutlet UISlider *volumeSlider;
 @property Boolean playing;
 
-@property AEAudioController *audioController;
-@property AEBlockChannel *channel;
-@property AEReverbFilter *reverb;
-@property AEAudioFilePlayer *track1;
 //@property AppDelegate *appDelegate;
 
 @end
@@ -132,35 +124,11 @@
     if(self.playing) {
         self.playing = false;
         NSLog(@"paused!");
-//        [_sequencer pause];
-        
-        _track1.channelIsMuted = TRUE;
-        _track1.channelIsPlaying = FALSE;
         
     //Play
     } else {
         self.playing = true;
         NSLog(@"playing!");
-//        [_sequencer play];
-
-        // Create an instance of the audio controller
-        self.audioController = [[AEAudioController alloc]
-                                initWithAudioDescription:
-                                AEAudioStreamBasicDescriptionNonInterleavedFloatStereo];
-        
-        // Start the audio engine.
-        [_audioController start:NULL];
-
-        // Initialise tracks
-        AEAudioFilePlayer *track1 =
-        [AEAudioFilePlayer audioFilePlayerWithURL: [[NSBundle mainBundle] URLForResource:@"Loop" withExtension:@"mp3"] error:NULL];
-        
-        // Set to loop mode
-        track1.loop = YES;
-        
-        // Add channels
-        [self.audioController addChannels:@[track1]];
-        
     }
     
 }

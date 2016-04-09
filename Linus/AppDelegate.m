@@ -9,18 +9,10 @@
 @import AudioToolbox;
 @import CoreMIDI;
 #import "AppDelegate.h"
-#import "AEAudioController.h"
-#import "AEBlockChannel.h"
 #import <UIKit/UIKit.h>
 #import "AudioShareSDK.h"
 
-#import "AEUtilities.h"
-
 @interface AppDelegate()
-
-@property (nonatomic) AEAudioController *audioController;
-@property AEBlockChannel *channel;
-
 
 @end
 
