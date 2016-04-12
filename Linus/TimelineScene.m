@@ -271,4 +271,13 @@ static double timeOffset;
 }
 
 
+- (void) play {
+    [self.timelineModel.audioController start:NULL];
+}
+
+- (void) stop {
+    [self.timelineModel.audioController stop];
+}
+
+
 @end

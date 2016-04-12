@@ -73,7 +73,7 @@
                                 <rect key="frame" x="341" y="9" width="82" height="30"/>
                                 <state key="normal" title="Play/Pause"/>
                                 <connections>
-                                    <action selector="playPause:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pQ4-pZ-qlY"/>
+                                    <action selector="onPlayPause:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jAk-yQ-EJg"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -135,7 +135,7 @@
         <!--Item 2-->
         <scene sceneID="9yN-cf-stx">
             <objects>
-                <viewController id="GfZ-IB-teJ" sceneMemberID="viewController">
+                <viewController id="GfZ-IB-teJ" customClass="ClipLoadViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fGh-N3-asE"/>
                         <viewControllerLayoutGuide type="bottom" id="vKr-6k-1wc"/>
@@ -149,7 +149,26 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k4p-df-sYH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1344" y="956"/>
+            <point key="canvasLocation" x="1344" y="737"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="rtO-vS-sWO">
+            <objects>
+                <viewController id="8PE-N2-Bhd" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zWQ-k1-8K9"/>
+                        <viewControllerLayoutGuide type="bottom" id="PRO-UV-47s"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1nq-Jj-MIl">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="250"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="EGU-af-OqM"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GjN-9Q-MvO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1349" y="1172"/>
         </scene>
         <!--Item 1-->
         <scene sceneID="uin-ck-WM0">
@@ -282,7 +301,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G40-UM-6zw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1344" y="529"/>
+            <point key="canvasLocation" x="1349" y="388"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Q6u-lM-scM">
@@ -296,11 +315,12 @@
                     <connections>
                         <segue destination="04A-EZ-1Fb" kind="relationship" relationship="viewControllers" id="O4J-ec-fpZ"/>
                         <segue destination="GfZ-IB-teJ" kind="relationship" relationship="viewControllers" id="EOS-n1-fec"/>
+                        <segue destination="8PE-N2-Bhd" kind="relationship" relationship="viewControllers" id="bnI-tH-vFI"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W0R-aD-Bb6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="854" y="529"/>
+            <point key="canvasLocation" x="854" y="511"/>
         </scene>
     </scenes>
     <resources>

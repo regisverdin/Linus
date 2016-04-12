@@ -10,8 +10,11 @@
 
 #import <Foundation/Foundation.h>
 #import <SpriteKit/SpriteKit.h>
+#import "AudioController.h"
 
 @interface TimelineModel : NSObject
+
+@property AudioController *audioController;
 
 + (void)setSelectedClipNumber:(int)clip;
 

@@ -32,4 +32,7 @@
 + (double) getScreenTime;
 + (double) getTimeOffset;
 
+- (void) play;
+- (void) stop;
+
 @end

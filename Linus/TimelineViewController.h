@@ -12,4 +12,6 @@
 
 @interface TimelineViewController : UIViewController
 
++ (TimelineScene*)getScene;
+
 @end

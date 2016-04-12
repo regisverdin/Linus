@@ -8,10 +8,9 @@
 
 #import "ViewController.h"
 #import "AppDelegate.h"
-
-#import "AudioShareSDK.h"
-
 #import "TimelineScene.h"
+#import "AudioController.h"
+#import "TimelineViewController.h"
 
 @interface ViewController ()
 
@@ -29,15 +28,6 @@
     // Do any additional setup after loading the view, typically from a nib.
     [MidiBusClient startWithApp:@"Linus" andDelegate:self];
     
-//    //Setup audiocontroller
-//    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate]; //see here for cast info: http://stackoverflow.com/questions/231947/referencing-appdelegate-instance-variables
-//    NSError *errorAudioSetup = NULL;
-//    BOOL result = [[appDelegate audioController] start:&errorAudioSetup];
-//    if ( !result ) {
-//        NSLog(@"Error starting audio engine: %@", errorAudioSetup.localizedDescription);
-//    }
-//
-    
     self.playing = false;
 }
 
@@ -46,6 +36,44 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+
+
+/////////////////////////PLAYBACK CONTROLS/////////////////////////////
+
+
+
+
+
+- (IBAction)onPlayPause:(id)sender {
+    TimelineScene *scene = [TimelineViewController getScene];
+    
+        //Stop
+    if(self.playing) {
+        self.playing = false;
+        [scene stop];
+        
+        //Play
+    } else {
+        self.playing = true;
+        [scene play];
+    }
+}
+
+
+- (IBAction)onBackToStart:(id)sender {
+    
+}
+
+
+- (IBAction)changeVolume:(id)sender {
+    NSLog(@"%f", self.volumeSlider.value);
+}
+
+
+//- (IBAction)importAudio:(id)sender {
+//    [[AudioShare sharedInstance] initiateSoundImport];
+//}
 
 
 
@@ -110,40 +138,6 @@
     [MidiBusClient disposeSmallEvent:event];
 }
 
-
-
-/////////////////////////PLAYBACK CONTROLS/////////////////////////////
-
-
-
-
-
-- (IBAction)onPlayPause:(id)sender {
-    
-    //Pause
-    if(self.playing) {
-        self.playing = false;
-        NSLog(@"paused!");
-        
-    //Play
-    } else {
-        self.playing = true;
-        NSLog(@"playing!");
-    }
-    
-}
-
-- (IBAction)onBackToStart:(id)sender {
-
-}
-
-- (IBAction)changeVolume:(id)sender {
-    NSLog(@"%f", self.volumeSlider.value);
-}
-
-- (IBAction)importAudio:(id)sender {
-    [[AudioShare sharedInstance] initiateSoundImport];
-}
 
 
 

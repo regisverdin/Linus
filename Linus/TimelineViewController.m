@@ -14,6 +14,8 @@
 
 @end
 
+static SKScene *timelineScene;
+
 @implementation TimelineViewController
 
 
@@ -45,12 +47,16 @@
         skView.showsNodeCount = YES;
         
         // Create and configure the scene.
-        SKScene * timelineScene = [TimelineScene sceneWithSize:skView.bounds.size];
+        timelineScene = [TimelineScene sceneWithSize:skView.bounds.size];
         timelineScene.scaleMode = SKSceneScaleModeAspectFill;
         
         // Present the scene.
         [skView presentScene:timelineScene];
     }
+}
+
++ (SKScene*)getScene{
+    return timelineScene;
 }
 
 @end

@@ -53,29 +53,12 @@
     //FOR IMPORTING FILES FROM AUDIOSHARE
     if([[AudioShare sharedInstance] checkPendingImport:url withBlock:^(NSString *path) {
         
+        
         // Move the temporary file into our Documents folder
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         NSString *destination = [documentsDirectory stringByAppendingPathComponent:[path lastPathComponent]];
         [[NSFileManager defaultManager] moveItemAtPath:path toPath:destination error:nil];
-        
-        
-//        // Load the imported file
-////        [mySoundEngine loadSample:destination];
-//        AudioBufferList *buffers = AEAudioBufferListCreate(AEAudioStreamBasicDescriptionNonInterleavedFloatStereo, 0);
-//        buffers->mBuffers[0].mData = &destination;
-//        
-//        self.channel = [AEBlockChannel channelWithBlock:^(const AudioTimeStamp *time,
-//                                                          UInt32 frames,
-//                                                          AudioBufferList *audio) {
-//            // TODO: Generate audio in 'audio'
-//            audio = buffers->mBuffers[0].mData;
-//        }];
-//
-//        [self.audioController addChannels:@[_channel]];
-//        _channel.channelIsPlaying = YES;
-//        _channel.channelIsMuted = NO;
-//
         
     }]) {
         return YES;

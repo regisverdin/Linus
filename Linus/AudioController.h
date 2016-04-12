@@ -16,8 +16,10 @@
 
 - (BOOL) start:(NSError *_Nullable *_Nullable)error;
 
-- (void) pause;
+//- (void) pause;
 
 - (void) stop;
+
++ (void) assignClip:(NSURL* _Nullable)url toIndex:(int)index;
 
 @end
