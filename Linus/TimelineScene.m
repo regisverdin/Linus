@@ -103,7 +103,7 @@ static double timeOffset;
     self.windowRect = super.view.frame;
     
     self.windowWidth = self.windowRect.size.width;
-    [TimelineScene setScreenTime:10.0];
+    [TimelineScene setScreenTime:2.0];
     [TimelineScene setTimeOffset:0.0];
     
     self.windowHeight = self.windowRect.size.height;
@@ -139,6 +139,7 @@ static double timeOffset;
     
         //ADD GRIDMARKERS AT 0 TIME
         
+        [self addGridMarkerAtLocation:CGPointMake(0, 0) onTrackNode:trackTouchNode];
     }
     
 }
@@ -151,11 +152,13 @@ static double timeOffset;
 }
 
 
-
 - (void)touchesBegan:(NSSet *) touches withEvent:(UIEvent *)event {
-
+    
 }
 
+- (void) touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
+}
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
@@ -165,6 +168,26 @@ static double timeOffset;
         [self addGridMarkerOnTouch:touch];
     } else {
         [self addClipOnTouch:touch];
+    }
+}
+
+
+- (void)addGridMarkerAtLocation:(CGPoint)location onTrackNode:(SKSpriteNode*)trackNode {
+    if ([self getNodeTrackNumber:trackNode] != -1){
+        
+        //Add grid marker to correct track
+//        CGPoint nodeTouchLocation = [touch locationInNode:trackNode];
+        CGPoint markerLocation  = CGPointMake(location.x, 0);
+        int markerHeight = MAX(self.trackHeight*0.2, location.y);
+        SKSpriteNode *gridMarker = [[SKSpriteNode alloc] initWithColor:[SKColor whiteColor] size:CGSizeMake(self.gridMarkerWidth, markerHeight)];
+        gridMarker.anchorPoint = CGPointMake(0,0);
+        gridMarker.position = markerLocation;
+        [trackNode addChild:gridMarker];
+        
+        //Store timepoint and node in timeline
+        double amplitude = location.y/self.trackHeight*0.2;
+        [self.timelineModel storeTimePointWithLocation:markerLocation.x amplitude:amplitude node:gridMarker];
+        NSLog(@"loc: %f", markerLocation.x);
     }
 }
 
@@ -214,7 +237,7 @@ static double timeOffset;
         
         //make and place new node between those positions       NEED TO CHECK HERE FOR LENGTH OF CLIP, OR IF MIDI DO SOMETHING ELSE!
 
-        if([nearestNodesAndIndices objectAtIndex:1]) {  //IF there is a right gridmarker...
+        if([nearestNodesAndIndices count] > 1) {  //IF there is a right gridmarker...
             NSMutableArray *right = [nearestNodesAndIndices objectAtIndex:1];   //IF SECOND NODE IS NULL, WE ARE ON LAST NODE IN TIMELINE. ADD TO MAX LENGTH OF CLIP?
             SKNode *rightNode = [right objectAtIndex:0];
             int rightNodeIndex = [[right objectAtIndex:1] intValue]; //convert from NSNumber
@@ -229,7 +252,16 @@ static double timeOffset;
             [leftNode addChild:clipNode];
             
         } else {
-            CGFloat clipEndPosition = 300;
+//            int clipNum = [TimelineModel getSelectedClipNumber];
+//            CGFloat clipSize = [TimelineModel getClipLength:clipNum];
+            //Clip end position should reflect length of audio file
+//            if ((leftNodePosition + clipSize) > _trackWidth) {
+//                CGFloat rightNodePosition = _trackWidth;
+//            } else {
+//                
+//            }
+            
+            CGFloat clipEndPosition = (leftNodePosition + 200) > _trackWidth ? _trackWidth : leftNodePosition + 200;
             
             SKSpriteNode *clipNode = [[SKSpriteNode alloc] initWithColor:[SKColor blackColor] size:CGSizeMake(clipEndPosition - leftNodePosition - self.gridMarkerWidth, self.trackHeight*0.2)];
             clipNode.anchorPoint = CGPointMake(0,0);
@@ -267,7 +299,7 @@ static double timeOffset;
 
 
 - (void)updateSceneTime: (double) time {
-    //change the scenes time properties,
+    //change the scenes time properties
 }
 
 

@@ -18,6 +18,8 @@
 
 + (void)setSelectedClipNumber:(int)clip;
 
++ (int)getSelectedClipNumber;
+
 - (void)storeTimePointWithLocation:(float)loc amplitude:(float)amp node:(SKSpriteNode*)n;
 
 - (void) addClipToTrack:(int)trackNum atIndex:(int)index;

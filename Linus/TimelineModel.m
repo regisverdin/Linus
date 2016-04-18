@@ -28,6 +28,10 @@ static int selectedClipNumber;
     selectedClipNumber = clip;
 }
 
++ (int) getSelectedClipNumber {
+    return selectedClipNumber;
+}
+
 
 
 - (id)init {

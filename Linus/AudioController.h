@@ -12,6 +12,10 @@
 
 @interface AudioController : NSObject
 
+
+@property (nonatomic) BOOL inputEnabled;
+
+
 - (void) updateAudioSchedule:(NSMutableArray* _Nullable)trackEvents forTrack:(int)trackNum;
 
 - (BOOL) start:(NSError *_Nullable *_Nullable)error;

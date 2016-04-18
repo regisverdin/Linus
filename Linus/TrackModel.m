@@ -64,7 +64,7 @@
     NSMutableArray *leftNodeAndIndex = [[NSMutableArray alloc] initWithObjects:leftNode, [NSNumber numberWithInt:leftIndex], nil];  //using nsnumber because nsarray can't hold primitive types
     [nodesAndIndices insertObject:leftNodeAndIndex atIndex:0];
     
-    if(leftIndex != self.trackEvents.count) {   //Check if a right node exists (i.e. we aren't at end of timepoint array)
+    if((leftIndex + 1) != self.trackEvents.count) {   //Check if a right node exists (i.e. we aren't at end of timepoint array)
         int rightIndex = leftIndex + 1;
         SKNode *rightNode = [[self.trackEvents objectAtIndex:rightIndex] node];
         NSMutableArray *rightNodeAndIndex = [[NSMutableArray alloc] initWithObjects:rightNode, [NSNumber numberWithInt:rightIndex], nil];
