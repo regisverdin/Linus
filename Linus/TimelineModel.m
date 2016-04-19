@@ -45,6 +45,7 @@ static int selectedClipNumber;
         //ADD TWO TRACKS TO ARRAY (this is temp for testing)
         for (int i =0; i < 2; i++){
             TrackModel *track = [[TrackModel alloc] init];
+            track.trackNum = i;
             [self.tracks insertObject:track atIndex:i];
         }
         
@@ -90,16 +91,18 @@ static int selectedClipNumber;
     [track addClip:selectedClipNumber atIndex:index];
     
     
-    //Update Audio Buffers
-    for (TrackModel *track in self.tracks) {
-        
-        int trackNum = 0;
-        NSMutableArray *trackEvents = [track getTrackEvents];
-        
-        //Pass each track model to the audio controller
-        [_audioController updateAudioSchedule:trackEvents forTrack:trackNum];
-        trackNum++;
-    }
+    //Update Audio Buffers (for all tracks)
+    [_audioController updateAudioSchedule:_tracks];
+
+//    int trackCounter = 0;
+//    for (TrackModel *currentTrack in self.tracks) {
+//        
+//        NSMutableArray *trackEvents = [currentTrack getTrackEvents];
+//        
+//        //Pass each track model to the audio controller
+//        [_audioController updateAudioSchedule:trackEvents forTrack:trackCounter];
+//        trackCounter++;
+//    }
 }
 
 - (NSMutableArray*)getNearestNodes:(CGPoint)touchLocation onTrack:(int)trackNum{
@@ -109,9 +112,7 @@ static int selectedClipNumber;
     
     double timeOfTouchLocation = ((touchLocation.x/trackWidth) * screenT) + tOffset;
     
-    
-    NSMutableArray *nodesAndIndices;
-    nodesAndIndices = [[self.tracks objectAtIndex:trackNum] getNearestNodesAndIndices:timeOfTouchLocation];
+    NSMutableArray *nodesAndIndices = [[self.tracks objectAtIndex:trackNum] getNearestNodesAndIndices:timeOfTouchLocation];
     
     return nodesAndIndices;
 }

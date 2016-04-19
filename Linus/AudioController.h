@@ -16,7 +16,7 @@
 @property (nonatomic) BOOL inputEnabled;
 
 
-- (void) updateAudioSchedule:(NSMutableArray* _Nullable)trackEvents forTrack:(int)trackNum;
+- (void) updateAudioSchedule:(NSMutableArray* _Nullable)tracks;
 
 - (BOOL) start:(NSError *_Nullable *_Nullable)error;
 

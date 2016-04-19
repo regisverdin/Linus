@@ -9,6 +9,7 @@
 #import "AudioController.h"
 #import "TimePoint.h"
 #import "AETime.h"
+#import "TrackModel.h"
 @import AVFoundation;
 
 
@@ -23,7 +24,7 @@
 @property NSMutableArray *players;
 
 @property (nonatomic) BOOL playingThroughSpeaker;
-@property NSMutableArray *trackEvents;
+@property NSMutableArray *audioTrackEvents;
 ///-----
 
 @end
@@ -36,9 +37,6 @@ static NSMutableArray *clipURLs;
     if (!(self = [super init]) ) return nil;
     
     clipURLs = [[NSMutableArray alloc] initWithCapacity:16];
-    
-    _players = [[NSMutableArray alloc]init];
-    
     _renderer = [AERenderer new];
     _output = [[AEAudioUnitOutput alloc] initWithRenderer:_renderer];
     _playersArray = [AEArray new];
@@ -49,15 +47,30 @@ static NSMutableArray *clipURLs;
 }
 
 
-- (void) updateAudioSchedule:(NSMutableArray*)trackEvents forTrack:(int)trackNum {
-    
-    if (trackNum == 0) {
-        _trackEvents = trackEvents; //If passing first track, we reset trackEvents
-    } else {
-        [_trackEvents addObjectsFromArray:trackEvents]; // else add to current trackEvents
-    }
-    
+- (void) updateAudioSchedule:(NSMutableArray*)tracks {
 
+    //MAKE DEEP COPY OF TIMEPOINTS INTO AUDIOTRACKEVENTS
+    
+    _audioTrackEvents = [[NSMutableArray alloc] init];
+    
+    //Loop through tracks
+    int trackCounter = 0;
+    for (int i = 0; i < [tracks count]; i++){
+        
+        NSMutableArray *currentTrack = [[tracks objectAtIndex:i] getTrackEvents];   //Old track
+        
+        //Loop through track timepoints
+        for (int j = 0; j < [currentTrack count]; j++) {
+            TimePoint *timepoint = [currentTrack objectAtIndex:j]; //Old Timepoint
+            TimePoint *timepointCopy = [[TimePoint alloc] init];   //New Timepoint
+            timepointCopy.time = timepoint.time;
+            timepointCopy.clipNumber = timepoint.clipNumber;
+            
+            //Add copy of timepoint to new 1d array
+            [_audioTrackEvents addObject:timepointCopy];
+        }
+        trackCounter++;
+    }
 //    
 //    _testPlayer = [[AEAudioFilePlayerModule alloc] initWithRenderer:_renderer URL:url error:NULL];
 //    AEAudioFilePlayerModule *testPlayer2 = [[AEAudioFilePlayerModule alloc] initWithRenderer:_renderer URL:url error:NULL];
@@ -94,15 +107,15 @@ static NSMutableArray *clipURLs;
     [urls addObject:url];
     url = [[NSBundle mainBundle] URLForResource:@"Closed Hihat0001" withExtension:@"aif"];
     [urls addObject:url];
-
+    
     
     //    Make NSarray of players
-
     
-    for (TimePoint *tp in _trackEvents) {
+    _players = [[NSMutableArray alloc]init];
+    for (TimePoint *tp in _audioTrackEvents) {
         //Check for an assigned clip on the timepoint (i.e. clipnumber is not null)
         
-        if (tp.clipNumber) {
+        if (tp.clipNumber > -3) {    //Check if the gridmarker has an assigned clip... (-3 is init value for clipnumber)
             
             //Load url for current clip number
             NSURL *url = [urls objectAtIndex:tp.clipNumber];
@@ -124,6 +137,7 @@ static NSMutableArray *clipURLs;
     AEArray * finalPlayersArray = [AEArray new];
     finalPlayersArray = _playersArray;
     
+    //FOR PAUSE: ADD A CONDITIONAL BASED ON BOOL FLAG
     
     _renderer.block = ^(const AERenderContext * _Nonnull context) {
         //         Run all the players
@@ -134,7 +148,7 @@ static NSMutableArray *clipURLs;
                 AEModuleProcess(player, context);
                 
                 // Put on output
-                AEBufferStackMixToBufferList(context->stack, 0, 0, YES, context->output);
+                AEBufferStackMixToBufferList(context->stack, 0, 0, NO, context->output);
                 AEBufferStackPop(context->stack, 1);
             }
         });
@@ -147,7 +161,6 @@ static NSMutableArray *clipURLs;
 
 - (void) stop {
     double time = AECurrentTimeInSeconds();
-    NSLog(@"%f", time);
     return [self.output stop];
 }
 

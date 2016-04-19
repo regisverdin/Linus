@@ -15,6 +15,11 @@
 @interface ViewController ()
 
 @property (weak, nonatomic) IBOutlet UISlider *volumeSlider;
+@property (weak, nonatomic) IBOutlet UIButton *gridButton;
+@property (weak, nonatomic) IBOutlet UIButton *playButton;
+@property (weak, nonatomic) IBOutlet UIButton *drawButton;
+@property (weak, nonatomic) IBOutlet UIButton *selectButton;
+
 @property Boolean playing;
 
 //@property AppDelegate *appDelegate;
@@ -43,10 +48,10 @@
 
 
 
-
-
 - (IBAction)onPlayPause:(id)sender {
     TimelineScene *scene = [TimelineViewController getScene];
+    
+    _playButton.selected = !_playButton.selected;
     
         //Stop
     if(self.playing) {
@@ -77,6 +82,33 @@
 
 
 
+/////////////////////////MAIN MODE SETTINGS/////////////////////////////
+
+
+- (IBAction)toggleGridClipMode:(id)sender {
+    _gridButton.selected = !_gridButton.selected;
+    [TimelineScene setClipMode:![TimelineScene getClipMode]];
+    
+}
+
+
+- (IBAction)toggleDrawMode:(id)sender {
+    _drawButton.selected = !_drawButton.selected;
+    if (_drawButton.selected) {
+        _selectButton.selected = NO;
+        [TimelineScene setSelectMode:NO];
+    }
+    [TimelineScene setDrawMode:![TimelineScene getDrawMode]];
+}
+
+- (IBAction)toggleSelectMode:(id)sender {
+    _selectButton.selected = !_selectButton.selected;
+    if (_selectButton.selected) {
+        _drawButton.selected = NO;
+        [TimelineScene setDrawMode:NO];
+    }
+    [TimelineScene setSelectMode:![TimelineScene getSelectMode]];
+}
 
 
 
@@ -136,21 +168,6 @@
     
     // clean up message if finished with it
     [MidiBusClient disposeSmallEvent:event];
-}
-
-
-
-
-
-/////////////////////////MAIN MODE SETTINGS/////////////////////////////
-
-
-- (IBAction)toggleGridClipMode:(id)sender {
-    if ([TimelineScene getGridClipMode] == 0) { //0 is grid, 1 is clip
-        [TimelineScene setGridClipMode:1];
-    } else {
-        [TimelineScene setGridClipMode:0];
-    }
 }
 
 

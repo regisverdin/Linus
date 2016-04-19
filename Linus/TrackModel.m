@@ -39,18 +39,16 @@
     int i = [self findInsertionIndex:point.time];
     [self.trackEvents insertObject:point atIndex:i];
 
+    NSLog(@"Timepoints in track %i:", _trackNum);
     for(TimePoint *tp in self.trackEvents) {
         float a = [tp time];
-        NSLog(@"%f", a);
+        NSLog(@"%f",a);
     }
 }
 
 - (void)addClip:(int)clipNum atIndex:(int)index{
     TimePoint *tp = [self.trackEvents objectAtIndex:index];
     tp.clipNumber = clipNum;
-    NSLog(@"Clip Index: %i", index);
-    
-    
 }
 
 
@@ -58,13 +56,12 @@
 
     int leftIndex = [self findInsertionIndex:time] - 1; // -1 because this should return the left node index, not the insertion point.
     SKNode *leftNode = [[self.trackEvents objectAtIndex:leftIndex] node];
-    NSLog(@"Insert Time: %f", time);
     
     NSMutableArray *nodesAndIndices = [[NSMutableArray alloc] initWithCapacity: 2];
     NSMutableArray *leftNodeAndIndex = [[NSMutableArray alloc] initWithObjects:leftNode, [NSNumber numberWithInt:leftIndex], nil];  //using nsnumber because nsarray can't hold primitive types
     [nodesAndIndices insertObject:leftNodeAndIndex atIndex:0];
     
-    if((leftIndex + 1) != self.trackEvents.count) {   //Check if a right node exists (i.e. we aren't at end of timepoint array)
+    if((leftIndex + 1) < self.trackEvents.count) {   //Check if a right node exists (i.e. we aren't at end of timepoint array)
         int rightIndex = leftIndex + 1;
         SKNode *rightNode = [[self.trackEvents objectAtIndex:rightIndex] node];
         NSMutableArray *rightNodeAndIndex = [[NSMutableArray alloc] initWithObjects:rightNode, [NSNumber numberWithInt:rightIndex], nil];

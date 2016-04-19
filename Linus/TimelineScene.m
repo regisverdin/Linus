@@ -25,7 +25,10 @@
 
 @end
 
-static int gridClipMode;
+static BOOL selectMode;
+static BOOL drawMode;
+static BOOL clipMode;
+
 static CGFloat trackWidth;
 static double screenTime;
 static double timeOffset;
@@ -34,13 +37,29 @@ static double timeOffset;
 @implementation TimelineScene
 
 
-/////Class variables (sort of...)////////
+/////Class variable get/setters (sort of)////////
 
-+ (void) setGridClipMode:(int) mode {
-    gridClipMode = mode;
++ (void) setDrawMode:(BOOL)mode {
+    drawMode = mode;
 }
-+ (int) getGridClipMode {
-    return gridClipMode;
+
++ (BOOL) getDrawMode{
+    return drawMode;
+}
+
++ (void) setSelectMode:(BOOL)mode {
+    selectMode = mode;
+}
+
++ (BOOL) getSelectMode{
+    return selectMode;
+}
+
++ (void) setClipMode:(int) mode {
+    clipMode = mode;
+}
++ (int) getClipMode {
+    return clipMode;
 }
 
 + (float) getTrackWidth {
@@ -74,7 +93,7 @@ static double timeOffset;
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         
-        gridClipMode = 0; // start in grid mode
+        clipMode = NO; // start in grid mode
         
         self.tracks = [[NSMutableArray alloc] initWithCapacity:16];
         self.numTracks = 2;
@@ -82,8 +101,8 @@ static double timeOffset;
         self.backgroundColor = [SKColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.0];
         self.gridMarkerHeight = 50;
         self.gridMarkerWidth = 2;
-        self.screenTime = 5.0;  //screen (without scrolling or zooming) is 5 seconds long.
-        self.timelineModel = [[TimelineModel alloc] init]; //This is the data structure for storing each timepoint on timeline.
+        self.screenTime = 5.0;  //Screen (without scrolling or zooming) is 5 seconds long.
+        self.timelineModel = [[TimelineModel alloc] init]; //Object for storing each track in the timeline
         
     }
     return self;
@@ -141,6 +160,7 @@ static double timeOffset;
         
         [self addGridMarkerAtLocation:CGPointMake(0, 0) onTrackNode:trackTouchNode];
     }
+    NSLog(@"Created scene");
     
 }
 
@@ -154,6 +174,16 @@ static double timeOffset;
 
 - (void)touchesBegan:(NSSet *) touches withEvent:(UIEvent *)event {
     
+    if(selectMode){
+        UITouch *touch = [touches anyObject];
+        
+        if(clipMode) {
+            
+        }
+        else{
+            
+        }
+    }
 }
 
 - (void) touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -164,10 +194,12 @@ static double timeOffset;
     
     UITouch *touch = [touches anyObject];
     
-    if(gridClipMode == 0) {
-        [self addGridMarkerOnTouch:touch];
-    } else {
-        [self addClipOnTouch:touch];
+    if(drawMode) {
+        if(clipMode) {
+            [self addClipOnTouch:touch];
+        } else {
+            [self addGridMarkerOnTouch:touch];
+        }
     }
 }
 
@@ -187,7 +219,7 @@ static double timeOffset;
         //Store timepoint and node in timeline
         double amplitude = location.y/self.trackHeight*0.2;
         [self.timelineModel storeTimePointWithLocation:markerLocation.x amplitude:amplitude node:gridMarker];
-        NSLog(@"loc: %f", markerLocation.x);
+//        NSLog(@"loc: %f", markerLocation.x);
     }
 }
 
@@ -209,7 +241,7 @@ static double timeOffset;
             //Store timepoint and node in timeline
             double amplitude = nodeTouchLocation.y/self.trackHeight*0.2;
             [self.timelineModel storeTimePointWithLocation:markerLocation.x amplitude:amplitude node:gridMarker];
-            NSLog(@"loc: %f", markerLocation.x);
+//            NSLog(@"loc: %f", markerLocation.x);
     }
 }
 

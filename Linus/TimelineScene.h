@@ -24,9 +24,13 @@
 //@property double screenTime;
 //@property double timeOffset;
 
++ (void) setDrawMode:(BOOL) mode;
++ (BOOL) getDrawMode;
++ (void) setSelectMode:(BOOL) mode;
++ (BOOL) getSelectMode;
++ (void) setClipMode:(BOOL) mode;
++ (BOOL) getClipMode;
 
-+ (void) setGridClipMode:(int) mode;
-+ (int) getGridClipMode;
 + (float) getTrackWidth;
 + (void) setTrackWidth:(float)width;
 + (double) getScreenTime;

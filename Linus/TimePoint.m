@@ -10,4 +10,10 @@
 
 @implementation TimePoint
 
+- (id)init {
+    _clipNumber = -3;
+    
+    return self;
+}
+
 @end

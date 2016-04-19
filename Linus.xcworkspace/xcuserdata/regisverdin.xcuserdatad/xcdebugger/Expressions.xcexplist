@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[TrackModel addTimePointWithTime:amplitude:node:]:TrackModel.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[TimelineModel storeTimePointWithLocation:amplitude:node:]:TimelineModel.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[self.tracks objectAtIndex:trackIndex]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AudioController start:]:AudioController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "_audioTrackEvents">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AudioController updateAudioSchedule:]:AudioController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[TimelineScene addClipOnTouch:]:TimelineScene.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[_timelineModel.tracks objectAtIndex:0]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[TimelineModel addClipToTrack:atIndex:]:TimelineModel.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "_tracks">
+            </PersistentString>
+            <PersistentString
+               value = "currentTrack">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[TimelineModel getNearestNodes:onTrack:]:TimelineModel.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.tracks">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[TrackModel getNearestNodesAndIndices:]:TrackModel.m">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

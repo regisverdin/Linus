@@ -12,6 +12,7 @@
 @interface TrackModel : NSObject
 
 @property int length;
+@property int trackNum;
 
 
 - (void)addTimePointWithTime:(double)time amplitude:(double)amp node:(SKSpriteNode*)n;

@@ -26,7 +26,7 @@
         [TimelineModel setSelectedClipNumber:-2];
     } else {
         int clipNumber = [sender.titleLabel.text intValue];
-        [TimelineModel setSelectedClipNumber:clipNumber];
+        [TimelineModel setSelectedClipNumber:clipNumber-1]; //IMPORTANT: internal clip numbers are 1 less than shown in display
     }
 }
 
