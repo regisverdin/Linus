@@ -22,6 +22,7 @@
 
 @property Boolean playing;
 
+@property TimelineScene *scene;
 //@property AppDelegate *appDelegate;
 
 @end
@@ -33,6 +34,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     [MidiBusClient startWithApp:@"Linus" andDelegate:self];
     
+    _scene = [TimelineViewController getScene];
     self.playing = false;
 }
 
@@ -49,19 +51,18 @@
 
 
 - (IBAction)onPlayPause:(id)sender {
-    TimelineScene *scene = [TimelineViewController getScene];
-    
+    _scene = [TimelineViewController getScene];
     _playButton.selected = !_playButton.selected;
     
         //Stop
     if(self.playing) {
         self.playing = false;
-        [scene stop];
+        [_scene stop];
         
         //Play
     } else {
         self.playing = true;
-        [scene play];
+        [_scene play];
     }
 }
 
@@ -111,6 +112,13 @@
 }
 
 
+/////////////////////////MODIFY/////////////////////////////
+
+
+- (IBAction)deleteButtonPressed:(id)sender {
+    _scene = [TimelineViewController getScene];
+    [_scene deleteSelection];
+}
 
 ////////////////////MIDI SETUP/////////////////////////
 #pragma

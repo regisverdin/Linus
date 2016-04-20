@@ -24,6 +24,10 @@
 
 - (void) addClipToTrack:(int)trackNum atIndex:(int)index;
 
+- (void)deleteTimePointWithNode:(SKSpriteNode*)node onTrack:(int)trackNum;
+
+- (void)deleteClipOnTimePointNode:(SKSpriteNode*)node onTrack:(int)trackNum;
+
 - (NSMutableArray*)getNearestNodes:(CGPoint)touchLocation onTrack:(int)trackNum;
 
 @end

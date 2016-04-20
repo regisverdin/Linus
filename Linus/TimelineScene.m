@@ -5,6 +5,32 @@
 //  Created by Regis Verdin on 2/17/16.
 //  Copyright © 2016 Regis Verdin. All rights reserved.
 //
+//
+//
+//
+//
+
+// NODE TREE NAMING STRUCTURE:
+
+//_tracks
+//    -"track1holder"
+//        -(no name)
+//        -"track1"
+//            -"gridmarker"
+//              -"clip"
+//            -"gridmarker"
+//            ...
+//            -(no name)
+//    -"track2holder"
+//        -(no name)
+//        -"track2"
+//            -"gridmarker"
+//              -"clip"
+//            -"gridmarker"
+//            ...
+//            -(no name)
+
+
 
 #import "TimelineScene.h"
 #import "TimelineModel.h"
@@ -25,6 +51,7 @@
 
 @property SKSpriteNode *selectionBox;
 @property SKNode *selectedTrackNode;
+@property NSMutableArray *selectedTimePoints;
 
 @end
 
@@ -137,6 +164,7 @@ static double timeOffset;
     //Init the selection box to size 0
     _selectionBox = [[SKSpriteNode alloc] initWithColor:[SKColor blueColor] size:CGSizeMake(0, 0)];
     _selectionBox.alpha = 0.5;
+    _selectedTimePoints = [[NSMutableArray alloc]init];
     
     //ADD TRACKS
     for (int i = 0; i < self.numTracks; i++) {
@@ -145,6 +173,8 @@ static double timeOffset;
         SKSpriteNode *trackNode = [[SKSpriteNode alloc] initWithColor:[SKColor blackColor] size:CGSizeMake(self.trackWidth, 4)];
         trackNode.anchorPoint = CGPointMake(0,0);
         trackNode.position = CGPointMake(self.trackInfoWidth, self.windowHeight - (self.trackHeight * (i+1)) );
+        NSString *trackHolderName = [NSString stringWithFormat:@"track%iholder", i];
+        trackNode.name = trackHolderName;
         [self addChild:trackNode];
         self.tracks[i] = trackNode;
         
@@ -200,12 +230,14 @@ static double timeOffset;
 }
 
 - (void) touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    // Resize selectionbox
     UITouch *touch = [touches anyObject];
-    CGPoint touchLocation = [touch locationInNode:_selectedTrackNode];
-    _selectionBox.size = CGSizeMake(touchLocation.x - _selectionBox.position.x, _trackHeight);
+    
+    if(selectMode) {
+        // Resize selectionBox
+        CGPoint touchLocation = [touch locationInNode:_selectedTrackNode];
+        _selectionBox.size = CGSizeMake(touchLocation.x - _selectionBox.position.x, _trackHeight);
+    }
 }
-
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
     UITouch *touch = [touches anyObject];
@@ -223,23 +255,33 @@ static double timeOffset;
         SKNode *trackNode = _selectionBox.parent;
         NSArray *trackChildren = trackNode.children;
         
-        //Clear previous selection (for all tracks)
-            // Reset color of all timepoints
-        for(SKNode *currentTrack in _tracks) {
+        // Reset color of all timepoints, and clear selectedTimePoints
+        int trackIndex = 0;
+        [_selectedTimePoints removeAllObjects];
+        for(SKNode *currentTrackHolder in _tracks) {
+            SKNode *currentTrack = [currentTrackHolder childNodeWithName:[NSString stringWithFormat:@"track%i", trackIndex]];
             NSArray *trackChildren = currentTrack.children;
+            
             for(SKSpriteNode *currentNode in trackChildren) {
-                currentNode.color = [SKColor whiteColor];
+                
+                if([currentNode.name isEqualToString:@"gridMarker"]) {
+                    currentNode.color = [SKColor whiteColor];
+                }
+            }
+            trackIndex++;
+        }
+        
+        //Change color of selected timepoints, and add to selectedTimePoints
+        for(SKSpriteNode *currentNode in trackChildren) {
+            if([currentNode.name isEqualToString:@"gridMarker"]) {
+                
+                if([_selectionBox intersectsNode:currentNode]) {
+                    currentNode.color = [SKColor redColor];
+                    [_selectedTimePoints addObject:currentNode];
+                } else currentNode.color = [SKColor whiteColor];
+                
             }
         }
-        
-        //Change color of selected timepoints
-        
-        for(SKSpriteNode *currentNode in trackChildren) {
-            if([_selectionBox intersectsNode:currentNode]) {
-                currentNode.color = [SKColor redColor];
-            } else currentNode.color = [SKColor whiteColor];
-        }
-        
         //Hide the selection box
         _selectionBox.size = CGSizeMake(0,0);
     }
@@ -255,6 +297,7 @@ static double timeOffset;
         CGPoint markerLocation  = CGPointMake(location.x, 0);
         int markerHeight = MAX(self.trackHeight*0.2, location.y);
         SKSpriteNode *gridMarker = [[SKSpriteNode alloc] initWithColor:[SKColor whiteColor] size:CGSizeMake(self.gridMarkerWidth, markerHeight)];
+        gridMarker.name = @"gridMarker";
         gridMarker.anchorPoint = CGPointMake(0,0);
         gridMarker.position = markerLocation;
         [trackNode addChild:gridMarker];
@@ -277,6 +320,7 @@ static double timeOffset;
             CGPoint markerLocation  = CGPointMake(nodeTouchLocation.x, 0);
             int markerHeight = MAX(self.trackHeight*0.2, nodeTouchLocation.y);
             SKSpriteNode *gridMarker = [[SKSpriteNode alloc] initWithColor:[SKColor whiteColor] size:CGSizeMake(self.gridMarkerWidth, markerHeight)];
+            gridMarker.name = @"gridMarker";
             gridMarker.anchorPoint = CGPointMake(0,0);
             gridMarker.position = markerLocation;
             [node addChild:gridMarker];
@@ -325,6 +369,7 @@ static double timeOffset;
             
             //Make clip node child of left gridmarker
             [leftNode addChild:clipNode];
+            clipNode.name = @"clip";
             
         } else {
 //            int clipNum = [TimelineModel getSelectedClipNumber];
@@ -344,10 +389,30 @@ static double timeOffset;
             
             //Make clip node child of left gridmarker
             [leftNode addChild:clipNode];
+            clipNode.name = @"clip";
         }
     }
 }
 
+
+- (void)deleteSelection {
+    
+    for(SKSpriteNode *currentNode in _selectedTimePoints){
+        int trackNum = [self getNodeTrackNumber:currentNode.parent];
+        
+        
+        if(clipMode || currentNode.position.x == 0){                                    //Check for clipmode YES, or first marker
+            [_timelineModel deleteClipOnTimePointNode:currentNode onTrack:trackNum];    //Delete the clip, but not the marker
+            [currentNode removeAllChildren];
+        } else {
+
+            [_timelineModel deleteTimePointWithNode:currentNode onTrack:trackNum];
+            [currentNode removeFromParent];
+        }
+    }
+    
+    [_selectedTimePoints removeAllObjects];
+}
 
 - (int)getNodeTrackNumber:(SKNode*) node {
     //Check if name=="track" + tracknum

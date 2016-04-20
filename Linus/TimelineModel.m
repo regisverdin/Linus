@@ -105,6 +105,21 @@ static int selectedClipNumber;
 //    }
 }
 
+- (void)deleteTimePointWithNode:(SKSpriteNode*)node onTrack:(int)trackNum {
+    TrackModel *track = _tracks[trackNum];
+    [track deleteTimePointWithNode:(SKSpriteNode*)node];
+    
+    [_audioController updateAudioSchedule:_tracks];
+    
+}
+
+- (void)deleteClipOnTimePointNode:(SKSpriteNode*)node onTrack:(int)trackNum{
+    TrackModel *track = _tracks[trackNum];
+    [track deleteClipOnTimePointNode:(SKSpriteNode*)node];
+    
+    [_audioController updateAudioSchedule:_tracks];
+}
+
 - (NSMutableArray*)getNearestNodes:(CGPoint)touchLocation onTrack:(int)trackNum{
     float trackWidth = [TimelineScene getTrackWidth];
     float screenT = [TimelineScene getScreenTime];

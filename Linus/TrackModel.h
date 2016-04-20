@@ -17,11 +17,15 @@
 
 - (void)addTimePointWithTime:(double)time amplitude:(double)amp node:(SKSpriteNode*)n;
 
+- (void)addClip:(int)clipNum atIndex:(int)index;
+
+- (void)deleteTimePointWithNode:(SKSpriteNode*)node;
+
+- (void)deleteClipOnTimePointNode:(SKSpriteNode*)node;
+
 - (int) findInsertionIndex:(float)insertionTime;
 
 - (NSMutableArray*) getNearestNodesAndIndices:(double)time;
-
-- (void)addClip:(int)clipNum atIndex:(int)index;
 
 - (NSMutableArray*) getTrackEvents;
 

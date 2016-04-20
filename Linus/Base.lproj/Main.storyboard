@@ -63,8 +63,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K63-Z6-8l6">
-                                <rect key="frame" x="13" y="358" width="104" height="30"/>
-                                <state key="normal" title="Grid/Clip Mode"/>
+                                <rect key="frame" x="30" y="358" width="70" height="30"/>
+                                <state key="normal" title="Clip Mode"/>
                                 <connections>
                                     <action selector="toggleGridClipMode:" destination="BYZ-38-t0r" eventType="touchUpInside" id="h3y-4s-ICb"/>
                                 </connections>
@@ -98,6 +98,13 @@
                                     <action selector="toggleSelectMode:" destination="BYZ-38-t0r" eventType="touchUpInside" id="P9J-SI-B5u"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dJG-E0-xuV">
+                                <rect key="frame" x="179" y="434" width="45" height="30"/>
+                                <state key="normal" title="Delete"/>
+                                <connections>
+                                    <action selector="deleteButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HmJ-6i-gHA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.63962686567569338" green="0.64579924738219896" blue="0.62241136695965193" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -106,6 +113,8 @@
                             <constraint firstItem="JxH-27-LF4" firstAttribute="leading" secondItem="K63-Z6-8l6" secondAttribute="trailing" constant="100" id="1mu-JA-VNa"/>
                             <constraint firstItem="4pC-n5-xQB" firstAttribute="leading" secondItem="DID-we-A3o" secondAttribute="trailing" constant="21" id="2HD-a2-VeW"/>
                             <constraint firstItem="YpZ-Vm-Sci" firstAttribute="baseline" secondItem="grN-yq-gkm" secondAttribute="baseline" id="3Se-0b-pHJ"/>
+                            <constraint firstItem="dJG-E0-xuV" firstAttribute="top" secondItem="wq1-Zu-BFP" secondAttribute="top" id="4Iv-WU-7p8"/>
+                            <constraint firstItem="dJG-E0-xuV" firstAttribute="leading" secondItem="wq1-Zu-BFP" secondAttribute="trailing" constant="95" id="7dm-D7-0hw"/>
                             <constraint firstItem="YpZ-Vm-Sci" firstAttribute="leading" secondItem="grN-yq-gkm" secondAttribute="trailing" constant="91" id="BQg-Fi-aJf"/>
                             <constraint firstItem="YpZ-Vm-Sci" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FZ6-8a-Y54"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Gw0-6A-2Im" secondAttribute="trailing" constant="-20" id="GmY-S5-Pst" userLabel="Container View.trailing = trailingMargin"/>

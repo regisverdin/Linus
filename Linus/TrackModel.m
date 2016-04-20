@@ -51,6 +51,25 @@
     tp.clipNumber = clipNum;
 }
 
+- (void)deleteTimePointWithNode:(SKSpriteNode*)node {
+    NSMutableIndexSet *removedIndices = [NSMutableIndexSet indexSet];
+    NSUInteger index = 0;
+    for(TimePoint *tp in _trackEvents){
+        if(tp.node == node){
+            [removedIndices addIndex:index];
+        }
+        index++;
+    }
+    [_trackEvents removeObjectsAtIndexes:removedIndices];
+}
+
+- (void)deleteClipOnTimePointNode:(SKSpriteNode*)node{
+    for(TimePoint *tp in _trackEvents){
+        if(tp.node == node){
+            tp.clipNumber = -3;
+        }
+    }
+}
 
 - (NSMutableArray*) getNearestNodesAndIndices:(double)time {
 

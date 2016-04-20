@@ -31,6 +31,7 @@
 + (void) setClipMode:(BOOL) mode;
 + (BOOL) getClipMode;
 
+
 + (float) getTrackWidth;
 + (void) setTrackWidth:(float)width;
 + (double) getScreenTime;
@@ -38,5 +39,6 @@
 
 - (void) play;
 - (void) stop;
+- (void) deleteSelection;
 
 @end
