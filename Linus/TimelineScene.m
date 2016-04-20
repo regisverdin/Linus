@@ -23,6 +23,9 @@
 @property NSMutableArray *tracks;
 @property int numTracks;
 
+@property SKSpriteNode *selectionBox;
+@property SKNode *selectedTrackNode;
+
 @end
 
 static BOOL selectMode;
@@ -55,10 +58,10 @@ static double timeOffset;
     return selectMode;
 }
 
-+ (void) setClipMode:(int) mode {
++ (void) setClipMode:(BOOL) mode {
     clipMode = mode;
 }
-+ (int) getClipMode {
++ (BOOL) getClipMode {
     return clipMode;
 }
 
@@ -131,6 +134,10 @@ static double timeOffset;
     self.trackInfoWidth = self.windowWidth * 0.1;
     self.trackHeight = self.windowHeight / 2.0;
     
+    //Init the selection box to size 0
+    _selectionBox = [[SKSpriteNode alloc] initWithColor:[SKColor blueColor] size:CGSizeMake(0, 0)];
+    _selectionBox.alpha = 0.5;
+    
     //ADD TRACKS
     for (int i = 0; i < self.numTracks; i++) {
         
@@ -176,18 +183,27 @@ static double timeOffset;
     
     if(selectMode){
         UITouch *touch = [touches anyObject];
+        CGPoint touchLocation = [touch locationInNode:self];
         
-        if(clipMode) {
-            
-        }
-        else{
-            
-        }
+        // Get track node and number
+        _selectedTrackNode = [self nodeAtPoint:touchLocation];
+        
+        // Add selection box as child of tracknode
+        [_selectionBox removeFromParent];
+        [_selectedTrackNode addChild:_selectionBox];
+        
+        // Position the box (do the rest in touchesMoved)
+        _selectionBox.anchorPoint = CGPointMake(0,0);
+        _selectionBox.position = CGPointMake(touchLocation.x - _trackInfoWidth, 0);
+        _selectionBox.size = CGSizeMake(1, _trackHeight);
     }
 }
 
 - (void) touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    
+    // Resize selectionbox
+    UITouch *touch = [touches anyObject];
+    CGPoint touchLocation = [touch locationInNode:_selectedTrackNode];
+    _selectionBox.size = CGSizeMake(touchLocation.x - _selectionBox.position.x, _trackHeight);
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -201,6 +217,33 @@ static double timeOffset;
             [self addGridMarkerOnTouch:touch];
         }
     }
+    
+    if(selectMode) {
+        //Get nodes in selection
+        SKNode *trackNode = _selectionBox.parent;
+        NSArray *trackChildren = trackNode.children;
+        
+        //Clear previous selection (for all tracks)
+            // Reset color of all timepoints
+        for(SKNode *currentTrack in _tracks) {
+            NSArray *trackChildren = currentTrack.children;
+            for(SKSpriteNode *currentNode in trackChildren) {
+                currentNode.color = [SKColor whiteColor];
+            }
+        }
+        
+        //Change color of selected timepoints
+        
+        for(SKSpriteNode *currentNode in trackChildren) {
+            if([_selectionBox intersectsNode:currentNode]) {
+                currentNode.color = [SKColor redColor];
+            } else currentNode.color = [SKColor whiteColor];
+        }
+        
+        //Hide the selection box
+        _selectionBox.size = CGSizeMake(0,0);
+    }
+    
 }
 
 
