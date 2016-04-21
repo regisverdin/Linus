@@ -3,34 +3,33 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[TrackModel addTimePointWithTime:amplitude:node:]:TrackModel.m">
-      </ContextState>
-      <ContextState
          contextName = "-[TimelineScene touchesEnded:withEvent:]:TimelineScene.m">
          <PersistentStrings>
             <PersistentString
+               value = "currentNode.parent.name">
+            </PersistentString>
+            <PersistentString
+               value = "[_selectionBox intersectsNode:currentNode]">
+            </PersistentString>
+            <PersistentString
+               value = "_tracks">
+            </PersistentString>
+            <PersistentString
+               value = "currentTrack.name">
+            </PersistentString>
+            <PersistentString
+               value = "[_selectedTimePoints containsObject:currentNode]">
+            </PersistentString>
+            <PersistentString
                value = "_selectedTimePoints">
             </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[TimelineModel storeTimePointWithLocation:amplitude:node:]:TimelineModel.m">
-         <PersistentStrings>
             <PersistentString
-               value = "[self.tracks objectAtIndex:trackIndex]">
+               value = "[TimelineScene getSelectHoldMode]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[AudioController start:]:AudioController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "_audioTrackEvents">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[AudioController updateAudioSchedule:]:AudioController.m">
+         contextName = "-[TimelineScene deleteSelection]:TimelineScene.m">
       </ContextState>
       <ContextState
          contextName = "-[TimelineScene addClipOnTouch:]:TimelineScene.m">
@@ -39,6 +38,9 @@
                value = "[_timelineModel.tracks objectAtIndex:0]">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AudioController updateAudioSchedule:]:AudioController.m">
       </ContextState>
       <ContextState
          contextName = "-[TimelineModel addClipToTrack:atIndex:]:TimelineModel.m">
@@ -52,6 +54,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[TrackModel addTimePointWithTime:amplitude:node:]:TrackModel.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[TrackModel getNearestNodesAndIndices:]:TrackModel.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[TimelineScene addGridMarkerOnTouch:]:TimelineScene.m">
+      </ContextState>
+      <ContextState
          contextName = "-[TimelineModel getNearestNodes:onTrack:]:TimelineModel.m">
          <PersistentStrings>
             <PersistentString
@@ -60,7 +71,28 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[TrackModel getNearestNodesAndIndices:]:TrackModel.m">
+         contextName = "-[TimelineModel storeTimePointWithLocation:amplitude:node:]:TimelineModel.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[self.tracks objectAtIndex:trackIndex]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[TimelineScene play]:TimelineScene.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "playhead.position">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AudioController start:]:AudioController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "_audioTrackEvents">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>

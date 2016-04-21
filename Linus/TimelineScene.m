@@ -14,21 +14,21 @@
 
 //_tracks
 //    -"track1holder"
-//        -(no name)
+//        -"playhead"
 //        -"track1"
 //            -"gridmarker"
 //              -"clip"
 //            -"gridmarker"
 //            ...
-//            -(no name)
+//            -"selectionBox"
 //    -"track2holder"
-//        -(no name)
+//        -"playhead"
 //        -"track2"
 //            -"gridmarker"
 //              -"clip"
 //            -"gridmarker"
 //            ...
-//            -(no name)
+//            -"selectionBox"
 
 
 
@@ -48,14 +48,17 @@
 @property CGFloat gridMarkerWidth;
 @property NSMutableArray *tracks;
 @property int numTracks;
+@property BOOL playing;
 
 @property SKSpriteNode *selectionBox;
 @property SKNode *selectedTrackNode;
 @property NSMutableArray *selectedTimePoints;
+@property NSMutableArray *deselectedNodes;
 
 @end
 
 static BOOL selectMode;
+static BOOL selectHoldMode;
 static BOOL drawMode;
 static BOOL clipMode;
 
@@ -83,6 +86,14 @@ static double timeOffset;
 
 + (BOOL) getSelectMode{
     return selectMode;
+}
+
++ (void) setSelectHoldMode:(BOOL)mode {
+    selectHoldMode = mode;
+}
+
++ (BOOL) getSelectHoldMode{
+    return selectHoldMode;
 }
 
 + (void) setClipMode:(BOOL) mode {
@@ -131,7 +142,7 @@ static double timeOffset;
         self.backgroundColor = [SKColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.0];
         self.gridMarkerHeight = 50;
         self.gridMarkerWidth = 2;
-        self.screenTime = 5.0;  //Screen (without scrolling or zooming) is 5 seconds long.
+//        self.screenTime = 5.0;  //Screen (without scrolling or zooming) is 5 seconds long.
         self.timelineModel = [[TimelineModel alloc] init]; //Object for storing each track in the timeline
         
     }
@@ -164,7 +175,9 @@ static double timeOffset;
     //Init the selection box to size 0
     _selectionBox = [[SKSpriteNode alloc] initWithColor:[SKColor blueColor] size:CGSizeMake(0, 0)];
     _selectionBox.alpha = 0.5;
+    _selectionBox.name = @"selectionBox";
     _selectedTimePoints = [[NSMutableArray alloc]init];
+    _deselectedNodes = [[NSMutableArray alloc]init];
     
     //ADD TRACKS
     for (int i = 0; i < self.numTracks; i++) {
@@ -182,6 +195,7 @@ static double timeOffset;
         SKSpriteNode *playhead = [[SKSpriteNode alloc] initWithColor:[SKColor redColor] size:CGSizeMake(1, self.trackHeight)];
         playhead.anchorPoint = CGPointMake(0,0);
         playhead.position = CGPointMake(0,0);
+        playhead.name = @"playhead";
         [self.tracks[i] addChild:playhead];
         
         //Add rectangular nodes for detecting touch on a track
@@ -252,34 +266,48 @@ static double timeOffset;
     
     if(selectMode) {
         //Get nodes in selection
+        [_deselectedNodes removeAllObjects];
         SKNode *trackNode = _selectionBox.parent;
         NSArray *trackChildren = trackNode.children;
         
-        // Reset color of all timepoints, and clear selectedTimePoints
+        
+        
+        // Clear current selection (always clear other track) (if hold is on, don't clear current track)
         int trackIndex = 0;
-        [_selectedTimePoints removeAllObjects];
         for(SKNode *currentTrackHolder in _tracks) {
+
             SKNode *currentTrack = [currentTrackHolder childNodeWithName:[NSString stringWithFormat:@"track%i", trackIndex]];
-            NSArray *trackChildren = currentTrack.children;
             
-            for(SKSpriteNode *currentNode in trackChildren) {
+            NSArray *currentTrackChildren = currentTrack.children;
+            
+            for(SKSpriteNode *currentNode in currentTrackChildren) {
                 
-                if([currentNode.name isEqualToString:@"gridMarker"]) {
+                if([currentNode.name isEqualToString:@"gridMarker"] && ![trackNode.name isEqualToString:currentNode.parent.name]) {  //Clear other track, always
                     currentNode.color = [SKColor whiteColor];
+                    [_selectedTimePoints removeObject:currentNode];
+                }
+                if([currentNode.name isEqualToString:@"gridMarker"] && ![TimelineScene getSelectHoldMode]) {  //If not select hold mode, clear current track too
+                    currentNode.color = [SKColor whiteColor];
+                    [_selectedTimePoints removeObject:currentNode];
+                }
+                if([TimelineScene getSelectHoldMode] && [_selectedTimePoints containsObject:currentNode] && [_selectionBox intersectsNode:currentNode]) { //If hold mode on and item already selected, deselect it.
+                    currentNode.color = [SKColor whiteColor];
+                    [_selectedTimePoints removeObject:currentNode];
+                    [_deselectedNodes addObject:currentNode];
                 }
             }
             trackIndex++;
         }
         
+        
         //Change color of selected timepoints, and add to selectedTimePoints
         for(SKSpriteNode *currentNode in trackChildren) {
             if([currentNode.name isEqualToString:@"gridMarker"]) {
                 
-                if([_selectionBox intersectsNode:currentNode]) {
+                if([_selectionBox intersectsNode:currentNode] && ![_deselectedNodes containsObject:currentNode]) {  //only select if not in deselect array
                     currentNode.color = [SKColor redColor];
                     [_selectedTimePoints addObject:currentNode];
-                } else currentNode.color = [SKColor whiteColor];
-                
+                }
             }
         }
         //Hide the selection box
@@ -445,10 +473,32 @@ static double timeOffset;
 
 - (void) play {
     [self.timelineModel.audioController start:NULL];
+    _playing = YES;
+
+    SKAction *movePlayhead = [SKAction moveToX:_trackWidth duration:[TimelineScene getScreenTime]];
+    for(SKSpriteNode* currentTrack in _tracks){
+        SKNode *playhead = [currentTrack childNodeWithName:@"playhead"];
+        [playhead runAction:movePlayhead];
+    }
+
+//
+//    while(_playing){
+//        //Move playhead forward
+//        for(SKSpriteNode* currentTrack in _tracks){
+//            SKNode *playhead = [currentTrack childNodeWithName:@"playhead"];
+//            playhead.position = CGPointMake(_trackWidth * ((AECurrentTimeInSeconds()-startTime) / screenTime), 0);
+//        }
+//    }
 }
 
 - (void) stop {
     [self.timelineModel.audioController stop];
+    _playing = NO;
+    for(SKSpriteNode* currentTrack in _tracks){
+        SKNode *playhead = [currentTrack childNodeWithName:@"playhead"];
+        [playhead removeAllActions];
+        playhead.position = CGPointMake(0, 0);
+    }
 }
 
 

@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet UIButton *drawButton;
 @property (weak, nonatomic) IBOutlet UIButton *selectButton;
+@property (weak, nonatomic) IBOutlet UIButton *selectHoldButton;
 
 @property Boolean playing;
 
@@ -111,6 +112,11 @@
     [TimelineScene setSelectMode:![TimelineScene getSelectMode]];
 }
 
+- (IBAction)toggleSelectHoldMode:(id)sender {
+    _selectHoldButton.selected = !_selectHoldButton.selected;
+
+    [TimelineScene setSelectHoldMode:![TimelineScene getSelectHoldMode]];
+}
 
 /////////////////////////MODIFY/////////////////////////////
 

@@ -24,11 +24,13 @@
 //@property double screenTime;
 //@property double timeOffset;
 
-+ (void) setDrawMode:(BOOL) mode;
++ (void) setDrawMode:(BOOL)mode;
 + (BOOL) getDrawMode;
-+ (void) setSelectMode:(BOOL) mode;
++ (void) setSelectMode:(BOOL)mode;
 + (BOOL) getSelectMode;
-+ (void) setClipMode:(BOOL) mode;
++ (void) setSelectHoldMode:(BOOL)mode;
++ (BOOL) getSelectHoldMode;
++ (void) setClipMode:(BOOL)mode;
 + (BOOL) getClipMode;
 
 
