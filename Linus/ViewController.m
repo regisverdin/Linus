@@ -17,9 +17,11 @@
 @property (weak, nonatomic) IBOutlet UISlider *volumeSlider;
 @property (weak, nonatomic) IBOutlet UIButton *gridButton;
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
+@property (weak, nonatomic) IBOutlet UIButton *loopButton;
 @property (weak, nonatomic) IBOutlet UIButton *drawButton;
 @property (weak, nonatomic) IBOutlet UIButton *selectButton;
 @property (weak, nonatomic) IBOutlet UIButton *selectHoldButton;
+@property (weak, nonatomic) IBOutlet UIButton *shiftButton;
 
 @property Boolean playing;
 
@@ -72,6 +74,10 @@
     
 }
 
+- (IBAction)toggleLoop:(id)sender {
+    [TimelineScene setLoopPlayback:![TimelineScene getLoopPlayback]];
+}
+
 
 - (IBAction)changeVolume:(id)sender {
     NSLog(@"%f", self.volumeSlider.value);
@@ -93,29 +99,49 @@
     
 }
 
-
 - (IBAction)toggleDrawMode:(id)sender {
+    [self deselectAllButtons];
+    
     _drawButton.selected = !_drawButton.selected;
-    if (_drawButton.selected) {
-        _selectButton.selected = NO;
-        [TimelineScene setSelectMode:NO];
-    }
     [TimelineScene setDrawMode:![TimelineScene getDrawMode]];
 }
 
 - (IBAction)toggleSelectMode:(id)sender {
+    [self deselectAllButtons];
+    
     _selectButton.selected = !_selectButton.selected;
-    if (_selectButton.selected) {
-        _drawButton.selected = NO;
-        [TimelineScene setDrawMode:NO];
-    }
     [TimelineScene setSelectMode:![TimelineScene getSelectMode]];
 }
 
 - (IBAction)toggleSelectHoldMode:(id)sender {
+    [self deselectAllButtons];
+    _selectButton.selected = YES;
+    [TimelineScene setSelectMode:YES];
+    
     _selectHoldButton.selected = !_selectHoldButton.selected;
-
     [TimelineScene setSelectHoldMode:![TimelineScene getSelectHoldMode]];
+}
+
+- (IBAction)toggleShiftMode:(id)sender {
+    [self deselectAllButtons];
+    
+    _shiftButton.selected = !_shiftButton.selected;
+    [TimelineScene setShiftMode:![TimelineScene getShiftMode]];
+
+}
+
+
+- (void)deselectAllButtons {
+    _gridButton.selected = NO;
+    [TimelineScene setClipMode:NO];
+    _drawButton.selected = NO;
+    [TimelineScene setDrawMode:NO];
+    _selectButton.selected = NO;
+    [TimelineScene setSelectMode:NO];
+    _selectHoldButton.selected = NO;
+    [TimelineScene setSelectHoldMode:NO];
+    _shiftButton.selected = NO;
+    [TimelineScene setShiftMode:NO];
 }
 
 /////////////////////////MODIFY/////////////////////////////

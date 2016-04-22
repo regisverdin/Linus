@@ -34,6 +34,8 @@
 
 #import "TimelineScene.h"
 #import "TimelineModel.h"
+#import "TrackModel.h"
+#import "Timepoint.h"
 
 @interface TimelineScene ()
 
@@ -54,13 +56,17 @@
 @property SKNode *selectedTrackNode;
 @property NSMutableArray *selectedTimePoints;
 @property NSMutableArray *deselectedNodes;
+@property CGPoint touchBeganPosition;
+@property NSMutableArray *selectedNodeStartLocations;
 
 @end
 
+static BOOL loopPlayback;
 static BOOL selectMode;
 static BOOL selectHoldMode;
 static BOOL drawMode;
 static BOOL clipMode;
+static BOOL shiftMode;
 
 static CGFloat trackWidth;
 static double screenTime;
@@ -99,6 +105,15 @@ static double timeOffset;
 + (void) setClipMode:(BOOL) mode {
     clipMode = mode;
 }
+
++ (BOOL) getShiftMode{
+    return shiftMode;
+}
+
++ (void) setShiftMode:(BOOL) mode {
+    shiftMode = mode;
+}
+
 + (BOOL) getClipMode {
     return clipMode;
 }
@@ -127,6 +142,13 @@ static double timeOffset;
     timeOffset = offset;
 }
 
++ (void) setLoopPlayback:(BOOL)mode{
+    loopPlayback = mode;
+}
+
++ (BOOL) getLoopPlayback{
+    return loopPlayback;
+}
 
 -(id)initWithSize:(CGSize)size {
     
@@ -178,6 +200,7 @@ static double timeOffset;
     _selectionBox.name = @"selectionBox";
     _selectedTimePoints = [[NSMutableArray alloc]init];
     _deselectedNodes = [[NSMutableArray alloc]init];
+    _selectedNodeStartLocations = [[NSMutableArray alloc]init];
     
     //ADD TRACKS
     for (int i = 0; i < self.numTracks; i++) {
@@ -224,13 +247,12 @@ static double timeOffset;
 
 
 - (void)touchesBegan:(NSSet *) touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+    _touchBeganPosition = [touch locationInNode:self];
     
     if(selectMode){
-        UITouch *touch = [touches anyObject];
-        CGPoint touchLocation = [touch locationInNode:self];
-        
         // Get track node and number
-        _selectedTrackNode = [self nodeAtPoint:touchLocation];
+        _selectedTrackNode = [self nodeAtPoint:_touchBeganPosition];
         
         // Add selection box as child of tracknode
         [_selectionBox removeFromParent];
@@ -238,20 +260,63 @@ static double timeOffset;
         
         // Position the box (do the rest in touchesMoved)
         _selectionBox.anchorPoint = CGPointMake(0,0);
-        _selectionBox.position = CGPointMake(touchLocation.x - _trackInfoWidth, 0);
+        _selectionBox.position = CGPointMake(_touchBeganPosition.x - _trackInfoWidth, 0);
         _selectionBox.size = CGSizeMake(1, _trackHeight);
+    }
+    
+    if(shiftMode && ([_selectedTimePoints count] > 0)){
+        // Get track node and number
+        _selectedTrackNode = [self nodeAtPoint:_touchBeganPosition];
+        
+        //Get all starting points of selected items (for shifting)
+        int i = 0;
+        for(SKSpriteNode *currentNode in _selectedTimePoints) {
+            CGPoint currentLocation = CGPointMake(currentNode.position.x, currentNode.position.y);
+            [_selectedNodeStartLocations addObject:[NSValue valueWithCGPoint:currentLocation]];
+            i++;
+        }
     }
 }
 
 - (void) touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
+    CGPoint currentTouchPosition = [touch locationInNode:self];
     
     if(selectMode) {
         // Resize selectionBox
         CGPoint touchLocation = [touch locationInNode:_selectedTrackNode];
         _selectionBox.size = CGSizeMake(touchLocation.x - _selectionBox.position.x, _trackHeight);
     }
+    
+    if(shiftMode && ([_selectedTimePoints count] > 0)) {
+        int i = 0;
+        for(SKSpriteNode *currentNode in _selectedTimePoints) {
+            //Move all selected nodes (except node at 0 time)
+            if(currentNode.position.x != 0) {
+                CGPoint nodeStartPosition = [[_selectedNodeStartLocations objectAtIndex:i] CGPointValue];
+                currentNode.position = CGPointMake(nodeStartPosition.x + (currentTouchPosition.x -_touchBeganPosition.x), 0);
+                i++;
+            }
+        }
+        // Update time property of each shifted timepoint
+        for(TrackModel *tm in _timelineModel.tracks) {
+            NSMutableArray *trackEvents = [[NSMutableArray alloc] init];
+            trackEvents = [tm getTrackEvents];
+            for(TimePoint *tp in trackEvents) {
+                for(SKSpriteNode *selectedNode in _selectedTimePoints) {
+                    if([tp.node isEqual:selectedNode]){
+                        [tp updateTime];
+                    }
+                }
+            }
+        }
+        
+        //Update audiocontroller
+        [_timelineModel.audioController updateAudioSchedule:_timelineModel.tracks];
+    }
 }
+
+
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
     UITouch *touch = [touches anyObject];
@@ -312,6 +377,10 @@ static double timeOffset;
         }
         //Hide the selection box
         _selectionBox.size = CGSizeMake(0,0);
+    }
+    
+    if(shiftMode && ([_selectedTimePoints count] > 0)){
+        [_selectedNodeStartLocations removeAllObjects];
     }
     
 }

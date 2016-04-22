@@ -103,11 +103,17 @@ static NSMutableArray *clipURLs;
     NSMutableArray *urls = [[NSMutableArray alloc]initWithCapacity:16];
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"Low Tom0005" withExtension:@"aif"];
     [urls addObject:url];
-    url = [[NSBundle mainBundle] URLForResource:@"KickDrum0017" withExtension:@"aif"];
+//    url = [[NSBundle mainBundle] URLForResource:@"KickDrum0017" withExtension:@"aif"];
+//    [urls addObject:url];
+//    url = [[NSBundle mainBundle] URLForResource:@"Closed Hihat0001" withExtension:@"aif"];
+//    [urls addObject:url];
+
+    url = [[NSBundle mainBundle] URLForResource:@"330" withExtension:@"wav"];
     [urls addObject:url];
-    url = [[NSBundle mainBundle] URLForResource:@"Closed Hihat0001" withExtension:@"aif"];
+    url = [[NSBundle mainBundle] URLForResource:@"440" withExtension:@"wav"];
     [urls addObject:url];
-    
+    url = [[NSBundle mainBundle] URLForResource:@"testSilence" withExtension:@"wav"];
+    [urls addObject:url];
     
     //    Make NSarray of players
     

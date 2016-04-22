@@ -23,6 +23,9 @@
 		395FC11C1C7A900A00ED1E51 /* TimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 395FC11B1C7A900A00ED1E51 /* TimelineViewController.m */; };
 		395FC1221C7A906500ED1E51 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 395FC1211C7A906500ED1E51 /* SpriteKit.framework */; };
 		395FC1251C7A90AA00ED1E51 /* TimelineScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 395FC1241C7A90AA00ED1E51 /* TimelineScene.m */; };
+		3968F5D61CC96A2E0098B296 /* 330.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3968F5D41CC96A2E0098B296 /* 330.wav */; };
+		3968F5D71CC96A2E0098B296 /* 440.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3968F5D51CC96A2E0098B296 /* 440.wav */; };
+		3968F5DB1CC96FB10098B296 /* testSilence.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3968F5DA1CC96FB10098B296 /* testSilence.wav */; };
 		3984D62A1CB755E800BA025B /* AEArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 3984D5DE1CB755E800BA025B /* AEArray.m */; };
 		3984D62B1CB755E800BA025B /* AEBufferStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 3984D5E01CB755E800BA025B /* AEBufferStack.m */; };
 		3984D62C1CB755E800BA025B /* AEManagedValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3984D5E21CB755E800BA025B /* AEManagedValue.m */; };
@@ -266,6 +269,9 @@
 		395FC1211C7A906500ED1E51 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		395FC1231C7A90AA00ED1E51 /* TimelineScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineScene.h; sourceTree = "<group>"; };
 		395FC1241C7A90AA00ED1E51 /* TimelineScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineScene.m; sourceTree = "<group>"; };
+		3968F5D41CC96A2E0098B296 /* 330.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 330.wav; sourceTree = "<group>"; };
+		3968F5D51CC96A2E0098B296 /* 440.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 440.wav; sourceTree = "<group>"; };
+		3968F5DA1CC96FB10098B296 /* testSilence.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = testSilence.wav; sourceTree = "<group>"; };
 		3984D5DD1CB755E800BA025B /* AEArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEArray.h; sourceTree = "<group>"; };
 		3984D5DE1CB755E800BA025B /* AEArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEArray.m; sourceTree = "<group>"; };
 		3984D5DF1CB755E800BA025B /* AEBufferStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEBufferStack.h; sourceTree = "<group>"; };
@@ -556,8 +562,11 @@
 		39136B121CB04791009E0448 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3968F5D41CC96A2E0098B296 /* 330.wav */,
+				3968F5D51CC96A2E0098B296 /* 440.wav */,
 				39E7960F1CBE10FF00BA77D4 /* Roland TR-808 Normalised */,
 				390986911CB84FAA001A1602 /* Loop2.mp3 */,
+				3968F5DA1CC96FB10098B296 /* testSilence.wav */,
 				399BD59B1CA99E5A00D48AD0 /* Loop.mp3 */,
 				39136B101CB04786009E0448 /* button.png */,
 			);
@@ -1274,6 +1283,7 @@
 				39E797501CBE10FF00BA77D4 /* SnareDrum0010.aif in Resources */,
 				39E796F81CBE10FF00BA77D4 /* CYmbal0022.aif in Resources */,
 				39E797201CBE10FF00BA77D4 /* Low Conga0004.aif in Resources */,
+				3968F5D71CC96A2E0098B296 /* 440.wav in Resources */,
 				39E797031CBE10FF00BA77D4 /* CYmbal0033.aif in Resources */,
 				39E797181CBE10FF00BA77D4 /* Hi Tom0003.aif in Resources */,
 				39E796EE1CBE10FF00BA77D4 /* CYmbal0012.aif in Resources */,
@@ -1317,6 +1327,7 @@
 				39E796E51CBE10FF00BA77D4 /* CYmbal0003.aif in Resources */,
 				39E796D91CBE10FF00BA77D4 /* KickDrum0018.aif in Resources */,
 				39E797051CBE10FF00BA77D4 /* CYmbal0035.aif in Resources */,
+				3968F5DB1CC96FB10098B296 /* testSilence.wav in Resources */,
 				39E7971D1CBE10FF00BA77D4 /* Low Conga0001.aif in Resources */,
 				39EE449C1CAAF219008B1502 /* omac_apps.plist in Resources */,
 				39E797351CBE10FF00BA77D4 /* Mid Tom0001.aif in Resources */,
@@ -1329,6 +1340,7 @@
 				39E797621CBE10FF00BA77D4 /* SnareDrum0028.aif in Resources */,
 				39E797081CBE10FF00BA77D4 /* CYmbal0038.aif in Resources */,
 				39E797191CBE10FF00BA77D4 /* Hi Tom0004.aif in Resources */,
+				3968F5D61CC96A2E0098B296 /* 330.wav in Resources */,
 				39E797631CBE10FF00BA77D4 /* SnareDrum0029.aif in Resources */,
 				39E7973D1CBE10FF00BA77D4 /* Cowbell.aif in Resources */,
 				39E7973A1CBE10FF00BA77D4 /* Mid Tom0006.aif in Resources */,

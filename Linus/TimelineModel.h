@@ -16,6 +16,8 @@
 
 @property AudioController *audioController;
 
+@property NSMutableArray *tracks;   //holds all tracks (which contain arrays of timepoints)
+
 + (void)setSelectedClipNumber:(int)clip;
 
 + (int)getSelectedClipNumber;

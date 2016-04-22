@@ -16,4 +16,6 @@
 @property int clipNumber;
 @property SKSpriteNode *node;
 
+-(void)updateTime;
+
 @end

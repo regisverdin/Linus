@@ -7,6 +7,7 @@
 //
 
 #import "TimePoint.h"
+#import "TimelineScene.h"
 
 @implementation TimePoint
 
@@ -14,6 +15,14 @@
     _clipNumber = -3;
     
     return self;
+}
+
+- (void)updateTime {
+    float trackWidth = [TimelineScene getTrackWidth];
+    float screenT = [TimelineScene getScreenTime];
+    double tOffset = [TimelineScene getTimeOffset];
+    
+    _time = ((_node.position.x/trackWidth) * screenT) + tOffset;
 }
 
 @end

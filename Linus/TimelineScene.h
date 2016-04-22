@@ -32,6 +32,10 @@
 + (BOOL) getSelectHoldMode;
 + (void) setClipMode:(BOOL)mode;
 + (BOOL) getClipMode;
++ (void) setShiftMode:(BOOL)mode;
++ (BOOL) getShiftMode;
++ (void) setLoopPlayback:(BOOL)mode;
++ (BOOL) getLoopPlayback;
 
 
 + (float) getTrackWidth;

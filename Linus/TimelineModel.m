@@ -15,8 +15,6 @@
 
 @interface TimelineModel ()
 
-@property NSMutableArray *tracks;   //holds all tracks (which contain arrays of timepoints)
-
 @end
 
 static int selectedClipNumber;
