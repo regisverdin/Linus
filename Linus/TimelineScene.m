@@ -48,6 +48,7 @@
 @property CGFloat trackInfoWidth;
 @property CGFloat trackHeight;
 @property CGFloat gridMarkerWidth;
+@property float clipHeight;
 @property NSMutableArray *tracks;
 @property int numTracks;
 @property BOOL isPlaying;
@@ -211,6 +212,7 @@ static double timeOffset;
     [TimelineScene setTrackWidth:self.trackWidth];
     self.trackInfoWidth = self.windowWidth * 0.1;
     self.trackHeight = self.windowHeight / 2.0;
+    self.clipHeight = self.trackHeight*0.2;
     
     //Init the selection box to size 0
     _selectionBox = [[SKSpriteNode alloc] initWithColor:[SKColor blueColor] size:CGSizeMake(0, 0)];
@@ -270,6 +272,7 @@ static double timeOffset;
     _selectedTrackNode = [self nodeAtPoint:_touchBeganPosition];
     
     if(selectMode){
+        
         // Get track node and number
         _selectedTrackNode = [self nodeAtPoint:_touchBeganPosition];
         
@@ -365,6 +368,7 @@ static double timeOffset;
             }
         }
         
+        [self updateClipEndPositions];
         //Update audiocontroller
         [_timelineModel.audioController updateAudioSchedule:_timelineModel.tracks];
     }
@@ -465,6 +469,7 @@ static double timeOffset;
             }
         }
         
+        [self updateClipEndPositions];
         //Update audiocontroller
         [_timelineModel.audioController updateAudioSchedule:_timelineModel.tracks];
     }
@@ -537,8 +542,7 @@ static double timeOffset;
     
     if(scaleMode && ([_selectedTimePoints count] > 0)){
         [_selectedNodeStartLocations removeAllObjects];
-        _selectionLeftNode = nil;
-        _selectionRightNode = nil;
+
     }
     
 }
@@ -586,6 +590,40 @@ static double timeOffset;
     }
 }
 
+- (void)updateClipEndPositions {
+    //Read through entire timeline.
+    
+    for(TrackModel *tm in _timelineModel.tracks) {
+        NSMutableArray *trackEvents = [[NSMutableArray alloc] init];
+        trackEvents = [tm getTrackEvents];
+        
+        TimePoint *previousTimePoint = NULL;
+        SKSpriteNode *previousClipNode = NULL;
+        
+        for(TimePoint *tp in trackEvents) {
+            
+            //Make sure clip node ends at the lesser of these two: clip url time; next timepoint time (already sorted, so no need for loop)
+            //Using nodes from previous iteration
+            if (previousClipNode) {
+                
+                float newClipEndPosition = previousTimePoint.clipDuration < tp.node.position.x ? previousTimePoint.clipDuration : tp.node.position.x;
+                float clipWidth = newClipEndPosition - previousTimePoint.node.position.x;
+                
+                previousClipNode.size = CGSizeMake(clipWidth, _clipHeight);
+
+            }
+            
+            //Get clip node from timepoint node, for next iteration
+            
+            if (tp.clipNumber != -3) {  //check if has clip assigned
+                previousClipNode = tp.node.children[0];
+            } else previousClipNode = NULL;
+            
+            previousTimePoint = tp;
+            
+        }
+    }
+}
 
 - (void)addClipOnTouch:(UITouch*) touch {
     CGPoint touchLocation = [touch locationInNode:self];
@@ -617,7 +655,7 @@ static double timeOffset;
             int rightNodePosition = rightNode.position.x;
             
             //Make and Display the clip node
-            SKSpriteNode *clipNode = [[SKSpriteNode alloc] initWithColor:[SKColor blackColor] size:CGSizeMake(rightNodePosition - leftNodePosition - self.gridMarkerWidth, self.trackHeight*0.2)];
+            SKSpriteNode *clipNode = [[SKSpriteNode alloc] initWithColor:[SKColor blackColor] size:CGSizeMake(rightNodePosition - leftNodePosition - self.gridMarkerWidth, _clipHeight)];
             clipNode.anchorPoint = CGPointMake(0,0);
             clipNode.position = CGPointMake(self.gridMarkerWidth,0);
             
@@ -637,7 +675,7 @@ static double timeOffset;
             
             CGFloat clipEndPosition = (leftNodePosition + 200) > _trackWidth ? _trackWidth : leftNodePosition + 200;
             
-            SKSpriteNode *clipNode = [[SKSpriteNode alloc] initWithColor:[SKColor blackColor] size:CGSizeMake(clipEndPosition - leftNodePosition - self.gridMarkerWidth, self.trackHeight*0.2)];
+            SKSpriteNode *clipNode = [[SKSpriteNode alloc] initWithColor:[SKColor blackColor] size:CGSizeMake(clipEndPosition - leftNodePosition - self.gridMarkerWidth, _clipHeight)];
             clipNode.anchorPoint = CGPointMake(0,0);
             clipNode.position = CGPointMake(self.gridMarkerWidth,0);
             
@@ -665,6 +703,39 @@ static double timeOffset;
     }
     
     [_selectedTimePoints removeAllObjects];
+}
+
+- (void)subdivideSelection {
+    for(SKSpriteNode *currentNode in _selectedTimePoints){
+        
+        
+        float startPosition = currentNode.position.x;
+        float nextNearestPosition = INFINITY;
+        
+        //get next node to right, if exists
+        for(SKSpriteNode *innerCurrentNode in _selectedTimePoints){
+            if(startPosition < innerCurrentNode.position.x < nextNearestPosition && innerCurrentNode != currentNode){
+                nextNearestPosition = innerCurrentNode.position.x;
+            }
+        }
+        
+        if(nextNearestPosition > INFINITY-1) continue;   //skip rightmost marker
+        
+        //Add timepoints in between
+        int numSubdivisions = _selectedClipNumber + 1;
+        float subdivLength = (nextNearestPosition - startPosition) / numSubdivisions;
+        for(int i = 1; i < numSubdivisions; i++) {
+            CGPoint location = CGPointMake(startPosition + (subdivLength * i), 0);
+            
+            //Check if location is already in timeline (only add if not)
+            BOOL locationAlreadyInTimeline = NO;
+            for(SKSpriteNode *nodeToCompare in _selectedTimePoints) {
+                locationAlreadyInTimeline = nodeToCompare.position.x == location.x ? YES : locationAlreadyInTimeline;
+            }
+            
+            if(!locationAlreadyInTimeline) [self addGridMarkerAtLocation:location onTrackNode:_selectedTrackNode];
+        }
+    }
 }
 
 - (int)getNodeTrackNumber:(SKNode*) node {

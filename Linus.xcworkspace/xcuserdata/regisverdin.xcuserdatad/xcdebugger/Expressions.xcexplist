@@ -32,15 +32,23 @@
          contextName = "-[TimelineScene deleteSelection]:TimelineScene.m">
       </ContextState>
       <ContextState
+         contextName = "AERendererRun:AERenderer.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "*(float (*)[512])bufferList-&gt;mBuffers[0].mData">
+            </PersistentString>
+            <PersistentString
+               value = "*(float (*)[512])bufferList-&gt;mBuffers[1].mData">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[TimelineScene addClipOnTouch:]:TimelineScene.m">
          <PersistentStrings>
             <PersistentString
                value = "[_timelineModel.tracks objectAtIndex:0]">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[AudioController updateAudioSchedule:]:AudioController.m">
       </ContextState>
       <ContextState
          contextName = "-[TimelineModel addClipToTrack:atIndex:]:TimelineModel.m">
@@ -57,18 +65,7 @@
          contextName = "-[TrackModel addTimePointWithTime:amplitude:node:]:TrackModel.m">
       </ContextState>
       <ContextState
-         contextName = "AERendererRun:AERenderer.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "*(float (*)[512])bufferList-&gt;mBuffers[0].mData">
-            </PersistentString>
-            <PersistentString
-               value = "*(float (*)[512])bufferList-&gt;mBuffers[1].mData">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[TrackModel getNearestNodesAndIndices:]:TrackModel.m">
+         contextName = "-[AudioController updateAudioSchedule:]:AudioController.m">
       </ContextState>
       <ContextState
          contextName = "__25-[AudioController start:]_block_invoke:AudioController.m">
@@ -77,10 +74,21 @@
                value = "player">
             </PersistentString>
             <PersistentString
-               value = "*(float (*)[512])finalPlayersArray.value-&gt;_value">
+               value = "*(float (*)[5120])context-&gt;output-&gt;mBuffers[0].mData">
             </PersistentString>
             <PersistentString
-               value = "*(float (*)[5120])context-&gt;output-&gt;mBuffers[0].mData">
+               value = "*(float (*)[512])finalPlayersArray.value-&gt;_value">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[TrackModel getNearestNodesAndIndices:]:TrackModel.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[TimelineScene subdivideSelection]:TimelineScene.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "_selectedClipNumber">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

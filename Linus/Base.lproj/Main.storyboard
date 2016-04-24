@@ -155,9 +155,16 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Tempo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="waM-vs-LfP">
                                 <rect key="frame" x="121" y="579" width="53" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UlQ-VJ-HhP">
+                                <rect key="frame" x="136" y="541" width="68" height="30"/>
+                                <state key="normal" title="Subdivide"/>
+                                <connections>
+                                    <action selector="subdivideButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mRy-NM-8tl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.63962686567569338" green="0.64579924738219896" blue="0.62241136695965193" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -168,6 +175,7 @@
                             <constraint firstItem="dJG-E0-xuV" firstAttribute="leading" secondItem="QH9-Ez-1ph" secondAttribute="leading" id="53R-kC-byj"/>
                             <constraint firstItem="irM-bs-qHc" firstAttribute="top" secondItem="dJG-E0-xuV" secondAttribute="bottom" constant="-4" id="53l-ym-8Wy"/>
                             <constraint firstItem="dJG-E0-xuV" firstAttribute="top" secondItem="QH9-Ez-1ph" secondAttribute="bottom" constant="8" id="6ke-w9-QGJ"/>
+                            <constraint firstItem="UlQ-VJ-HhP" firstAttribute="top" secondItem="0Bp-58-WuZ" secondAttribute="bottom" constant="-8" id="Ewv-Uc-eaf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Gw0-6A-2Im" secondAttribute="trailing" constant="-20" id="GmY-S5-Pst" userLabel="Container View.trailing = trailingMargin"/>
                             <constraint firstItem="wq1-Zu-BFP" firstAttribute="leading" secondItem="ATQ-Vt-MyQ" secondAttribute="leading" id="I6e-ai-qYm"/>
                             <constraint firstItem="0Bp-58-WuZ" firstAttribute="leading" secondItem="irM-bs-qHc" secondAttribute="leading" id="IUn-Ba-fEf"/>
@@ -197,6 +205,7 @@
                             <constraint firstItem="DID-we-A3o" firstAttribute="top" secondItem="3gn-aa-pzW" secondAttribute="top" id="iY6-co-NMS"/>
                             <constraint firstItem="wq1-Zu-BFP" firstAttribute="top" secondItem="ATQ-Vt-MyQ" secondAttribute="bottom" constant="8" id="msz-bd-syJ"/>
                             <constraint firstItem="waM-vs-LfP" firstAttribute="centerY" secondItem="4OS-RI-mXi" secondAttribute="centerY" id="nfG-Kn-4rh"/>
+                            <constraint firstItem="UlQ-VJ-HhP" firstAttribute="leading" secondItem="0Bp-58-WuZ" secondAttribute="leading" id="ooy-fH-faz"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="5Do-PP-nbU" secondAttribute="bottom" id="reR-VH-J65"/>
                             <constraint firstItem="3gn-aa-pzW" firstAttribute="leading" secondItem="YpZ-Vm-Sci" secondAttribute="trailing" constant="39" id="sHM-bD-AfU"/>
                             <constraint firstItem="cEw-xH-ZDH" firstAttribute="trailing" secondItem="Gw0-6A-2Im" secondAttribute="trailing" id="vwv-l8-fZz"/>
@@ -214,6 +223,7 @@
                         <outlet property="selectButton" destination="wq1-Zu-BFP" id="YJl-Rm-z4e"/>
                         <outlet property="selectHoldButton" destination="QH9-Ez-1ph" id="eov-Ve-9VR"/>
                         <outlet property="shiftButton" destination="irM-bs-qHc" id="BI6-BQ-R4c"/>
+                        <outlet property="subdivideButton" destination="UlQ-VJ-HhP" id="3NU-SA-ImH"/>
                         <outlet property="tempoDisplay" destination="cEw-xH-ZDH" id="Y8d-Qu-OPa"/>
                         <outlet property="tempoSlider" destination="4OS-RI-mXi" id="ELF-Tf-Wc6"/>
                         <outlet property="volumeSlider" destination="4pC-n5-xQB" id="sE4-NM-ZYm"/>

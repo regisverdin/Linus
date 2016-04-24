@@ -191,7 +191,6 @@ static NSMutableArray *clipURLs;
     return YES;
 }
 
-
 - (void)updatePlayingThroughSpeaker {
     AVAudioSession * session = [AVAudioSession sharedInstance];
     AVAudioSessionRouteDescription *currentRoute = session.currentRoute;

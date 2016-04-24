@@ -26,7 +26,7 @@
                   moduleName = "Linus"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/AudioController.m"
-                  timestampString = "483164439.729962"
+                  timestampString = "483207227.512186"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "148"
@@ -41,7 +41,7 @@
                   moduleName = "Linus"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/AudioController.m"
-                  timestampString = "483164439.730114"
+                  timestampString = "483207227.51233"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "148"
@@ -90,7 +90,7 @@
                   moduleName = "Linus"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/AudioController.m"
-                  timestampString = "483164439.731491"
+                  timestampString = "483207227.572988"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "163"
@@ -105,7 +105,7 @@
                   moduleName = "Linus"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/AudioController.m"
-                  timestampString = "483164439.731606"
+                  timestampString = "483207227.573259"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "163"
@@ -120,7 +120,7 @@
                   moduleName = "Linus"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/AudioController.m"
-                  timestampString = "483164439.731714"
+                  timestampString = "483207227.573419"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "163"
@@ -153,7 +153,7 @@
                   moduleName = "Linus"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/AudioController.m"
-                  timestampString = "483164439.732719"
+                  timestampString = "483207227.575098"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "163"
@@ -168,7 +168,7 @@
                   moduleName = "Linus"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/AudioController.m"
-                  timestampString = "483164439.732843"
+                  timestampString = "483207227.575251"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "163"
@@ -183,7 +183,7 @@
                   moduleName = "Linus"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/AudioController.m"
-                  timestampString = "483164439.732953"
+                  timestampString = "483207227.575405"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "163"
@@ -200,11 +200,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Linus/TimelineScene.m"
-            timestampString = "483198193.461368"
+            timestampString = "483220941.072624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "381"
-            endingLineNumber = "381"
+            startingLineNumber = "385"
+            endingLineNumber = "385"
             landmarkName = "-touchesMoved:withEvent:"
             landmarkType = "5">
          </BreakpointContent>
@@ -216,12 +216,76 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Linus/TimelineScene.m"
-            timestampString = "483198635.422558"
+            timestampString = "483220941.072624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "430"
-            endingLineNumber = "430"
+            startingLineNumber = "434"
+            endingLineNumber = "434"
             landmarkName = "-touchesMoved:withEvent:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Linus/TimelineScene.m"
+            timestampString = "483220941.072624"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "713"
+            endingLineNumber = "713"
+            landmarkName = "-subdivideSelection"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[TimelineScene subdivideSelection]"
+                  moduleName = "Linus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/TimelineScene.m"
+                  timestampString = "483207227.598094"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "678"
+                  endingLineNumber = "678"
+                  offsetFromSymbolStart = "292">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[TimelineScene subdivideSelection]"
+                  moduleName = "Linus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/TimelineScene.m"
+                  timestampString = "483207227.598225"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "678"
+                  endingLineNumber = "678"
+                  offsetFromSymbolStart = "310">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Linus/TimelineScene.m"
+            timestampString = "483220941.072624"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "709"
+            endingLineNumber = "709"
+            landmarkName = "-subdivideSelection"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <SpriteKit/SpriteKit.h>
+#import "AETime.h"
 
 @interface TimePoint : NSObject
 
 @property double time;
 @property float amplitude;
 @property int clipNumber;
+@property AESeconds clipDuration;
 @property SKSpriteNode *node;
 
 -(void)updateTime;

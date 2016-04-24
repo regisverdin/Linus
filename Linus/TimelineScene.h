@@ -19,6 +19,8 @@
 @property (nonatomic) double timeOffset;
 @property TimelineModel *timelineModel;
 
+@property int selectedClipNumber;
+
 //@property int gridClipMode;
 //@property CGFloat windowWidth;
 //@property double screenTime;
@@ -47,6 +49,7 @@
 - (void) play:(void(^)())callBack;
 - (void) stop;
 - (void) deleteSelection;
+- (void) subdivideSelection;
 - (void) changeTempo:(double)windowTime;
 
 

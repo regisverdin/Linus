@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UISlider *tempoSlider;
 @property (weak, nonatomic) IBOutlet UITextField *tempoDisplay;
 @property (weak, nonatomic) IBOutlet UIButton *scaleButton;
+@property (weak, nonatomic) IBOutlet UIButton *subdivideButton;
 
 @property Boolean playing;
 @property TimelineScene *scene;
@@ -154,6 +155,7 @@
 
 
 
+
 - (void)deselectAllButtons {
     _gridButton.selected = NO;
     [TimelineScene setClipMode:NO];
@@ -174,6 +176,12 @@
     _scene = [TimelineViewController getScene];
     [_scene deleteSelection];
 }
+
+- (IBAction)subdivideButtonPressed:(id)sender {
+    _scene = [TimelineViewController getScene];
+    [_scene subdivideSelection];
+}
+
 
 ////////////////////MIDI SETUP/////////////////////////
 #pragma

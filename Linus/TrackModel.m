@@ -43,6 +43,8 @@
 - (void)addClip:(int)clipNum atIndex:(int)index{
     TimePoint *tp = [self.trackEvents objectAtIndex:index];
     tp.clipNumber = clipNum;
+    tp.clipDuration =
+    
 }
 
 - (void)deleteTimePointWithNode:(SKSpriteNode*)node {
