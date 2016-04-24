@@ -50,7 +50,7 @@
 @property CGFloat gridMarkerWidth;
 @property NSMutableArray *tracks;
 @property int numTracks;
-@property BOOL playing;
+@property BOOL isPlaying;
 
 @property SKSpriteNode *selectionBox;
 @property SKNode *selectedTrackNode;
@@ -58,6 +58,14 @@
 @property NSMutableArray *deselectedNodes;
 @property CGPoint touchBeganPosition;
 @property NSMutableArray *selectedNodeStartLocations;
+@property SKSpriteNode *nearestNodeToTouch;
+@property SKSpriteNode *selectionLeftNode;
+@property SKSpriteNode *selectionRightNode;
+@property SKSpriteNode *selectionMidNode;
+@property float startingSelectionWidth;
+@property float startingSelectionWidthLeft;
+@property float startingSelectionWidthRight;
+@property float selectionWidth;
 
 @end
 
@@ -67,6 +75,7 @@ static BOOL selectHoldMode;
 static BOOL drawMode;
 static BOOL clipMode;
 static BOOL shiftMode;
+static BOOL scaleMode;
 
 static CGFloat trackWidth;
 static double screenTime;
@@ -150,6 +159,14 @@ static double timeOffset;
     return loopPlayback;
 }
 
++ (void) setScaleMode:(BOOL)mode{
+    scaleMode = mode;
+}
+
++ (BOOL) getScaleMode{
+    return scaleMode;
+}
+
 -(id)initWithSize:(CGSize)size {
     
     
@@ -164,7 +181,6 @@ static double timeOffset;
         self.backgroundColor = [SKColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:0.0];
         self.gridMarkerHeight = 50;
         self.gridMarkerWidth = 2;
-//        self.screenTime = 5.0;  //Screen (without scrolling or zooming) is 5 seconds long.
         self.timelineModel = [[TimelineModel alloc] init]; //Object for storing each track in the timeline
         
     }
@@ -181,8 +197,10 @@ static double timeOffset;
 }
 
 - (void)createSceneContents {
+    
     // Get window size (move to initwithsize?)
     self.windowRect = super.view.frame;
+    
     
     self.windowWidth = self.windowRect.size.width;
     [TimelineScene setScreenTime:2.0];
@@ -249,6 +267,7 @@ static double timeOffset;
 - (void)touchesBegan:(NSSet *) touches withEvent:(UIEvent *)event {
     UITouch *touch = [touches anyObject];
     _touchBeganPosition = [touch locationInNode:self];
+    _selectedTrackNode = [self nodeAtPoint:_touchBeganPosition];
     
     if(selectMode){
         // Get track node and number
@@ -265,16 +284,49 @@ static double timeOffset;
     }
     
     if(shiftMode && ([_selectedTimePoints count] > 0)){
-        // Get track node and number
-        _selectedTrackNode = [self nodeAtPoint:_touchBeganPosition];
         
         //Get all starting points of selected items (for shifting)
-        int i = 0;
         for(SKSpriteNode *currentNode in _selectedTimePoints) {
             CGPoint currentLocation = CGPointMake(currentNode.position.x, currentNode.position.y);
             [_selectedNodeStartLocations addObject:[NSValue valueWithCGPoint:currentLocation]];
-            i++;
         }
+    }
+    
+    if(scaleMode && ([_selectedTimePoints count] > 0)){
+        
+        // Get all starting points of selected items (for shifting)
+        for(SKSpriteNode *currentNode in _selectedTimePoints) {
+            CGPoint currentNodeLocation = CGPointMake(currentNode.position.x, currentNode.position.y);
+            [_selectedNodeStartLocations addObject:[NSValue valueWithCGPoint:currentNodeLocation]];
+            
+            // Get timepoint closest to touch
+            BOOL currentNodeIsClosestToTouch = fabsf((_touchBeganPosition.x-_trackInfoWidth) - currentNodeLocation.x) < fabsf((_touchBeganPosition.x-_trackInfoWidth) - _nearestNodeToTouch.position.x);
+            
+            if(_nearestNodeToTouch){
+                if(currentNodeIsClosestToTouch) {
+                    _nearestNodeToTouch = currentNode;
+                }
+            } else _nearestNodeToTouch = currentNode;
+        }
+        _nearestNodeToTouch.color = [SKColor blueColor];
+        
+        //Get boundary nodes of selection
+        for(SKSpriteNode *currentNode in _selectedTimePoints) {
+            _selectionLeftNode = !_selectionLeftNode ? currentNode :
+            (currentNode.position.x < _selectionLeftNode.position.x) ? currentNode : _selectionLeftNode;
+            
+            _selectionRightNode = !_selectionRightNode ? currentNode :
+            (currentNode.position.x > _selectionRightNode.position.x) ? currentNode : _selectionRightNode;
+            
+        }
+        
+        if (_nearestNodeToTouch != _selectionLeftNode || _nearestNodeToTouch != _selectionLeftNode) {
+            _selectionMidNode = _nearestNodeToTouch;
+        }
+        
+        _startingSelectionWidth = _selectionRightNode.position.x - _selectionLeftNode.position.x;
+        _startingSelectionWidthLeft = _nearestNodeToTouch.position.x - _selectionLeftNode.position.x;
+        _startingSelectionWidthRight = _selectionRightNode.position.x - _nearestNodeToTouch.position.x;
     }
 }
 
@@ -289,6 +341,8 @@ static double timeOffset;
     }
     
     if(shiftMode && ([_selectedTimePoints count] > 0)) {
+        _selectionWidth = _selectionRightNode.position.x - _selectionLeftNode.position.x;
+        
         int i = 0;
         for(SKSpriteNode *currentNode in _selectedTimePoints) {
             //Move all selected nodes (except node at 0 time)
@@ -298,6 +352,106 @@ static double timeOffset;
                 i++;
             }
         }
+        // Update time property of each shifted timepoint
+        for(TrackModel *tm in _timelineModel.tracks) {
+            NSMutableArray *trackEvents = [[NSMutableArray alloc] init];
+            trackEvents = [tm getTrackEvents];
+            for(TimePoint *tp in trackEvents) {
+                for(SKSpriteNode *selectedNode in _selectedTimePoints) {
+                    if([tp.node isEqual:selectedNode]){
+                        [tp updateTime];
+                    }
+                }
+            }
+        }
+        
+        //Update audiocontroller
+        [_timelineModel.audioController updateAudioSchedule:_timelineModel.tracks];
+    }
+    
+    if(scaleMode && ([_selectedTimePoints count] > 1)) {
+        
+        if(_nearestNodeToTouch == _selectionLeftNode){  //Scaling case 1
+            NSLog(@"case1");
+            
+            int i = 0;
+            for(SKSpriteNode *currentNode in _selectedTimePoints) {
+                //Move all selected nodes (except node at 0 time)
+                if(currentNode.position.x != 0) {
+                    CGPoint nodeStartPosition = [[_selectedNodeStartLocations objectAtIndex:i] CGPointValue];
+                    
+                    float originalDistFromCurrentToRightNode = _selectionRightNode.position.x - nodeStartPosition.x;
+                    float percentageOfOrigWidthMoved = 1 - ((_touchBeganPosition.x - currentTouchPosition.x) / _startingSelectionWidth);
+                    
+                    CGPoint newNodePosition = CGPointMake(nodeStartPosition.x + ((originalDistFromCurrentToRightNode * (percentageOfOrigWidthMoved)) - originalDistFromCurrentToRightNode), 0); //percentage of original width
+                    
+                    currentNode.position = newNodePosition;
+                }
+                i++;
+            }
+            
+        } else if(_nearestNodeToTouch == _selectionRightNode){  //Scaling case 2
+            NSLog(@"case2");
+            
+            int i = 0;
+            for(SKSpriteNode *currentNode in _selectedTimePoints) {
+                //Move all selected nodes (except node at 0 time)
+                if(currentNode.position.x != 0) {
+                    CGPoint nodeStartPosition = [[_selectedNodeStartLocations objectAtIndex:i] CGPointValue];
+                    
+                    float originalDistFromCurrentToLeftNode = _selectionLeftNode.position.x - nodeStartPosition.x;
+                    float percentageOfOrigWidthMoved = 1 - ((_touchBeganPosition.x - currentTouchPosition.x) / _startingSelectionWidth);
+                    
+                    CGPoint newNodePosition = CGPointMake(nodeStartPosition.x + (originalDistFromCurrentToLeftNode - (originalDistFromCurrentToLeftNode * (percentageOfOrigWidthMoved))), 0); //percentage of original width
+                    
+                    currentNode.position = newNodePosition;
+                }
+                i++;
+            }
+            
+        } else { //Scaling case 3 (selected node is between boundary nodes)
+            NSLog(@"case3");
+            
+            int i = 0;
+            for(SKSpriteNode *currentNode in _selectedTimePoints) {
+                
+                CGPoint currentNodeStartPosition = [[_selectedNodeStartLocations objectAtIndex:i] CGPointValue];
+                
+                if(currentNode.position.x == 0 || currentNode == _selectionLeftNode || currentNode == _selectionRightNode) {
+                    i++;
+                    continue;
+                }
+
+                if (currentNode == _selectionMidNode){  //Shift the touched node
+                    currentNode.position = CGPointMake(currentNodeStartPosition.x + (currentTouchPosition.x -_touchBeganPosition.x), 0);
+
+                } else if(currentNode.position.x < _selectionMidNode.position.x) {   //Do the left-side-scaling
+              
+                    float originalDistFromCurrentToLeftNode = currentNodeStartPosition.x - _selectionLeftNode.position.x;
+                    NSLog(@"orig %f", originalDistFromCurrentToLeftNode);
+                    float percentageOfOrigWidthMoved = ((_touchBeganPosition.x - currentTouchPosition.x) / _startingSelectionWidthLeft);
+                    NSLog(@"perc %f", percentageOfOrigWidthMoved);
+                    
+                    CGPoint newNodePosition = CGPointMake(currentNodeStartPosition.x - (originalDistFromCurrentToLeftNode * (percentageOfOrigWidthMoved)), 0); //percentage of original width
+                    
+                    currentNode.position = newNodePosition;
+                    
+
+                } else if (currentNode.position.x > _selectionMidNode.position.x){ // Do the right-side-scaling
+                    
+                    float originalDistFromCurrentToRightNode = _selectionRightNode.position.x - currentNodeStartPosition.x;
+                    float percentageOfOrigWidthMoved = 1 - ((_touchBeganPosition.x - currentTouchPosition.x) / _startingSelectionWidthRight);
+                    
+                    CGPoint newNodePosition = CGPointMake(currentNodeStartPosition.x + ((originalDistFromCurrentToRightNode * (percentageOfOrigWidthMoved)) - originalDistFromCurrentToRightNode), 0); //percentage of original width
+                    
+                    currentNode.position = newNodePosition;
+                    
+                }
+            
+                i++;
+            }
+        }
+        
         // Update time property of each shifted timepoint
         for(TrackModel *tm in _timelineModel.tracks) {
             NSMutableArray *trackEvents = [[NSMutableArray alloc] init];
@@ -334,8 +488,6 @@ static double timeOffset;
         [_deselectedNodes removeAllObjects];
         SKNode *trackNode = _selectionBox.parent;
         NSArray *trackChildren = trackNode.children;
-        
-        
         
         // Clear current selection (always clear other track) (if hold is on, don't clear current track)
         int trackIndex = 0;
@@ -383,8 +535,13 @@ static double timeOffset;
         [_selectedNodeStartLocations removeAllObjects];
     }
     
+    if(scaleMode && ([_selectedTimePoints count] > 0)){
+        [_selectedNodeStartLocations removeAllObjects];
+        _selectionLeftNode = nil;
+        _selectionRightNode = nil;
+    }
+    
 }
-
 
 - (void)addGridMarkerAtLocation:(CGPoint)location onTrackNode:(SKSpriteNode*)trackNode {
     if ([self getNodeTrackNumber:trackNode] != -1){
@@ -497,7 +654,6 @@ static double timeOffset;
     for(SKSpriteNode *currentNode in _selectedTimePoints){
         int trackNum = [self getNodeTrackNumber:currentNode.parent];
         
-        
         if(clipMode || currentNode.position.x == 0){                                    //Check for clipmode YES, or first marker
             [_timelineModel deleteClipOnTimePointNode:currentNode onTrack:trackNum];    //Delete the clip, but not the marker
             [currentNode removeAllChildren];
@@ -535,34 +691,36 @@ static double timeOffset;
 
 
 
-- (void)updateSceneTime: (double) time {
-    //change the scenes time properties
+- (void) changeTempo:(double)windowTime {
+    [TimelineScene setScreenTime:windowTime];
+    [_timelineModel.audioController updateAudioSchedule:_timelineModel.tracks]; //Won't update correctly if changed when playing... might mess up playhead too.
 }
 
 
-- (void) play {
+- (void) play:(void (^) ())callBack {
     [self.timelineModel.audioController start:NULL];
-    _playing = YES;
-
-    SKAction *movePlayhead = [SKAction moveToX:_trackWidth duration:[TimelineScene getScreenTime]];
+    _isPlaying = YES;
+    
+    SKAction *movePlayheadToEnd = [SKAction moveToX:_trackWidth duration:[TimelineScene getScreenTime]];
+    
     for(SKSpriteNode* currentTrack in _tracks){
         SKNode *playhead = [currentTrack childNodeWithName:@"playhead"];
-        [playhead runAction:movePlayhead];
+        [playhead runAction:movePlayheadToEnd completion:^(){
+            if(loopPlayback){
+                [self stop];
+                [self play:callBack];
+            } else {
+                [self stop];
+                callBack();
+            }
+        }];
     }
-
-//
-//    while(_playing){
-//        //Move playhead forward
-//        for(SKSpriteNode* currentTrack in _tracks){
-//            SKNode *playhead = [currentTrack childNodeWithName:@"playhead"];
-//            playhead.position = CGPointMake(_trackWidth * ((AECurrentTimeInSeconds()-startTime) / screenTime), 0);
-//        }
-//    }
 }
 
-- (void) stop {
+- (void) stop{
     [self.timelineModel.audioController stop];
-    _playing = NO;
+    _isPlaying = NO;
+    
     for(SKSpriteNode* currentTrack in _tracks){
         SKNode *playhead = [currentTrack childNodeWithName:@"playhead"];
         [playhead removeAllActions];

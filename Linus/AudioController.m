@@ -126,7 +126,7 @@ static NSMutableArray *clipURLs;
             //Load url for current clip number
             NSURL *url = [urls objectAtIndex:tp.clipNumber];
             
-            AEAudioFilePlayerModule *filePlayer = [[AEAudioFilePlayerModule alloc] initWithRenderer:_renderer URL:url error: NULL];
+            AEAudioFilePlayerModule *filePlayer = [[AEAudioFilePlayerModule alloc] initWithRenderer:self.output.renderer URL:url error: NULL];
             
             double playTime = AECurrentTimeInHostTicks() + AEHostTicksFromSeconds(tp.time);
             [filePlayer playAtTime:playTime];
@@ -145,12 +145,12 @@ static NSMutableArray *clipURLs;
     
     //FOR PAUSE: ADD A CONDITIONAL BASED ON BOOL FLAG
     
-    _renderer.block = ^(const AERenderContext * _Nonnull context) {
+    _output.renderer.block = ^(const AERenderContext * _Nonnull context) {
         //         Run all the players
         
         AEArrayEnumerateObjects(finalPlayersArray, AEAudioFilePlayerModule *, player, {
             if ( AEAudioFilePlayerModuleGetPlaying(player) ) {
-                
+            
                 AEModuleProcess(player, context);
                 
                 // Put on output

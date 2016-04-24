@@ -22,11 +22,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *selectButton;
 @property (weak, nonatomic) IBOutlet UIButton *selectHoldButton;
 @property (weak, nonatomic) IBOutlet UIButton *shiftButton;
+@property (weak, nonatomic) IBOutlet UISlider *tempoSlider;
+@property (weak, nonatomic) IBOutlet UITextField *tempoDisplay;
+@property (weak, nonatomic) IBOutlet UIButton *scaleButton;
 
 @property Boolean playing;
-
 @property TimelineScene *scene;
-//@property AppDelegate *appDelegate;
 
 @end
 
@@ -47,25 +48,28 @@
 }
 
 
-
-
 /////////////////////////PLAYBACK CONTROLS/////////////////////////////
-
 
 
 - (IBAction)onPlayPause:(id)sender {
     _scene = [TimelineViewController getScene];
     _playButton.selected = !_playButton.selected;
     
+    void (^callBack)() = ^void{
+        _playing = NO;
+        _playButton.selected = !_playButton.selected;
+    };
+    
         //Stop
     if(self.playing) {
-        self.playing = false;
+        _playing = NO;
         [_scene stop];
-        
+        _playButton.selected = NO;
         //Play
     } else {
-        self.playing = true;
-        [_scene play];
+        _playing = YES;
+        [_scene play:callBack];
+        _playButton.selected = YES;
     }
 }
 
@@ -74,7 +78,9 @@
     
 }
 
+
 - (IBAction)toggleLoop:(id)sender {
+    _loopButton.selected = !_loopButton.selected;
     [TimelineScene setLoopPlayback:![TimelineScene getLoopPlayback]];
 }
 
@@ -82,6 +88,15 @@
 - (IBAction)changeVolume:(id)sender {
     NSLog(@"%f", self.volumeSlider.value);
 }
+
+
+- (IBAction)changeTempo:(id)sender {
+    _scene = [TimelineViewController getScene];
+    float tempo = _tempoSlider.value;
+    [_scene changeTempo:tempo];
+    _tempoDisplay.text = [NSString stringWithFormat:@"%f", tempo];
+}
+
 
 
 //- (IBAction)importAudio:(id)sender {
@@ -129,6 +144,14 @@
     [TimelineScene setShiftMode:![TimelineScene getShiftMode]];
 
 }
+
+- (IBAction)toggleScaleMode:(id)sender {
+    [self deselectAllButtons];
+    
+    _scaleButton.selected = !_scaleButton.selected;
+    [TimelineScene setScaleMode:![TimelineScene getScaleMode]];
+}
+
 
 
 - (void)deselectAllButtons {

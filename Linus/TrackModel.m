@@ -38,12 +38,6 @@
     //Insert into event array
     int i = [self findInsertionIndex:point.time];
     [self.trackEvents insertObject:point atIndex:i];
-
-    NSLog(@"Timepoints in track %i:", _trackNum);
-    for(TimePoint *tp in self.trackEvents) {
-        float a = [tp time];
-        NSLog(@"%f",a);
-    }
 }
 
 - (void)addClip:(int)clipNum atIndex:(int)index{

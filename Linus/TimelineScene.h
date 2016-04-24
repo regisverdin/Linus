@@ -36,15 +36,18 @@
 + (BOOL) getShiftMode;
 + (void) setLoopPlayback:(BOOL)mode;
 + (BOOL) getLoopPlayback;
-
++ (void) setScaleMode:(BOOL)mode;
++ (BOOL) getScaleMode;
 
 + (float) getTrackWidth;
 + (void) setTrackWidth:(float)width;
 + (double) getScreenTime;
 + (double) getTimeOffset;
 
-- (void) play;
+- (void) play:(void(^)())callBack;
 - (void) stop;
 - (void) deleteSelection;
+- (void) changeTempo:(double)windowTime;
+
 
 @end

@@ -11,6 +11,5 @@
 
 @interface ViewController : UIViewController <MidiBusClientDelegate>
 
-
 @end
 
