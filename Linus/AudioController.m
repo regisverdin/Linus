@@ -16,6 +16,7 @@
 @interface AudioController ()
 @property (nonatomic, strong) AEAudioUnitOutput *output;
 @property (nonatomic, strong) AERenderer *renderer;
+@property NSMutableArray *urls;
 
 //------
 @property AEAudioFilePlayerModule *testPlayer;
@@ -37,11 +38,12 @@ static NSMutableArray *clipURLs;
     if (!(self = [super init]) ) return nil;
     
     clipURLs = [[NSMutableArray alloc] initWithCapacity:16];
+    _urls = [[NSMutableArray alloc]initWithCapacity:16];
     _renderer = [AERenderer new];
     _output = [[AEAudioUnitOutput alloc] initWithRenderer:_renderer];
     _playersArray = [AEArray new];
-    
     _inputEnabled = NO;
+    [self loadAudioURLs];
     
     return self;
 }
@@ -88,6 +90,55 @@ static NSMutableArray *clipURLs;
 
 }
 
+- (void)loadAudioURLs {
+
+    NSURL *url;
+    url = [[NSBundle mainBundle] URLForResource:@"KickDrum0001" withExtension:@"aif"];
+    [_urls addObject:url];
+    url = [[NSBundle mainBundle] URLForResource:@"KickDrum0003" withExtension:@"aif"];
+    [_urls addObject:url];
+    url = [[NSBundle mainBundle] URLForResource:@"KickDrum0022" withExtension:@"aif"];
+    [_urls addObject:url];
+    url = [[NSBundle mainBundle] URLForResource:@"Low Tom0005" withExtension:@"aif"];
+    [_urls addObject:url];
+    
+    url = [[NSBundle mainBundle] URLForResource:@"Closed Hihat0001" withExtension:@"aif"];
+    [_urls addObject:url];
+    url = [[NSBundle mainBundle] URLForResource:@"Closed Hihat0002" withExtension:@"aif"];
+    [_urls addObject:url];
+    url = [[NSBundle mainBundle] URLForResource:@"Closed Hihat0003" withExtension:@"aif"];
+    [_urls addObject:url];
+    url = [[NSBundle mainBundle] URLForResource:@"Closed Hihat0004" withExtension:@"aif"];
+    [_urls addObject:url];
+    
+    url = [[NSBundle mainBundle] URLForResource:@"SnareDrum0001" withExtension:@"aif"];
+    [_urls addObject:url];
+    url = [[NSBundle mainBundle] URLForResource:@"SnareDrum0003" withExtension:@"aif"];
+    [_urls addObject:url];
+    url = [[NSBundle mainBundle] URLForResource:@"SnareDrum0004" withExtension:@"aif"];
+    [_urls addObject:url];
+    url = [[NSBundle mainBundle] URLForResource:@"Mid Conga0001" withExtension:@"aif"];
+    [_urls addObject:url];
+    
+    url = [[NSBundle mainBundle] URLForResource:@"Open Hihat0001" withExtension:@"aif"];
+    [_urls addObject:url];
+    url = [[NSBundle mainBundle] URLForResource:@"Open Hihat0002" withExtension:@"aif"];
+    [_urls addObject:url];
+    url = [[NSBundle mainBundle] URLForResource:@"Open Hihat0003" withExtension:@"aif"];
+    [_urls addObject:url];
+    url = [[NSBundle mainBundle] URLForResource:@"Open Hihat0004" withExtension:@"aif"];
+    [_urls addObject:url];
+
+}
+
+- (AESeconds)getTimeOfUrlAtIndex:(int)urlIndex {
+    AEAudioFilePlayerModule *tempFilePlayer = [[AEAudioFilePlayerModule alloc] initWithRenderer:_renderer
+                                                                                            URL:[_urls objectAtIndex:urlIndex]
+                                                                                          error:NULL
+                                               ];
+    return tempFilePlayer.duration;
+}
+
 
 - (BOOL)start:(NSError *__autoreleasing *)error {
     // Request a 128 frame hardware duration, for minimal latency
@@ -98,22 +149,6 @@ static NSMutableArray *clipURLs;
     if ( ![self setAudioSessionCategory:error] || ![session setActive:YES error:error] ) {
         return NO;
     }
-
-    //Load test urls
-    NSMutableArray *urls = [[NSMutableArray alloc]initWithCapacity:16];
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"Low Tom0005" withExtension:@"aif"];
-    [urls addObject:url];
-//    url = [[NSBundle mainBundle] URLForResource:@"KickDrum0017" withExtension:@"aif"];
-//    [urls addObject:url];
-//    url = [[NSBundle mainBundle] URLForResource:@"Closed Hihat0001" withExtension:@"aif"];
-//    [urls addObject:url];
-
-    url = [[NSBundle mainBundle] URLForResource:@"330" withExtension:@"wav"];
-    [urls addObject:url];
-    url = [[NSBundle mainBundle] URLForResource:@"440" withExtension:@"wav"];
-    [urls addObject:url];
-    url = [[NSBundle mainBundle] URLForResource:@"testSilence" withExtension:@"wav"];
-    [urls addObject:url];
     
     //    Make NSarray of players
     
@@ -124,7 +159,7 @@ static NSMutableArray *clipURLs;
         if (tp.clipNumber > -3) {    //Check if the gridmarker has an assigned clip... (-3 is init value for clipnumber)
             
             //Load url for current clip number
-            NSURL *url = [urls objectAtIndex:tp.clipNumber];
+            NSURL *url = [_urls objectAtIndex:tp.clipNumber];
             
             AEAudioFilePlayerModule *filePlayer = [[AEAudioFilePlayerModule alloc] initWithRenderer:self.output.renderer URL:url error: NULL];
             
@@ -150,7 +185,7 @@ static NSMutableArray *clipURLs;
         
         AEArrayEnumerateObjects(finalPlayersArray, AEAudioFilePlayerModule *, player, {
             if ( AEAudioFilePlayerModuleGetPlaying(player) ) {
-            
+                
                 AEModuleProcess(player, context);
                 
                 // Put on output

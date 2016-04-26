@@ -17,13 +17,9 @@
 
 
 - (void) updateAudioSchedule:(NSMutableArray* _Nullable)tracks;
-
 - (BOOL) start:(NSError *_Nullable *_Nullable)error;
-
-//- (void) pause;
-
 - (void) stop;
-
+- (AESeconds)getTimeOfUrlAtIndex:(int)urlIndex;
 + (void) assignClip:(NSURL* _Nullable)url toIndex:(int)index;
 
 @end

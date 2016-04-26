@@ -167,6 +167,8 @@
     [TimelineScene setSelectHoldMode:NO];
     _shiftButton.selected = NO;
     [TimelineScene setShiftMode:NO];
+    _scaleButton.selected = NO;
+    [TimelineScene setScaleMode:NO];
 }
 
 /////////////////////////MODIFY/////////////////////////////

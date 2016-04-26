@@ -36,6 +36,7 @@
 #import "TimelineModel.h"
 #import "TrackModel.h"
 #import "Timepoint.h"
+#import "AETime.h"
 
 @interface TimelineScene ()
 
@@ -564,6 +565,8 @@ static double timeOffset;
         double amplitude = location.y/self.trackHeight*0.2;
         [self.timelineModel storeTimePointWithLocation:markerLocation.x amplitude:amplitude node:gridMarker];
 //        NSLog(@"loc: %f", markerLocation.x);
+        
+        [self updateClipEndPositions];
     }
 }
 
@@ -573,20 +576,21 @@ static double timeOffset;
     
     if ([self getNodeTrackNumber:node] != -1){
             
-            //Add grid marker to correct track
-            CGPoint nodeTouchLocation = [touch locationInNode:node];
-            CGPoint markerLocation  = CGPointMake(nodeTouchLocation.x, 0);
-            int markerHeight = MAX(self.trackHeight*0.2, nodeTouchLocation.y);
-            SKSpriteNode *gridMarker = [[SKSpriteNode alloc] initWithColor:[SKColor whiteColor] size:CGSizeMake(self.gridMarkerWidth, markerHeight)];
-            gridMarker.name = @"gridMarker";
-            gridMarker.anchorPoint = CGPointMake(0,0);
-            gridMarker.position = markerLocation;
-            [node addChild:gridMarker];
+        //Add grid marker to correct track
+        CGPoint nodeTouchLocation = [touch locationInNode:node];
+        CGPoint markerLocation  = CGPointMake(nodeTouchLocation.x, 0);
+        int markerHeight = MAX(self.trackHeight*0.2, nodeTouchLocation.y);
+        SKSpriteNode *gridMarker = [[SKSpriteNode alloc] initWithColor:[SKColor whiteColor] size:CGSizeMake(self.gridMarkerWidth, markerHeight)];
+        gridMarker.name = @"gridMarker";
+        gridMarker.anchorPoint = CGPointMake(0,0);
+        gridMarker.position = markerLocation;
+        [node addChild:gridMarker];
+    
+        //Store timepoint and node in timeline
+        double amplitude = nodeTouchLocation.y/self.trackHeight*0.2;
+        [self.timelineModel storeTimePointWithLocation:markerLocation.x amplitude:amplitude node:gridMarker];
         
-            //Store timepoint and node in timeline
-            double amplitude = nodeTouchLocation.y/self.trackHeight*0.2;
-            [self.timelineModel storeTimePointWithLocation:markerLocation.x amplitude:amplitude node:gridMarker];
-//            NSLog(@"loc: %f", markerLocation.x);
+        [self updateClipEndPositions];
     }
 }
 
@@ -599,6 +603,7 @@ static double timeOffset;
         
         TimePoint *previousTimePoint = NULL;
         SKSpriteNode *previousClipNode = NULL;
+        AESeconds previousClipDuration = 0.0;
         
         for(TimePoint *tp in trackEvents) {
             
@@ -606,10 +611,18 @@ static double timeOffset;
             //Using nodes from previous iteration
             if (previousClipNode) {
                 
-                float newClipEndPosition = previousTimePoint.clipDuration < tp.node.position.x ? previousTimePoint.clipDuration : tp.node.position.x;
+                //convert AETime to pixels
+                
+                float trackWidth = [TimelineScene getTrackWidth];
+                float screenT = [TimelineScene getScreenTime];
+//                double tOffset = [TimelineScene getTimeOffset];
+                
+                float locationOfTime = previousClipNode.position.x + (trackWidth * (previousClipDuration/screenT));
+                
+                float newClipEndPosition = locationOfTime < tp.node.position.x ? locationOfTime : tp.node.position.x;
                 float clipWidth = newClipEndPosition - previousTimePoint.node.position.x;
                 
-                previousClipNode.size = CGSizeMake(clipWidth, _clipHeight);
+                [previousClipNode runAction:[SKAction resizeToWidth:clipWidth duration:0]];
 
             }
             
@@ -617,6 +630,7 @@ static double timeOffset;
             
             if (tp.clipNumber != -3) {  //check if has clip assigned
                 previousClipNode = tp.node.children[0];
+                previousClipDuration = [[_timelineModel audioController] getTimeOfUrlAtIndex:tp.clipNumber];
             } else previousClipNode = NULL;
             
             previousTimePoint = tp;
@@ -648,16 +662,24 @@ static double timeOffset;
         
         //make and place new node between those positions       NEED TO CHECK HERE FOR LENGTH OF CLIP, OR IF MIDI DO SOMETHING ELSE!
 
+        //Get length of clip
+        AESeconds clipDuration = [[_timelineModel audioController] getTimeOfUrlAtIndex:_selectedClipNumber];
+        float trackWidth = [TimelineScene getTrackWidth];
+        float screenT = [TimelineScene getScreenTime];
+        float clipLength = trackWidth * (clipDuration/screenT);
+        
         if([nearestNodesAndIndices count] > 1) {  //IF there is a right gridmarker...
             NSMutableArray *right = [nearestNodesAndIndices objectAtIndex:1];   //IF SECOND NODE IS NULL, WE ARE ON LAST NODE IN TIMELINE. ADD TO MAX LENGTH OF CLIP?
             SKNode *rightNode = [right objectAtIndex:0];
             int rightNodeIndex = [[right objectAtIndex:1] intValue]; //convert from NSNumber
             int rightNodePosition = rightNode.position.x;
             
+            float clipNodeWidth = rightNodePosition < (leftNodePosition + clipLength) ? rightNodePosition-leftNodePosition : clipLength;
+            
             //Make and Display the clip node
-            SKSpriteNode *clipNode = [[SKSpriteNode alloc] initWithColor:[SKColor blackColor] size:CGSizeMake(rightNodePosition - leftNodePosition - self.gridMarkerWidth, _clipHeight)];
+            SKSpriteNode *clipNode = [[SKSpriteNode alloc] initWithColor:[self getColorForClip] size:CGSizeMake(clipNodeWidth - _gridMarkerWidth, _clipHeight)];
             clipNode.anchorPoint = CGPointMake(0,0);
-            clipNode.position = CGPointMake(self.gridMarkerWidth,0);
+            clipNode.position = CGPointMake(_gridMarkerWidth,0);
             
             //Make clip node child of left gridmarker
             [leftNode addChild:clipNode];
@@ -673,9 +695,9 @@ static double timeOffset;
 //                
 //            }
             
-            CGFloat clipEndPosition = (leftNodePosition + 200) > _trackWidth ? _trackWidth : leftNodePosition + 200;
+            CGFloat clipEndPosition = (leftNodePosition + clipLength) > _trackWidth ? _trackWidth : leftNodePosition + clipLength;
             
-            SKSpriteNode *clipNode = [[SKSpriteNode alloc] initWithColor:[SKColor blackColor] size:CGSizeMake(clipEndPosition - leftNodePosition - self.gridMarkerWidth, _clipHeight)];
+            SKSpriteNode *clipNode = [[SKSpriteNode alloc] initWithColor:[self getColorForClip] size:CGSizeMake(clipEndPosition - leftNodePosition - self.gridMarkerWidth, _clipHeight)];
             clipNode.anchorPoint = CGPointMake(0,0);
             clipNode.position = CGPointMake(self.gridMarkerWidth,0);
             
@@ -686,6 +708,28 @@ static double timeOffset;
     }
 }
 
+- (SKColor*) getColorForClip {
+    
+    SKColor *color =_selectedClipNumber == 0 ? [SKColor colorWithRed:0 green:0 blue:0 alpha:1] :
+                    _selectedClipNumber == 1 ? [SKColor colorWithRed:1 green:0 blue:0 alpha:1] :
+                     _selectedClipNumber == 2 ? [SKColor colorWithRed:0 green:1 blue:0 alpha:1] :
+                    _selectedClipNumber == 3 ? [SKColor colorWithRed:0 green:0 blue:1 alpha:1] :
+                    _selectedClipNumber == 4 ? [SKColor colorWithRed:0.5 green:0.5 blue:1 alpha:1] :
+                    _selectedClipNumber == 5 ? [SKColor colorWithRed:1 green:0.5 blue:0.5 alpha:1] :
+                    _selectedClipNumber == 6 ? [SKColor colorWithRed:0.5 green:1 blue:0.5 alpha:1] :
+                    _selectedClipNumber == 7 ? [SKColor colorWithRed:1 green:1 blue:1 alpha:1] :
+                    _selectedClipNumber == 8 ? [SKColor colorWithRed:1 green:1 blue:1 alpha:1] :
+                    _selectedClipNumber == 9 ? [SKColor colorWithRed:1 green:1 blue:1 alpha:1] :
+                    _selectedClipNumber == 10 ? [SKColor colorWithRed:1 green:1 blue:1 alpha:1] :
+                    _selectedClipNumber == 11 ? [SKColor colorWithRed:1 green:1 blue:1 alpha:1] :
+                    _selectedClipNumber == 12 ? [SKColor colorWithRed:1 green:1 blue:1 alpha:1] :
+                    _selectedClipNumber == 13 ? [SKColor colorWithRed:1 green:1 blue:1 alpha:1] :
+                    _selectedClipNumber == 14 ? [SKColor colorWithRed:1 green:1 blue:1 alpha:1] :
+                    _selectedClipNumber == 15 ? [SKColor colorWithRed:1 green:1 blue:1 alpha:1] :
+                    _selectedClipNumber == 16 ? [SKColor colorWithRed:1 green:1 blue:1 alpha:1]:NULL;
+    
+    return color;
+}
 
 - (void)deleteSelection {
     

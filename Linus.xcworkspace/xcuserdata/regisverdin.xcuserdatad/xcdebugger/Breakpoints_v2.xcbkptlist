@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Linus/AudioController.m"
-            timestampString = "483056010.803814"
+            timestampString = "483323478.285931"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
             landmarkName = "-start:"
             landmarkType = "5">
             <Locations>
@@ -22,16 +22,16 @@
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "-[AudioController start:]"
+                  symbolName = "__25-[AudioController start:]_block_invoke"
                   moduleName = "Linus"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/AudioController.m"
-                  timestampString = "483207227.512186"
+                  timestampString = "483319356.113084"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "148"
-                  endingLineNumber = "148"
-                  offsetFromSymbolStart = "2092">
+                  startingLineNumber = "162"
+                  endingLineNumber = "162"
+                  offsetFromSymbolStart = "14">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -41,12 +41,27 @@
                   moduleName = "Linus"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/AudioController.m"
-                  timestampString = "483207227.51233"
+                  timestampString = "483319356.113228"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "148"
-                  endingLineNumber = "148"
-                  offsetFromSymbolStart = "8">
+                  startingLineNumber = "162"
+                  endingLineNumber = "162"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__25-[AudioController start:]_block_invoke"
+                  moduleName = "Linus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/AudioController.m"
+                  timestampString = "483319356.113342"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "162"
+                  endingLineNumber = "162"
+                  offsetFromSymbolStart = "42">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -74,11 +89,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Linus/AudioController.m"
-            timestampString = "483056672.989457"
+            timestampString = "483323478.285931"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
             landmarkName = "-start:"
             landmarkType = "5">
             <Locations>
@@ -90,11 +105,11 @@
                   moduleName = "Linus"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/AudioController.m"
-                  timestampString = "483207227.572988"
+                  timestampString = "483319356.144903"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "163"
-                  endingLineNumber = "163"
+                  startingLineNumber = "174"
+                  endingLineNumber = "174"
                   offsetFromSymbolStart = "140">
                </Location>
                <Location
@@ -105,11 +120,11 @@
                   moduleName = "Linus"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/AudioController.m"
-                  timestampString = "483207227.573259"
+                  timestampString = "483319356.145089"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "163"
-                  endingLineNumber = "163"
+                  startingLineNumber = "174"
+                  endingLineNumber = "174"
                   offsetFromSymbolStart = "34">
                </Location>
                <Location
@@ -120,11 +135,11 @@
                   moduleName = "Linus"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/AudioController.m"
-                  timestampString = "483207227.573419"
+                  timestampString = "483319356.145209"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "163"
-                  endingLineNumber = "163"
+                  startingLineNumber = "174"
+                  endingLineNumber = "174"
                   offsetFromSymbolStart = "18">
                </Location>
             </Locations>
@@ -137,60 +152,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Linus/AudioController.m"
-            timestampString = "483056975.573169"
+            timestampString = "483323478.285931"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
+            startingLineNumber = "199"
+            endingLineNumber = "199"
             landmarkName = "-start:"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__25-[AudioController start:]_block_invoke"
-                  moduleName = "Linus"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/AudioController.m"
-                  timestampString = "483207227.575098"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "163"
-                  endingLineNumber = "163"
-                  offsetFromSymbolStart = "140">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__copy_helper_block_"
-                  moduleName = "Linus"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/AudioController.m"
-                  timestampString = "483207227.575251"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "163"
-                  endingLineNumber = "163"
-                  offsetFromSymbolStart = "34">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_"
-                  moduleName = "Linus"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/AudioController.m"
-                  timestampString = "483207227.575405"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "163"
-                  endingLineNumber = "163"
-                  offsetFromSymbolStart = "18">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -200,11 +168,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Linus/TimelineScene.m"
-            timestampString = "483220941.072624"
+            timestampString = "483225537.482337"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "385"
-            endingLineNumber = "385"
+            startingLineNumber = "386"
+            endingLineNumber = "386"
             landmarkName = "-touchesMoved:withEvent:"
             landmarkType = "5">
          </BreakpointContent>
@@ -216,11 +184,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Linus/TimelineScene.m"
-            timestampString = "483220941.072624"
+            timestampString = "483225537.482337"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "434"
-            endingLineNumber = "434"
+            startingLineNumber = "435"
+            endingLineNumber = "435"
             landmarkName = "-touchesMoved:withEvent:"
             landmarkType = "5">
          </BreakpointContent>
@@ -232,11 +200,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Linus/TimelineScene.m"
-            timestampString = "483220941.072624"
+            timestampString = "483322593.60799"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "713"
-            endingLineNumber = "713"
+            startingLineNumber = "758"
+            endingLineNumber = "758"
             landmarkName = "-subdivideSelection"
             landmarkType = "5">
             <Locations>
@@ -248,12 +216,12 @@
                   moduleName = "Linus"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/TimelineScene.m"
-                  timestampString = "483207227.598094"
+                  timestampString = "483319356.177294"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "678"
-                  endingLineNumber = "678"
-                  offsetFromSymbolStart = "292">
+                  startingLineNumber = "735"
+                  endingLineNumber = "735"
+                  offsetFromSymbolStart = "294">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -263,12 +231,12 @@
                   moduleName = "Linus"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/TimelineScene.m"
-                  timestampString = "483207227.598225"
+                  timestampString = "483319356.177436"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "678"
-                  endingLineNumber = "678"
-                  offsetFromSymbolStart = "310">
+                  startingLineNumber = "735"
+                  endingLineNumber = "735"
+                  offsetFromSymbolStart = "312">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -280,12 +248,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Linus/TimelineScene.m"
-            timestampString = "483220941.072624"
+            timestampString = "483322593.60799"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "709"
-            endingLineNumber = "709"
+            startingLineNumber = "754"
+            endingLineNumber = "754"
             landmarkName = "-subdivideSelection"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Linus/TimelineScene.m"
+            timestampString = "483319674.95977"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "608"
+            endingLineNumber = "608"
+            landmarkName = "-updateClipEndPositions"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Linus/TimelineScene.m"
+            timestampString = "483319674.95977"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "672"
+            endingLineNumber = "672"
+            landmarkName = "-addClipOnTouch:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

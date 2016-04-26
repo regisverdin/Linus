@@ -43,12 +43,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[AudioController updateAudioSchedule:]:AudioController.m">
+      </ContextState>
+      <ContextState
          contextName = "-[TimelineScene addClipOnTouch:]:TimelineScene.m">
          <PersistentStrings>
             <PersistentString
                value = "[_timelineModel.tracks objectAtIndex:0]">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[TrackModel addTimePointWithTime:amplitude:node:]:TrackModel.m">
       </ContextState>
       <ContextState
          contextName = "-[TimelineModel addClipToTrack:atIndex:]:TimelineModel.m">
@@ -62,27 +68,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[TrackModel addTimePointWithTime:amplitude:node:]:TrackModel.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[AudioController updateAudioSchedule:]:AudioController.m">
-      </ContextState>
-      <ContextState
          contextName = "__25-[AudioController start:]_block_invoke:AudioController.m">
          <PersistentStrings>
             <PersistentString
                value = "player">
             </PersistentString>
             <PersistentString
-               value = "*(float (*)[5120])context-&gt;output-&gt;mBuffers[0].mData">
-            </PersistentString>
-            <PersistentString
                value = "*(float (*)[512])finalPlayersArray.value-&gt;_value">
             </PersistentString>
+            <PersistentString
+               value = "*(float (*)[5120])context-&gt;output-&gt;mBuffers[0].mData">
+            </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[TrackModel getNearestNodesAndIndices:]:TrackModel.m">
       </ContextState>
       <ContextState
          contextName = "-[TimelineScene subdivideSelection]:TimelineScene.m">
@@ -91,6 +88,9 @@
                value = "_selectedClipNumber">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[TrackModel getNearestNodesAndIndices:]:TrackModel.m">
       </ContextState>
       <ContextState
          contextName = "-[TimelineScene addGridMarkerOnTouch:]:TimelineScene.m">
