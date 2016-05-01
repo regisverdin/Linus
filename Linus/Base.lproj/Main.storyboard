@@ -152,8 +152,8 @@
                                     <action selector="toggleScaleMode:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tx4-cg-yVB"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Tempo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="waM-vs-LfP">
-                                <rect key="frame" x="121" y="579" width="53" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Tempo (BROKEN)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="waM-vs-LfP">
+                                <rect key="frame" x="38" y="579" width="136" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -262,7 +262,7 @@
                     <view key="view" contentMode="scaleToFill" id="9BZ-Nj-X7X">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="250"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="bfh-y6-N7f"/>
                 </viewController>
@@ -300,121 +300,7 @@
                     <view key="view" contentMode="scaleToFill" id="eMv-OH-FYT">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="250"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fav-nU-Epq">
-                                <rect key="frame" x="20" y="15" width="46" height="46"/>
-                                <state key="normal" title="1" backgroundImage="button.png"/>
-                                <connections>
-                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="Sph-m0-0CO"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xY9-Mb-fBB">
-                                <rect key="frame" x="91" y="16" width="46" height="46"/>
-                                <state key="normal" title="2" backgroundImage="button.png"/>
-                                <connections>
-                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="bwL-q4-1M4"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qcq-R5-elZ">
-                                <rect key="frame" x="164" y="16" width="46" height="46"/>
-                                <state key="normal" title="3" backgroundImage="button.png"/>
-                                <connections>
-                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="Dz9-7b-SyA"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tSO-tw-myR">
-                                <rect key="frame" x="234" y="16" width="46" height="46"/>
-                                <state key="normal" title="4" backgroundImage="button.png"/>
-                                <connections>
-                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="qXn-FJ-aAR"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wuh-Ir-NQJ">
-                                <rect key="frame" x="20" y="63" width="46" height="46"/>
-                                <state key="normal" title="5" backgroundImage="button.png"/>
-                                <connections>
-                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="bi8-K4-scO"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MDS-CU-orv">
-                                <rect key="frame" x="91" y="63" width="46" height="46"/>
-                                <state key="normal" title="6" backgroundImage="button.png"/>
-                                <connections>
-                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="Lyz-8G-OLf"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bwP-MM-ENP">
-                                <rect key="frame" x="164" y="63" width="46" height="46"/>
-                                <state key="normal" title="7" backgroundImage="button.png"/>
-                                <connections>
-                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="DSa-Qw-zLj"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZz-7h-IoJ">
-                                <rect key="frame" x="234" y="63" width="46" height="46"/>
-                                <state key="normal" title="8" backgroundImage="button.png"/>
-                                <connections>
-                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="ddF-eo-Zoc"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ixn-3R-E2X">
-                                <rect key="frame" x="20" y="109" width="46" height="46"/>
-                                <state key="normal" title="9" backgroundImage="button.png"/>
-                                <connections>
-                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="a3c-px-tpf"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r1O-ts-XS7">
-                                <rect key="frame" x="91" y="109" width="46" height="46"/>
-                                <state key="normal" title="10" backgroundImage="button.png"/>
-                                <connections>
-                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="Vul-YD-BBL"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lMk-iV-9OC">
-                                <rect key="frame" x="164" y="109" width="46" height="46"/>
-                                <state key="normal" title="11" backgroundImage="button.png"/>
-                                <connections>
-                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="bRv-nA-Nw9"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHD-vi-NsC">
-                                <rect key="frame" x="234" y="109" width="46" height="46"/>
-                                <state key="normal" title="12" backgroundImage="button.png"/>
-                                <connections>
-                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="qcB-84-UfS"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a01-S9-Ef4">
-                                <rect key="frame" x="20" y="155" width="46" height="46"/>
-                                <state key="normal" title="13" backgroundImage="button.png"/>
-                                <connections>
-                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="5ch-wR-tt5"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QYR-Te-qLj">
-                                <rect key="frame" x="91" y="155" width="46" height="45"/>
-                                <state key="normal" title="14" backgroundImage="button.png"/>
-                                <connections>
-                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="wFB-84-QFY"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uz4-hz-USV">
-                                <rect key="frame" x="164" y="155" width="46" height="46"/>
-                                <state key="normal" title="+" backgroundImage="button.png"/>
-                                <connections>
-                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="P7l-mN-NWR"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3vZ-TU-gaS">
-                                <rect key="frame" x="234" y="155" width="46" height="46"/>
-                                <state key="normal" title="-" backgroundImage="button.png"/>
-                                <connections>
-                                    <action selector="selectButton:" destination="04A-EZ-1Fb" eventType="touchUpInside" id="JD0-JG-JL6"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="hEW-G1-q0x"/>
                 </viewController>
@@ -442,7 +328,4 @@
             <point key="canvasLocation" x="854" y="511"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="button.png" width="197" height="197"/>
-    </resources>
 </document>

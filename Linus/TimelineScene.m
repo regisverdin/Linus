@@ -69,6 +69,7 @@
 @property float startingSelectionWidthRight;
 @property float selectionWidth;
 
+
 @end
 
 static BOOL loopPlayback;
@@ -243,7 +244,7 @@ static double timeOffset;
         [self.tracks[i] addChild:playhead];
         
         //Add rectangular nodes for detecting touch on a track
-        SKSpriteNode *trackTouchNode = [[SKSpriteNode alloc] initWithColor:[SKColor orangeColor] size:CGSizeMake(self.trackWidth, self.trackHeight * 0.75)];
+        SKSpriteNode *trackTouchNode = [[SKSpriteNode alloc] initWithColor:[SKColor grayColor] size:CGSizeMake(self.trackWidth, self.trackHeight * 0.75)];
         trackTouchNode.anchorPoint = CGPointMake(0,0);
         trackTouchNode.position = CGPointMake(0, 0);
         trackTouchNode.zPosition = -1;
@@ -667,6 +668,8 @@ static double timeOffset;
         float trackWidth = [TimelineScene getTrackWidth];
         float screenT = [TimelineScene getScreenTime];
         float clipLength = trackWidth * (clipDuration/screenT);
+        //Get clip height based on gridmarker amplitude
+        CGFloat customClipHeight = leftNode.frame.size.height;
         
         if([nearestNodesAndIndices count] > 1) {  //IF there is a right gridmarker...
             NSMutableArray *right = [nearestNodesAndIndices objectAtIndex:1];   //IF SECOND NODE IS NULL, WE ARE ON LAST NODE IN TIMELINE. ADD TO MAX LENGTH OF CLIP?
@@ -677,7 +680,8 @@ static double timeOffset;
             float clipNodeWidth = rightNodePosition < (leftNodePosition + clipLength) ? rightNodePosition-leftNodePosition : clipLength;
             
             //Make and Display the clip node
-            SKSpriteNode *clipNode = [[SKSpriteNode alloc] initWithColor:[self getColorForClip] size:CGSizeMake(clipNodeWidth - _gridMarkerWidth, _clipHeight)];
+            
+            SKSpriteNode *clipNode = [[SKSpriteNode alloc] initWithColor:[self getColorForClip] size:CGSizeMake(clipNodeWidth - _gridMarkerWidth, customClipHeight)];
             clipNode.anchorPoint = CGPointMake(0,0);
             clipNode.position = CGPointMake(_gridMarkerWidth,0);
             
@@ -697,7 +701,7 @@ static double timeOffset;
             
             CGFloat clipEndPosition = (leftNodePosition + clipLength) > _trackWidth ? _trackWidth : leftNodePosition + clipLength;
             
-            SKSpriteNode *clipNode = [[SKSpriteNode alloc] initWithColor:[self getColorForClip] size:CGSizeMake(clipEndPosition - leftNodePosition - self.gridMarkerWidth, _clipHeight)];
+            SKSpriteNode *clipNode = [[SKSpriteNode alloc] initWithColor:[self getColorForClip] size:CGSizeMake(clipEndPosition - leftNodePosition - self.gridMarkerWidth, customClipHeight)];
             clipNode.anchorPoint = CGPointMake(0,0);
             clipNode.position = CGPointMake(self.gridMarkerWidth,0);
             
@@ -814,6 +818,7 @@ static double timeOffset;
 
 - (void) play:(void (^) ())callBack {
     [self.timelineModel.audioController start:NULL];
+    [self.timelineModel.audioController performSelectorInBackground:@selector(startMidi) withObject:NULL];
     _isPlaying = YES;
     
     SKAction *movePlayheadToEnd = [SKAction moveToX:_trackWidth duration:[TimelineScene getScreenTime]];
@@ -834,6 +839,7 @@ static double timeOffset;
 
 - (void) stop{
     [self.timelineModel.audioController stop];
+    [self.timelineModel.audioController stopMidi];
     _isPlaying = NO;
     
     for(SKSpriteNode* currentTrack in _tracks){

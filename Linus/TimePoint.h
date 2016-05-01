@@ -15,6 +15,7 @@
 @property double time;
 @property float amplitude;
 @property int clipNumber;
+@property int midiNoteNumber;
 @property AESeconds clipDuration;
 @property SKSpriteNode *node;
 

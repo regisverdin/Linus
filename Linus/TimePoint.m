@@ -14,6 +14,7 @@
 - (id)init {
     _clipNumber = -3;
     _clipDuration = 0.0;
+    _midiNoteNumber = 0;
 
     return self;
 }

@@ -44,6 +44,7 @@ static NSMutableArray *clipURLs;
     _playersArray = [AEArray new];
     _inputEnabled = NO;
     [self loadAudioURLs];
+    [MidiBusClient startWithApp:@"Linus" andDelegate:self];
     
     return self;
 }
@@ -205,6 +206,41 @@ static NSMutableArray *clipURLs;
     return [self.output stop];
 }
 
+- (void) startMidi {
+    double startTime = AECurrentTimeInSeconds();
+    for (TimePoint *tp in _audioTrackEvents) {
+        while(tp.time < AECurrentTimeInSeconds() - startTime) {
+            continue;
+        }
+        //end previous midi event
+        
+        
+        //start new midi event
+        
+        // create an event and initialise it
+        MIDIBUS_MIDI_EVENT* event = [MidiBusClient setupSmallEvent];
+        
+        // populate the message
+        event->timestamp = 0;         // send immediately or you can stamp in the future
+        event->length = 3;            // length of MIDI message
+        event->data[0] = 0x91;        // note on channel 1
+        event->data[1] = tp.midiNoteNumber;        // note on value
+        event->data[2] = 0x90;        // velocity
+        
+        // send it
+        eMidiBusStatus status = [MidiBusClient sendMidiBusEvent:2 withEvent:event];
+        // probably wise to check the status
+        
+        // clean up message if finished with it
+        [MidiBusClient disposeSmallEvent:event];
+    }
+    
+}
+
+- (void) stopMidi {
+    
+}
+
 + (void) assignClip:(NSURL*)url toIndex:(int)index {
     //make a property that's an array of clips and the buttons/indices they are assigned to. then in updateaudio, retrieve the url from that index.
     [clipURLs replaceObjectAtIndex:index withObject:url];
@@ -233,6 +269,48 @@ static NSMutableArray *clipURLs;
     [currentRoute.outputs filteredArrayUsingPredicate:
      [NSPredicate predicateWithFormat:@"portType = %@", AVAudioSessionPortBuiltInSpeaker]].count > 0;
 }
+
+
+
+
+////////////////////MIDI SETUP/////////////////////////
+#pragma
+
+
+- (void)receivedMidiBusClientEvent:(MIDIBUS_MIDI_EVENT*)event
+{
+    // do something with a received MIDI event
+}
+
+- (eMidiBusVirtualMode) virtualMidiBusMode
+{
+    // for an app that only sends MIDI
+    return eMidiBusVirtualModeOutput;
+}
+
+
+// this delegate method is called every time there is a change in the
+// MIDI world; add/remove ports or network connect/disconnect
+- (void)handleMidiBusClientNotification:(uint8_t)type
+{
+    // create a static query object which we can reuse time and time again
+    // that won't get de-alloced by ARC by making a strong reference
+    // this query gets all interfaces; you can get subsets of the interfaces
+    // by using a different filter value - see midibus.h for #defines for this
+    static MidiBusInterfaceQuery* query = nil;
+    if (query == nil)
+        query = [[MidiBusInterfaceQuery alloc]
+                 initWithFilter:MIDIBUS_INTERFACE_FILTER_ALL_INTERFACES];
+    NSArray* interfaces = [query getInterfaces];
+    
+    // Enable all interfaces
+    for (MidiBusInterface* obj in interfaces)
+    {
+        MIDIBUS_INTERFACE* interface = obj->interface;
+        interface->enabled = (bool_t) '1';
+    }
+}
+
 
 
 

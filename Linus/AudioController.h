@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "TheAmazingAudioEngine.h"
+#import "MidiBusClient.h"
 
 
-@interface AudioController : NSObject
+@interface AudioController : NSObject <MidiBusClientDelegate>
 
 
 @property (nonatomic) BOOL inputEnabled;
@@ -19,6 +20,8 @@
 - (void) updateAudioSchedule:(NSMutableArray* _Nullable)tracks;
 - (BOOL) start:(NSError *_Nullable *_Nullable)error;
 - (void) stop;
+- (void) startMidi;
+- (void) stopMidi;
 - (AESeconds)getTimeOfUrlAtIndex:(int)urlIndex;
 + (void) assignClip:(NSURL* _Nullable)url toIndex:(int)index;
 
