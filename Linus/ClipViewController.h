@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ClipViewController : UIViewController
+@interface ClipViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @end

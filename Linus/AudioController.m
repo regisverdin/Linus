@@ -17,6 +17,7 @@
 @property (nonatomic, strong) AEAudioUnitOutput *output;
 @property (nonatomic, strong) AERenderer *renderer;
 @property NSMutableArray *urls;
+@property NSMutableDictionary *midiNoteMap;
 
 //------
 @property AEAudioFilePlayerModule *testPlayer;
@@ -45,6 +46,8 @@ static NSMutableArray *clipURLs;
     _inputEnabled = NO;
     [self loadAudioURLs];
     [MidiBusClient startWithApp:@"Linus" andDelegate:self];
+    _midiNoteMap = [[NSMutableDictionary alloc]init];
+    
     
     return self;
 }
@@ -66,15 +69,34 @@ static NSMutableArray *clipURLs;
         for (int j = 0; j < [currentTrack count]; j++) {
             TimePoint *timepoint = [currentTrack objectAtIndex:j]; //Old Timepoint
             TimePoint *timepointCopy = [[TimePoint alloc] init];   //New Timepoint
-            timepointCopy.time = timepoint.time;
+            timepointCopy.amplitude = timepoint.amplitude;
             timepointCopy.clipNumber = timepoint.clipNumber;
+            timepointCopy.time = timepoint.time;
+            timepointCopy.clipDuration = timepoint.clipDuration;
+            timepointCopy.node = timepoint.node;
+
+            timepointCopy.midiNoteNumber = [_midiNoteMap objectForKey:[NSString stringWithFormat:@"%i", timepoint.clipNumber]] ? [[_midiNoteMap objectForKey:[NSString stringWithFormat:@"%i", timepoint.clipNumber]]integerValue] : timepoint.midiNoteNumber;
+
             
             //Add copy of timepoint to new 1d array
             [_audioTrackEvents addObject:timepointCopy];
         }
         trackCounter++;
     }
-//    
+    
+    [_audioTrackEvents sortUsingComparator:^NSComparisonResult(TimePoint *obj1, TimePoint *obj2) {
+        
+        if (obj1.time > obj2.time) {
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+        
+        if (obj1.time < obj2.time) {
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        
+        return (NSComparisonResult)NSOrderedSame;
+    }];
+
 //    _testPlayer = [[AEAudioFilePlayerModule alloc] initWithRenderer:_renderer URL:url error:NULL];
 //    AEAudioFilePlayerModule *testPlayer2 = [[AEAudioFilePlayerModule alloc] initWithRenderer:_renderer URL:url error:NULL];
 //    
@@ -88,7 +110,7 @@ static NSMutableArray *clipURLs;
 //    
 //    [_playersArray updateWithContentsOfArray:playerArr];
 //
-
+    NSLog(@"here");
 }
 
 - (void)loadAudioURLs {
@@ -190,7 +212,7 @@ static NSMutableArray *clipURLs;
                 AEModuleProcess(player, context);
                 
                 // Put on output
-                AEBufferStackMixToBufferList(context->stack, 0, 0, NO, context->output);
+                AEBufferStackMixToBufferList(context->stack, 0,context->output);
                 AEBufferStackPop(context->stack, 1);
             }
         });
@@ -209,30 +231,34 @@ static NSMutableArray *clipURLs;
 - (void) startMidi {
     double startTime = AECurrentTimeInSeconds();
     for (TimePoint *tp in _audioTrackEvents) {
-        while(tp.time < AECurrentTimeInSeconds() - startTime) {
-            continue;
+        if(tp.midiNoteNumber >= 0) {
+            while(AECurrentTimeInSeconds() - startTime < tp.time) {
+                continue;
+            }
+    //        end previous midi event
+    //        
+    //        start new midi event
+    //        
+    //         create an event and initialise it
+            MIDIBUS_MIDI_EVENT* event = [MidiBusClient setupSmallEvent];
+            
+            int r = arc4random_uniform(127);
+            
+            // populate the message
+            event->timestamp = 0;         // send immediately or you can stamp in the future
+            event->length = 3;            // length of MIDI message
+            event->data[0] = 0x91;        // note on channel 1
+//            event->data[1] = tp.midiNoteNumber;        // note on value
+            event->data[1] = r;        // note on value
+            event->data[2] = 0x40;        // velocity
+            
+            // send it
+            eMidiBusStatus status = [MidiBusClient sendMidiBusEvent:1 withEvent:event];
+            // probably wise to check the status
+            
+            // clean up message if finished with it
+            [MidiBusClient disposeSmallEvent:event];
         }
-        //end previous midi event
-        
-        
-        //start new midi event
-        
-        // create an event and initialise it
-        MIDIBUS_MIDI_EVENT* event = [MidiBusClient setupSmallEvent];
-        
-        // populate the message
-        event->timestamp = 0;         // send immediately or you can stamp in the future
-        event->length = 3;            // length of MIDI message
-        event->data[0] = 0x91;        // note on channel 1
-        event->data[1] = tp.midiNoteNumber;        // note on value
-        event->data[2] = 0x90;        // velocity
-        
-        // send it
-        eMidiBusStatus status = [MidiBusClient sendMidiBusEvent:2 withEvent:event];
-        // probably wise to check the status
-        
-        // clean up message if finished with it
-        [MidiBusClient disposeSmallEvent:event];
     }
     
 }
@@ -247,6 +273,10 @@ static NSMutableArray *clipURLs;
     //question: how to load clips and display selection to user? in a good way... they should be able to see the clip name easily
 }
 
+- (void) assignMidiNote:(int)noteNum toClipButton:(int)clipNum {
+    NSNumber *noteNumber = [NSNumber numberWithInt:noteNum];
+    [_midiNoteMap setObject:noteNumber forKey:[NSString stringWithFormat:@"%i", clipNum]];
+}
 
 - (BOOL)setAudioSessionCategory:(NSError **)error {
     NSError * e;

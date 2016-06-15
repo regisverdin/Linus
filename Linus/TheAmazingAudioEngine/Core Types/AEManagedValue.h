@@ -24,7 +24,24 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
-@import Foundation;
+#ifdef __cplusplus
+extern "C" {
+#endif
+    
+#import <Foundation/Foundation.h>
+
+//! Batch update block
+typedef void (^AEManagedValueUpdateBlock)();
+
+/*!
+ * Release block
+ *
+ * @param value Original value provided
+ */
+typedef void (^AEManagedValueReleaseBlock)(void * _Nonnull value);
+
+//! Release notification block
+typedef void (^AEManagedValueReleaseNotificationBlock)();
 
 /*!
  * Managed value
@@ -58,7 +75,7 @@
  *
  * @param block Atomic update block
  */
-+ (void)performAtomicBatchUpdate:(void(^ _Nonnull)())block;
++ (void)performAtomicBatchUpdate:(AEManagedValueUpdateBlock _Nonnull)block;
 
 /*!
  * Get access to the value on the realtime thread
@@ -97,8 +114,17 @@ void AEManagedValueCommitPendingAtomicUpdates();
 
 /*!
  * Block to perform when deleting old items, on main thread. If not specified, will simply use 
- * free() to dispose values set via pointerValue.
+ * free() to dispose values set via pointerValue, or CFRelease() to dispose values set via objectValue.
  */
-@property (nonatomic, copy) void (^ _Nullable releaseBlock)(void * _Nonnull value);
+@property (nonatomic, copy) AEManagedValueReleaseBlock _Nullable releaseBlock;
+
+/*!
+ * Block for release notifications. Use this to be informed when an old value has been released.
+ */
+@property (nonatomic, copy) AEManagedValueReleaseNotificationBlock _Nullable releaseNotificationBlock;
 
 @end
+
+#ifdef __cplusplus
+}
+#endif

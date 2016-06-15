@@ -596,48 +596,48 @@ static double timeOffset;
 }
 
 - (void)updateClipEndPositions {
-    //Read through entire timeline.
-    
-    for(TrackModel *tm in _timelineModel.tracks) {
-        NSMutableArray *trackEvents = [[NSMutableArray alloc] init];
-        trackEvents = [tm getTrackEvents];
-        
-        TimePoint *previousTimePoint = NULL;
-        SKSpriteNode *previousClipNode = NULL;
-        AESeconds previousClipDuration = 0.0;
-        
-        for(TimePoint *tp in trackEvents) {
-            
-            //Make sure clip node ends at the lesser of these two: clip url time; next timepoint time (already sorted, so no need for loop)
-            //Using nodes from previous iteration
-            if (previousClipNode) {
-                
-                //convert AETime to pixels
-                
-                float trackWidth = [TimelineScene getTrackWidth];
-                float screenT = [TimelineScene getScreenTime];
-//                double tOffset = [TimelineScene getTimeOffset];
-                
-                float locationOfTime = previousClipNode.position.x + (trackWidth * (previousClipDuration/screenT));
-                
-                float newClipEndPosition = locationOfTime < tp.node.position.x ? locationOfTime : tp.node.position.x;
-                float clipWidth = newClipEndPosition - previousTimePoint.node.position.x;
-                
-                [previousClipNode runAction:[SKAction resizeToWidth:clipWidth duration:0]];
-
-            }
-            
-            //Get clip node from timepoint node, for next iteration
-            
-            if (tp.clipNumber != -3) {  //check if has clip assigned
-                previousClipNode = tp.node.children[0];
-                previousClipDuration = [[_timelineModel audioController] getTimeOfUrlAtIndex:tp.clipNumber];
-            } else previousClipNode = NULL;
-            
-            previousTimePoint = tp;
-            
-        }
-    }
+//    //Read through entire timeline.
+//    
+//    for(TrackModel *tm in _timelineModel.tracks) {
+//        NSMutableArray *trackEvents = [[NSMutableArray alloc] init];
+//        trackEvents = [tm getTrackEvents];
+//        
+//        TimePoint *previousTimePoint = NULL;
+//        SKSpriteNode *previousClipNode = NULL;
+//        AESeconds previousClipDuration = 0.0;
+//        
+//        for(TimePoint *tp in trackEvents) {
+//            
+//            //Make sure clip node ends at the lesser of these two: clip url time; next timepoint time (already sorted, so no need for loop)
+//            //Using nodes from previous iteration
+//            if (previousClipNode) {
+//                
+//                //convert AETime to pixels
+//                
+//                float trackWidth = [TimelineScene getTrackWidth];
+//                float screenT = [TimelineScene getScreenTime];
+////                double tOffset = [TimelineScene getTimeOffset];
+//                
+//                float locationOfTime = previousClipNode.position.x + (trackWidth * (previousClipDuration/screenT));
+//                
+//                float newClipEndPosition = locationOfTime < tp.node.position.x ? locationOfTime : tp.node.position.x;
+//                float clipWidth = newClipEndPosition - previousTimePoint.node.position.x;
+//                
+//                [previousClipNode runAction:[SKAction resizeToWidth:clipWidth duration:0]];
+//
+//            }
+//            
+//            //Get clip node from timepoint node, for next iteration
+//            
+//            if (tp.clipNumber != -3) {  //check if has clip assigned
+//                previousClipNode = tp.node.children[0];
+//                previousClipDuration = [[_timelineModel audioController] getTimeOfUrlAtIndex:tp.clipNumber];
+//            } else previousClipNode = NULL;
+//            
+//            previousTimePoint = tp;
+//            
+//        }
+//    }
 }
 
 - (void)addClipOnTouch:(UITouch*) touch {
@@ -754,6 +754,7 @@ static double timeOffset;
 }
 
 - (void)subdivideSelection {
+    if([_selectedTimePoints count] > 2) return;
     for(SKSpriteNode *currentNode in _selectedTimePoints){
         
         
@@ -808,7 +809,9 @@ static double timeOffset;
     }
 }
 
-
+- (void) assignMidiNote:(int)noteNum toClipButton:(int)clipNum {
+    [_timelineModel.audioController assignMidiNote:noteNum toClipButton:clipNum];
+}
 
 - (void) changeTempo:(double)windowTime {
     [TimelineScene setScreenTime:windowTime];
@@ -847,6 +850,7 @@ static double timeOffset;
         [playhead removeAllActions];
         playhead.position = CGPointMake(0, 0);
     }
+    
 }
 
 

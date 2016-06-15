@@ -10,7 +10,6 @@
 #import "TheAmazingAudioEngine.h"
 #import "MidiBusClient.h"
 
-
 @interface AudioController : NSObject <MidiBusClientDelegate>
 
 
@@ -24,5 +23,6 @@
 - (void) stopMidi;
 - (AESeconds)getTimeOfUrlAtIndex:(int)urlIndex;
 + (void) assignClip:(NSURL* _Nullable)url toIndex:(int)index;
+- (void) assignMidiNote:(int)noteNum toClipButton:(int)clipNum;
 
 @end

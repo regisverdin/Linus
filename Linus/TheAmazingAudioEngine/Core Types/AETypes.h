@@ -24,12 +24,12 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
-@import Foundation;
-@import AudioToolbox;
-
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#import <Foundation/Foundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 /*!
  * The audio description used throughout TAAE
@@ -39,6 +39,15 @@ extern "C" {
 extern const AudioStreamBasicDescription AEAudioDescription;
 
 /*!
+ * Get the TAAE audio description at a given sample rate
+ *
+ * @param channels Number of channels
+ * @param rate The sample rate
+ * @return The audio description
+ */
+AudioStreamBasicDescription AEAudioDescriptionWithChannelsAndRate(int channels, double rate);
+
+/*!
  * File types
  */
 typedef enum {
@@ -46,6 +55,37 @@ typedef enum {
     AEAudioFileTypeAIFFInt16,   //!< 16-bit signed little-endian integer AIFF
     AEAudioFileTypeM4A,         //!< AAC in an M4A container
 } AEAudioFileType;
+
+/*!
+ * Channel set
+ */
+typedef struct {
+    int firstChannel; //!< The index of the first channel of the set
+    int lastChannel;  //!< The index of the last channel of the set
+} AEChannelSet;
+    
+extern AEChannelSet AEChannelSetDefault; //!< A default, stereo channel set
+
+/*!
+ * Create an AEChannelSet
+ *
+ * @param firstChannel The first channel
+ * @param lastChannel The last channel
+ * @returns An initialized AEChannelSet structure
+ */
+static inline AEChannelSet AEChannelSetMake(int firstChannel, int lastChannel) {
+    return (AEChannelSet) {firstChannel, lastChannel};
+}
+    
+/*!
+ * Determine number of channels in an AEChannelSet
+ *
+ * @param channelSet The channel set
+ * @return The number of channels
+ */
+static inline int AEChannelSetGetNumberOfChannels(AEChannelSet set) {
+    return set.lastChannel - set.firstChannel + 1;
+}
 
 #ifdef __cplusplus
 }

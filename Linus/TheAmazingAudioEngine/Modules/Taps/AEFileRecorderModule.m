@@ -11,7 +11,7 @@
 #import "AETypes.h"
 #import "AEAudioBufferListUtilities.h"
 
-@import AudioToolbox;
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface AEFileRecorderModule () {
     ExtAudioFileRef _audioFile;
@@ -61,12 +61,12 @@
     _startTime = time ? time : AECurrentTimeInHostTicks();
 }
 
-- (void)stopRecordingAtTime:(AEHostTicks)time completionBlock:(void(^)())block {
+- (void)stopRecordingAtTime:(AEHostTicks)time completionBlock:(AEFileRecorderModuleCompletionBlock)block {
     self.completionBlock = block;
     _stopTime = time ? time : AECurrentTimeInHostTicks();
     AEFileRecorderModuleWeakProxy * proxy = [AEFileRecorderModuleWeakProxy alloc];
     proxy.target = self;
-    self.pollTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(pollForCompletion)
+    self.pollTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:proxy selector:@selector(pollForCompletion)
                                                     userInfo:nil repeats:YES];
 }
 
@@ -95,9 +95,9 @@ static void AEFileRecorderModuleProcess(__unsafe_unretained AEFileRecorderModule
     if ( !abl ) return;
     
     // Prepare stereo buffer
-    AEAudioBufferListCreateOnStack(stereoBuffer, AEAudioDescription);
+    AEAudioBufferListCreateOnStack(stereoBuffer);
     for ( int i=0; i<stereoBuffer->mNumberBuffers; i++ ) {
-        stereoBuffer->mBuffers[i] = abl->mBuffers[MIN(abl->mNumberBuffers, i)];
+        stereoBuffer->mBuffers[i] = abl->mBuffers[MIN(abl->mNumberBuffers-1, i)];
     }
     
     // Advance frames, if we have a start time mid-buffer

@@ -24,8 +24,12 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
-@import Foundation;
-@import AudioToolbox;
+#ifdef __cplusplus
+extern "C" {
+#endif
+    
+#import <Foundation/Foundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 #import "AETime.h"
 
 /*!
@@ -105,7 +109,7 @@ AudioUnit _Nullable AEIOAudioUnitGetAudioUnit(__unsafe_unretained AEIOAudioUnit 
  *  from the input.
  *
  * @param unit The unit instance
- * @param audio The audio buffer list
+ * @param buffer The audio buffer list
  * @param frames Number of frames
  */
 OSStatus AEIOAudioUnitRenderInput(__unsafe_unretained AEIOAudioUnit * _Nonnull unit,
@@ -121,6 +125,17 @@ OSStatus AEIOAudioUnitRenderInput(__unsafe_unretained AEIOAudioUnit * _Nonnull u
  * @return The most recent audio timestamp
  */
 AudioTimeStamp AEIOAudioUnitGetInputTimestamp(__unsafe_unretained AEIOAudioUnit * _Nonnull unit);
+
+/*!
+ * Get the current sample rate
+ *
+ *  The sample rate is normally obtained from the current render context, but this function allows
+ *  access when the render context is not available
+ *
+ * @param unit The unit instance
+ * @return The current sample rate
+ */
+double AEIOAudioUnitGetSampleRate(__unsafe_unretained AEIOAudioUnit * _Nonnull unit);
 
 #if TARGET_OS_IPHONE
 
@@ -154,7 +169,7 @@ AESeconds AEIOAudioUnitGetOutputLatency(__unsafe_unretained AEIOAudioUnit * _Non
 //! The sample rate at which to run, or zero to track the hardware sample rate
 @property (nonatomic) double sampleRate;
 
-//! The current sample rate in use (key-value observable)
+//! The current sample rate in use
 @property (nonatomic, readonly) double currentSampleRate;
 
 //! Whether unit is currently active
@@ -166,18 +181,18 @@ AESeconds AEIOAudioUnitGetOutputLatency(__unsafe_unretained AEIOAudioUnit * _Non
 //! The block to call when rendering output
 @property (nonatomic, copy) AEIOAudioUnitRenderBlock _Nullable renderBlock;
 
-//! The current number of output channels (key-value observable)
-@property (nonatomic, readonly) int outputChannels;
+//! The current number of output channels
+@property (nonatomic, readonly) int numberOfOutputChannels;
 
 
 //! Whether input is enabled
 @property (nonatomic) BOOL inputEnabled;
 
-//! The max number of input channels to support, or zero for unlimited
-@property (nonatomic) int maxInputChannels;
+//! The maximum number of input channels to support, or zero for unlimited
+@property (nonatomic) int maximumInputChannels;
 
-//! The current number of input channels in use (key-value observable)
-@property (nonatomic, readonly) int inputChannels;
+//! The current number of input channels in use
+@property (nonatomic, readonly) int numberOfInputChannels;
 
 #if TARGET_OS_IPHONE
 
@@ -186,3 +201,7 @@ AESeconds AEIOAudioUnitGetOutputLatency(__unsafe_unretained AEIOAudioUnit * _Non
 
 #endif
 @end
+
+#ifdef __cplusplus
+}
+#endif

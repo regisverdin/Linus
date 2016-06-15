@@ -36,3 +36,12 @@ AudioStreamBasicDescription const AEAudioDescription = {
     .mBitsPerChannel    = 8 * sizeof(float),
     .mSampleRate        = 0,
 };
+
+AudioStreamBasicDescription AEAudioDescriptionWithChannelsAndRate(int channels, double rate) {
+    AudioStreamBasicDescription description = AEAudioDescription;
+    description.mChannelsPerFrame = channels;
+    description.mSampleRate = rate;
+    return description;
+}
+
+AEChannelSet AEChannelSetDefault = {1, 2};

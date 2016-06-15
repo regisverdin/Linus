@@ -32,6 +32,9 @@ extern "C" {
 #import "AETime.h"
 #import "AETypes.h"
 
+//! Completion block
+typedef void (^AEFileRecorderModuleCompletionBlock)();
+
 /*!
  * Audio file recorder
  *
@@ -48,7 +51,7 @@ extern "C" {
  * @param type The type of the file to write
  * @param error If not NULL, the error on output
  */
-- (instancetype _Nullable)initWithRenderer:(AERenderer * _Nonnull)renderer
+- (instancetype _Nullable)initWithRenderer:(AERenderer * _Nullable)renderer
                                        URL:(NSURL * _Nonnull)url
                                       type:(AEAudioFileType)type
                                      error:(NSError * _Nullable * _Nullable)error;
@@ -56,17 +59,17 @@ extern "C" {
 /*!
  * Begin recording
  *
- * @param timestamp Time to begin recording, or 0 for "now"
+ * @param time Time to begin recording, or 0 for "now"
  */
 - (void)beginRecordingAtTime:(AEHostTicks)time;
 
 /*!
  * Stop recording
  *
- * @param timestamp Time to end recording, or 0 for "now"
+ * @param time Time to end recording, or 0 for "now"
  * @param block Block to perform once recording has completed
  */
-- (void)stopRecordingAtTime:(AEHostTicks)time completionBlock:(void(^ _Nullable)())block;
+- (void)stopRecordingAtTime:(AEHostTicks)time completionBlock:(AEFileRecorderModuleCompletionBlock _Nullable)block;
 
 @property (nonatomic, readonly) BOOL recording; //!< Whether recording is in progress
 @property (nonatomic, readonly) AESeconds recordedTime; //!< Current recording length, in seconds

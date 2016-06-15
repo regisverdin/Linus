@@ -6,32 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Linus/TheAmazingAudioEngine/Renderers/AERenderer.m"
-            timestampString = "483056542.541282"
+            filePath = "Linus/AudioController.m"
+            timestampString = "484061774.912045"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "AERendererRun()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Linus/TimelineScene.m"
-            timestampString = "483829744.480539"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "387"
-            endingLineNumber = "387"
-            landmarkName = "-touchesMoved:withEvent:"
+            startingLineNumber = "248"
+            endingLineNumber = "248"
+            landmarkName = "-startMidi"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Linus/TimelineScene.m"
-            timestampString = "483829744.480539"
+            filePath = "Linus/AudioController.m"
+            timestampString = "484061774.912045"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "436"
-            endingLineNumber = "436"
-            landmarkName = "-touchesMoved:withEvent:"
+            startingLineNumber = "234"
+            endingLineNumber = "234"
+            landmarkName = "-startMidi"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -57,77 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Linus/TimelineScene.m"
-            timestampString = "483837313.226733"
+            filePath = "Linus/AudioController.m"
+            timestampString = "483915839.359804"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "762"
-            endingLineNumber = "762"
-            landmarkName = "-subdivideSelection"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[TimelineScene subdivideSelection]"
-                  moduleName = "Linus"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/TimelineScene.m"
-                  timestampString = "483837314.271365"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "764"
-                  endingLineNumber = "764"
-                  offsetFromSymbolStart = "294">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[TimelineScene subdivideSelection]"
-                  moduleName = "Linus"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/regisverdin/Documents/Github/Linus/Linus/TimelineScene.m"
-                  timestampString = "483837314.271512"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "764"
-                  endingLineNumber = "764"
-                  offsetFromSymbolStart = "312">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Linus/TimelineScene.m"
-            timestampString = "483837313.226733"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "758"
-            endingLineNumber = "758"
-            landmarkName = "-subdivideSelection"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Linus/TimelineScene.m"
-            timestampString = "483837313.226733"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "675"
-            endingLineNumber = "675"
-            landmarkName = "-addClipOnTouch:"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "-updateAudioSchedule:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

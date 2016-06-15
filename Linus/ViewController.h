@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MidiBusClient.h"
 
-@interface ViewController : UIViewController <MidiBusClientDelegate>
+@interface ViewController : UIViewController
 
 @end
 

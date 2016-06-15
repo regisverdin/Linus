@@ -43,18 +43,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[AudioController updateAudioSchedule:]:AudioController.m">
-      </ContextState>
-      <ContextState
          contextName = "-[TimelineScene addClipOnTouch:]:TimelineScene.m">
          <PersistentStrings>
             <PersistentString
+               value = "_selectedClipNumber">
+            </PersistentString>
+            <PersistentString
                value = "[_timelineModel.tracks objectAtIndex:0]">
             </PersistentString>
+            <PersistentString
+               value = "[_timelineModel audioController]">
+            </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "-[TrackModel addTimePointWithTime:amplitude:node:]:TrackModel.m">
       </ContextState>
       <ContextState
          contextName = "-[TimelineModel addClipToTrack:atIndex:]:TimelineModel.m">
@@ -65,6 +65,23 @@
             <PersistentString
                value = "currentTrack">
             </PersistentString>
+            <PersistentString
+               value = "selectedClipNumber">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[TrackModel addTimePointWithTime:amplitude:node:]:TrackModel.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[AudioController updateAudioSchedule:]:AudioController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "_midiNoteMap">
+            </PersistentString>
+            <PersistentString
+               value = "_audioTrackEvents">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
@@ -74,10 +91,10 @@
                value = "player">
             </PersistentString>
             <PersistentString
-               value = "*(float (*)[512])finalPlayersArray.value-&gt;_value">
+               value = "*(float (*)[5120])context-&gt;output-&gt;mBuffers[0].mData">
             </PersistentString>
             <PersistentString
-               value = "*(float (*)[5120])context-&gt;output-&gt;mBuffers[0].mData">
+               value = "*(float (*)[512])finalPlayersArray.value-&gt;_value">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -91,6 +108,14 @@
       </ContextState>
       <ContextState
          contextName = "-[TrackModel getNearestNodesAndIndices:]:TrackModel.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[AudioController assignMidiNote:toClipButton:]:AudioController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "noteNumber">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "-[TimelineScene addGridMarkerOnTouch:]:TimelineScene.m">
@@ -116,6 +141,14 @@
          <PersistentStrings>
             <PersistentString
                value = "playhead.position">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[AudioController startMidi]:AudioController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "AECurrentTimeInSeconds() - startTime">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

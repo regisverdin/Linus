@@ -24,16 +24,22 @@
 //  3. This notice may not be removed or altered from any source distribution.
 //
 
-@import Foundation;
-@import AudioToolbox;
-#import "AETime.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+#import <Foundation/Foundation.h>
+#import <AudioToolbox/AudioToolbox.h>
+#import "AETime.h"
+
 @class AERenderer;
 @class AEAudioUnitInputModule;
+    
+//! Notification posted when the sample rate changes
+extern NSString * const _Nonnull AEAudioUnitOutputDidChangeSampleRateNotification;
+
+//! Notification posted when the number of output channels changes
+extern NSString * const _Nonnull AEAudioUnitOutputDidChangeNumberOfOutputChannelsNotification;
 
 /*!
  * Audio unit output
@@ -96,14 +102,14 @@ AESeconds AEAudioUnitOutputGetOutputLatency(__unsafe_unretained AEAudioUnitOutpu
 //! The sample rate at which to run, or zero to track the hardware sample rate
 @property (nonatomic) double sampleRate;
 
-//! The current sample rate (key-value observable)
+//! The current sample rate
 @property (nonatomic, readonly) double currentSampleRate;
 
 //! Whether unit is currently active
 @property (nonatomic, readonly) BOOL running;
 
-//! The current number of output channels (key-value observable)
-@property (nonatomic, readonly) int outputChannels;
+//! The current number of output channels
+@property (nonatomic, readonly) int numberOfOutputChannels;
 
 #if TARGET_OS_IPHONE
 //! Whether to automatically perform latency compensation (default YES)

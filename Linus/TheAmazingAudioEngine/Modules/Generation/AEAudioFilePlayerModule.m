@@ -33,7 +33,7 @@
 #import "AEAudioBufferListUtilities.h"
 #import "AEDSPUtilities.h"
 
-static const UInt32 kMicrofadeLength = 32;
+static const UInt32 kNoValue = -1;
 
 @interface AEAudioFilePlayerModule () {
     AudioFileID _audioFile;
@@ -77,6 +77,7 @@ static const UInt32 kMicrofadeLength = 32;
     [self initialize];
     
     self.processFunction = AEAudioFilePlayerModuleProcess;
+    self.isActiveFunction = AEAudioFilePlayerModuleGetPlaying;
     
     return self;
 }
@@ -105,8 +106,22 @@ static const UInt32 kMicrofadeLength = 32;
     [self playAtTime:time beginBlock:nil];
 }
 
-- (void)playAtTime:(AEHostTicks)time beginBlock:(void(^)())block {
+- (void)playAtTime:(AEHostTicks)time beginBlock:(AEAudioFilePlayerModuleBlock)block {
+#ifdef DEBUG
+    if ( time ) {
+        AEHostTicks now = AECurrentTimeInHostTicks();
+        if ( time < now-AEHostTicksFromSeconds(0.5) ) {
+            NSLog(@"%@: Start time is %lf seconds in the past", self, AESecondsFromHostTicks(now-time));
+        } else if ( time > now+AEHostTicksFromSeconds(60*60) ) {
+            NSLog(@"%@: Start time is %lf seconds in the future", self, AESecondsFromHostTicks(time-now));
+        }
+    }
+#endif
+    
+    _remainingMicrofadeOutFrames = kNoValue;
+    _remainingMicrofadeInFrames = _microfadeFrames;
     _startTime = time;
+    
     if ( !_playing ) {
         self.beginBlock = block;
         _anchorTime = 0;
@@ -138,7 +153,7 @@ static const UInt32 kMicrofadeLength = 32;
         if ( !self.pollTimer ) {
             [self schedulePollTimer];
         }
-        _remainingMicrofadeOutFrames = kMicrofadeLength;
+        _remainingMicrofadeOutFrames = _microfadeFrames;
     }
 }
 
@@ -415,7 +430,6 @@ BOOL AEAudioFilePlayerModuleGetPlaying(__unsafe_unretained AEAudioFilePlayerModu
     _playheadOffset = position - start;
     _anchorTime = 0;
     _sequenceScheduled = YES;
-    _remainingMicrofadeInFrames = kMicrofadeLength;
 }
 
 static void AEAudioFilePlayerModuleProcess(__unsafe_unretained AEAudioFilePlayerModule * THIS,
@@ -425,7 +439,7 @@ static void AEAudioFilePlayerModuleProcess(__unsafe_unretained AEAudioFilePlayer
     if ( !abl ) return;
     
     if ( !THIS->_playing ) {
-        AEAudioBufferListSilence(abl, AEAudioDescription, 0, context->frames);
+        AEAudioBufferListSilence(abl, 0, context->frames);
         return;
     }
     
@@ -438,14 +452,14 @@ static void AEAudioFilePlayerModuleProcess(__unsafe_unretained AEAudioFilePlayer
         = context->timestamp->mHostTime + AEHostTicksFromSeconds((double)context->frames / context->sampleRate);
     if ( startTime && startTime > hostTimeAtBufferEnd ) {
         // Start time not yet reached: emit silence
-        AEAudioBufferListSilence(abl, AEAudioDescription, 0, context->frames);
+        AEAudioBufferListSilence(abl, 0, context->frames);
         return;
         
     } else if ( startTime && startTime < context->timestamp->mHostTime ) {
         // Start time is in the past - we need to skip some frames
         AEHostTicks skipTime = context->timestamp->mHostTime - startTime;
         UInt32 skipFrames = round(AESecondsFromHostTicks(skipTime) * context->sampleRate);
-        playhead += AESecondsFromHostTicks(skipTime) * THIS->_fileSampleRate;
+        playhead += (double)skipFrames * (THIS->_fileSampleRate / context->sampleRate);
         AudioTimeStamp timestamp = {
             .mFlags = kAudioTimeStampSampleTimeValid|kAudioTimeStampHostTimeValid,
             .mSampleTime = context->timestamp->mSampleTime - skipFrames,
@@ -456,10 +470,10 @@ static void AEAudioFilePlayerModuleProcess(__unsafe_unretained AEAudioFilePlayer
         while ( skipFrames > 0 ) {
             UInt32 framesToSkip = MIN(skipFrames, context->frames);
             AudioUnitRenderActionFlags flags = 0;
-            AEAudioBufferListSetLength(scratch, AEAudioDescription, framesToSkip);
+            AEAudioBufferListSetLength(scratch, framesToSkip);
             OSStatus result = AudioUnitRender(audioUnit, &flags, &timestamp, 0, framesToSkip, scratch);
             if ( !AECheckOSStatus(result, "AudioUnitRender") ) {
-                AEAudioBufferListSilence(abl, AEAudioDescription, 0, context->frames);
+                AEAudioBufferListSilence(abl, 0, context->frames);
                 return;
             }
             
@@ -475,14 +489,12 @@ static void AEAudioFilePlayerModuleProcess(__unsafe_unretained AEAudioFilePlayer
     UInt32 frames = context->frames;
     UInt32 silentFrames = startTime && startTime > context->timestamp->mHostTime
         ? round(AESecondsFromHostTicks(startTime - context->timestamp->mHostTime) * context->sampleRate) : 0;
-    AEAudioBufferListCopyOnStack(scratchAudioBufferList, abl, silentFrames * AEAudioDescription.mBytesPerFrame);
+    AEAudioBufferListCopyOnStack(scratchAudioBufferList, abl, silentFrames);
     AudioTimeStamp adjustedTime = *context->timestamp;
     
     if ( silentFrames > 0 ) {
         // Start time is offset into this buffer - silence beginning of buffer
-        for ( int i=0; i<abl->mNumberBuffers; i++) {
-            memset(abl->mBuffers[i].mData, 0, silentFrames * AEAudioDescription.mBytesPerFrame);
-        }
+        AEAudioBufferListSilence(abl, 0, silentFrames);
         
         // Point buffer list to remaining frames
         abl = scratchAudioBufferList;
@@ -496,7 +508,7 @@ static void AEAudioFilePlayerModuleProcess(__unsafe_unretained AEAudioFilePlayer
     AEAudioBufferListCopyOnStack(mutableAbl, abl, 0);
     OSStatus result = AudioUnitRender(audioUnit, &flags, context->timestamp, 0, frames, mutableAbl);
     if ( !AECheckOSStatus(result, "AudioUnitRender") ) {
-        AEAudioBufferListSilence(abl, AEAudioDescription, 0, context->frames);
+        AEAudioBufferListSilence(abl, 0, context->frames);
         return;
     }
     
@@ -511,43 +523,50 @@ static void AEAudioFilePlayerModuleProcess(__unsafe_unretained AEAudioFilePlayer
     if ( THIS->_remainingMicrofadeInFrames > 0 ) {
         // Fade in
         UInt32 microfadeFrames = MIN(THIS->_remainingMicrofadeInFrames, frames);
-        float start = 1.0 - (float)THIS->_remainingMicrofadeInFrames / (float)kMicrofadeLength;
-        float step = 1.0 / (double)kMicrofadeLength;
+        float start = 1.0 - (float)THIS->_remainingMicrofadeInFrames / (float)THIS->_microfadeFrames;
+        float step = 1.0 / (double)THIS->_microfadeFrames;
         AEDSPApplyRamp(abl, &start, step, microfadeFrames);
         THIS->_remainingMicrofadeInFrames -= microfadeFrames;
         
-    } else if ( THIS->_remainingMicrofadeOutFrames > 0 ) {
+    } else if ( THIS->_remainingMicrofadeOutFrames != kNoValue ) {
         // Fade out (stopped)
         UInt32 microfadeFrames = MIN(THIS->_remainingMicrofadeOutFrames, frames);
-        float start = (float)THIS->_remainingMicrofadeOutFrames / (float)kMicrofadeLength;
-        float step = -1.0 / (double)kMicrofadeLength;
-        AEDSPApplyRamp(abl, &start, step, microfadeFrames);
+        if ( microfadeFrames > 0 ) {
+            float start = (float)THIS->_remainingMicrofadeOutFrames / (float)THIS->_microfadeFrames;
+            float step = -1.0 / (double)THIS->_microfadeFrames;
+            AEDSPApplyRamp(abl, &start, step, microfadeFrames);
+        }
         THIS->_remainingMicrofadeOutFrames -= microfadeFrames;
         if ( THIS->_remainingMicrofadeOutFrames == 0 ) {
             // Silence rest of buffer and stop
             for ( int i=0; i<abl->mNumberBuffers; i++) {
                 // Silence the rest of the buffer past the end
-                memset((char*)abl->mBuffers[i].mData + (AEAudioDescription.mBytesPerFrame * microfadeFrames), 0,
-                       (AEAudioDescription.mBytesPerFrame * (frames - microfadeFrames)));
+                AEAudioBufferListSilence(abl, microfadeFrames, frames - microfadeFrames);
             }
             stopped = YES;
         }
-    } else if ( !THIS->_loop && playheadInRegionAtBufferEnd >= regionLength-kMicrofadeLength ) {
+    } else if ( !THIS->_loop && playheadInRegionAtBufferEnd >= regionLength-THIS->_microfadeFrames ) {
         // Fade out (ended)
-        UInt32 offset = MIN(regionLength-kMicrofadeLength - playheadInRegion, frames);
-        UInt32 microfadeFrames = MIN(playheadInRegionAtBufferEnd - regionLength-kMicrofadeLength, kMicrofadeLength);
+        UInt32 microfadeStartPoint = regionLength - THIS->_microfadeFrames;
+        UInt32 offset = microfadeStartPoint > playheadInRegion ? MIN(microfadeStartPoint - playheadInRegion, frames) : 0;
+        UInt32 microfadeFrames = MIN(playheadInRegionAtBufferEnd - microfadeStartPoint, THIS->_microfadeFrames);
         microfadeFrames = MIN(microfadeFrames, frames);
-        float start = MIN(playheadInRegionAtBufferEnd - regionLength-kMicrofadeLength, kMicrofadeLength) / kMicrofadeLength;
-        float step = -1.0 / (double)kMicrofadeLength;
-        AEAudioBufferListCopyOnStack(offsetAbl, abl, offset * AEAudioDescription.mBytesPerFrame);
-        AEDSPApplyRamp(offsetAbl, &start, step, microfadeFrames);
-       
+        if ( microfadeFrames > 0 ) {
+            float start = 1.0 - ((float)MIN((playheadInRegion+offset) - microfadeStartPoint, THIS->_microfadeFrames)
+                                 / THIS->_microfadeFrames);
+            float step = -1.0 / (double)THIS->_microfadeFrames;
+            if ( offset > 0 ) {
+                AEAudioBufferListCopyOnStack(offsetAbl, abl, offset);
+                AEDSPApplyRamp(offsetAbl, &start, step, microfadeFrames);
+            } else {
+                AEDSPApplyRamp(abl, &start, step, microfadeFrames);
+            }
+        }
         if ( playheadInRegionAtBufferEnd >= regionLength ) {
             UInt32 finalFrames = MIN(regionLength - playheadInRegion, frames);
             for ( int i=0; i<abl->mNumberBuffers; i++) {
                 // Silence the rest of the buffer past the end
-                memset((char*)abl->mBuffers[i].mData + (AEAudioDescription.mBytesPerFrame * finalFrames), 0,
-                       (AEAudioDescription.mBytesPerFrame * (frames - finalFrames)));
+                AEAudioBufferListSilence(abl, finalFrames, frames - finalFrames);
             }
             stopped = YES;
         }
@@ -562,14 +581,10 @@ static void AEAudioFilePlayerModuleProcess(__unsafe_unretained AEAudioFilePlayer
         THIS->_playing = NO;
     } else {
         // Update the playhead
-        AudioTimeStamp playTime = {};
-        UInt32 size = sizeof(playTime);
-        AECheckOSStatus(AudioUnitGetProperty(audioUnit, kAudioUnitProperty_CurrentPlayTime, kAudioUnitScope_Global,
-                                             0, &playTime, &size), "kAudioUnitProperty_CurrentPlayTime");
         double regionStartTimeAtFileRate = THIS->_regionStartTime * THIS->_fileSampleRate;
         double regionLengthAtFileRate = THIS->_regionDuration * THIS->_fileSampleRate;
         THIS->_playhead = regionStartTimeAtFileRate +
-            fmod(THIS->_playheadOffset + playTime.mSampleTime * (THIS->_fileSampleRate / context->sampleRate),
+            fmod(THIS->_playheadOffset + (playheadInRegionAtBufferEnd * (THIS->_fileSampleRate / context->sampleRate)),
                  regionLengthAtFileRate);
         THIS->_anchorTime = hostTimeAtBufferEnd;
     }

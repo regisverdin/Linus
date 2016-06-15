@@ -51,6 +51,6 @@
 - (void) deleteSelection;
 - (void) subdivideSelection;
 - (void) changeTempo:(double)windowTime;
-
+- (void) assignMidiNote:(int)noteNum toClipButton:(int)clipNum;
 
 @end

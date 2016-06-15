@@ -28,9 +28,14 @@
 #import "AEManagedValue.h"
 
 typedef struct {
+    void * pointer;
+    int referenceCount;
+} array_entry_t;
+
+typedef struct {
     int count;
     __unsafe_unretained NSArray * objects;
-    void * entries[1];
+    array_entry_t * entries[1];
 } array_t;
 
 @interface AEArray ()
@@ -40,13 +45,13 @@ typedef struct {
 @end
 
 @implementation AEArray
-@dynamic allValues;
+@dynamic allValues, count;
 
 - (instancetype)init {
     return [self initWithCustomMapping:nil];
 }
 
-- (instancetype)initWithCustomMapping:(void *(^)(id))block {
+- (instancetype)initWithCustomMapping:(AEArrayCustomMappingBlock)block {
     if ( !(self = [super init]) ) return nil;
     self.mappingBlock = block;
     
@@ -70,7 +75,45 @@ typedef struct {
     return array->objects ? array->objects : @[];
 }
 
+- (int)count {
+    array_t * array = (array_t*)_value.pointerValue;
+    return array->count;
+}
+
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len {
+    array_t * array = (array_t*)_value.pointerValue;
+    return [array->objects countByEnumeratingWithState:state objects:buffer count:len];
+}
+
+- (id)objectAtIndexedSubscript:(NSUInteger)idx {
+    array_t * array = (array_t*)_value.pointerValue;
+    return [array->objects objectAtIndexedSubscript:idx];
+}
+
+- (void *)pointerValueAtIndex:(int)index {
+    array_t * array = (array_t*)_value.pointerValue;
+    return array->count >= index ? array->entries[index]->pointer : NULL;
+}
+
+- (void *)pointerValueForObject:(id)object {
+    array_t * array = (array_t*)_value.pointerValue;
+    if ( !array->objects ) return NULL;
+    NSUInteger index = [array->objects indexOfObject:object];
+    if ( index == NSNotFound ) return NULL;
+    return [self pointerValueAtIndex:(int)index];
+}
+
 - (void)updateWithContentsOfArray:(NSArray *)array {
+    [self updateWithContentsOfArray:array customMapping:nil];
+}
+
+- (void)updateWithContentsOfArray:(NSArray *)array customMapping:(AEArrayIndexedCustomMappingBlock)block {
+    array_t * currentArray = (array_t*)_value.pointerValue;
+    if ( currentArray && currentArray->objects && [currentArray->objects isEqualToArray:array] ) {
+        // Arrays are identical - skip
+        return;
+    }
+    
     array = [array copy];
     
     // Create new array
@@ -79,9 +122,21 @@ typedef struct {
     newArray->objects = array;
     CFBridgingRetain(array);
     
+    array_t * priorArray = (array_t*)_value.pointerValue;
+    
     int i=0;
     for ( id item in array ) {
-        newArray->entries[i] = _mappingBlock ? _mappingBlock(item) : (__bridge void*)item;
+        NSUInteger priorIndex = priorArray && priorArray->objects ? [priorArray->objects indexOfObject:item] : NSNotFound;
+        if ( priorIndex != NSNotFound ) {
+            // Copy value from prior array
+            newArray->entries[i] = priorArray->entries[priorIndex];
+            newArray->entries[i]->referenceCount++;
+        } else {
+            // Add new value
+            newArray->entries[i] = (array_entry_t*)malloc(sizeof(array_entry_t));
+            newArray->entries[i]->pointer = block ? block(item, i) : _mappingBlock ? _mappingBlock(item) : (__bridge void*)item;
+            newArray->entries[i]->referenceCount = 1;
+        }
         i++;
     }
     
@@ -99,7 +154,7 @@ int AEArrayGetCount(AEArrayToken token) {
 }
 
 void * AEArrayGetItem(AEArrayToken token, int index) {
-    return ((array_t*)token)->entries[index];
+    return ((array_t*)token)->entries[index]->pointer;
 }
 
 #pragma mark - Helpers
@@ -107,9 +162,13 @@ void * AEArrayGetItem(AEArrayToken token, int index) {
 - (void)releaseOldArray:(array_t *)array {
     if ( _mappingBlock ) {
         for ( int i=0; i<array->count; i++ ) {
-            if ( _releaseBlock ) {
-                _releaseBlock(array->objects[i], array->entries[i]);
-            } else if ( array->entries[i] != (__bridge void*)array->objects[i] ) {
+            array->entries[i]->referenceCount--;
+            if ( array->entries[i]->referenceCount == 0 ) {
+                if ( _releaseBlock ) {
+                    _releaseBlock(array->objects[i], array->entries[i]->pointer);
+                } else if ( array->entries[i]->pointer != (__bridge void*)array->objects[i] && array->entries[i]->pointer ) {
+                    free(array->entries[i]->pointer);
+                }
                 free(array->entries[i]);
             }
         }

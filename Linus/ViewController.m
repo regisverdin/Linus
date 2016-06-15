@@ -158,8 +158,6 @@
 
 
 - (void)deselectAllButtons {
-    _gridButton.selected = NO;
-    [TimelineScene setClipMode:NO];
     _drawButton.selected = NO;
     [TimelineScene setDrawMode:NO];
     _selectButton.selected = NO;
@@ -225,6 +223,8 @@
 //}
 //
 //- (IBAction)testMidiOut:(id)sender {
+//    // enable interface
+//    
 //    
 //    // create an event and initialise it
 //    MIDIBUS_MIDI_EVENT* event = [MidiBusClient setupSmallEvent];
@@ -233,17 +233,18 @@
 //    event->timestamp = 0;         // send immediately or you can stamp in the future
 //    event->length = 3;            // length of MIDI message
 //    event->data[0] = 0x91;        // note one channel 1
-//    event->data[1] = 0x40;        // note on value
-//    event->data[2] = 0x90;        // velocity
+//    event->data[1] = 0x43;        // note on value
+//    event->data[2] = 0x40;        // velocity
 //    
 //    // send it
-//    eMidiBusStatus status = [MidiBusClient sendMidiBusEvent:2 withEvent:event];
+//    eMidiBusStatus status = [MidiBusClient sendMidiBusEvent:1 withEvent:event];
 //    // probably wise to check the status
 //    
 //    // clean up message if finished with it
 //    [MidiBusClient disposeSmallEvent:event];
+//
 //}
-
+////
 
 
 @end

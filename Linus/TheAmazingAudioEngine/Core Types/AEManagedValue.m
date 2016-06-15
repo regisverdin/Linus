@@ -100,7 +100,7 @@ static BOOL __atomicUpdateWaitingForCommit = NO;
  *    thread, and (2) that we then need a mechanism to release items in the list, which we can't
  *    do on the realtime thread.
  */
-+ (void)performAtomicBatchUpdate:(void(^)())block {
++ (void)performAtomicBatchUpdate:(AEManagedValueUpdateBlock)block {
     
     if ( !__atomicUpdateWaitingForCommit ) {
         // Perform deferred sync to _atomicBatchUpdateLastValue for previously-batch-updated values
@@ -138,7 +138,9 @@ static BOOL __atomicUpdateWaitingForCommit = NO;
 
 - (void)dealloc {
     [__atomicUpdatedDeferredSyncValues removeObject:self];
-    [self releaseOldValue:_value];
+    if ( _value ) {
+        [self releaseOldValue:_value];
+    }
     linkedlistitem_t * release;
     while ( (release = OSAtomicDequeue(&_pendingReleaseQueue, offsetof(linkedlistitem_t, next))) ) {
         OSAtomicEnqueue(&_releaseQueue, release, offsetof(linkedlistitem_t, next));
@@ -246,12 +248,15 @@ void * AEManagedValueGetValue(__unsafe_unretained AEManagedValue * THIS) {
 }
 
 - (void)releaseOldValue:(void *)value {
-    if ( _isObjectValue ) {
-        CFRelease(value);
-    } else if ( _releaseBlock ) {
+    if ( _releaseBlock ) {
         _releaseBlock(value);
+    } else if ( _isObjectValue ) {
+        CFRelease(value);
     } else {
         free(value);
+    }
+    if ( _releaseNotificationBlock ) {
+        _releaseNotificationBlock();
     }
 }
 
