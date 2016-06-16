@@ -8,12 +8,12 @@
 
 #import "AudioController.h"
 #import "TimePoint.h"
-#import "AETime.h"
+#import "TheAmazingAudioEngine/AETime.h"
 #import "TrackModel.h"
 @import AVFoundation;
 
-
 @interface AudioController ()
+
 @property (nonatomic, strong) AEAudioUnitOutput *output;
 @property (nonatomic, strong) AERenderer *renderer;
 @property NSMutableArray *urls;
@@ -206,7 +206,7 @@ static NSMutableArray *clipURLs;
     _output.renderer.block = ^(const AERenderContext * _Nonnull context) {
         //         Run all the players
         
-        AEArrayEnumerateObjects(finalPlayersArray, AEAudioFilePlayerModule *, player, {
+        AEArrayEnumerateObjects(finalPlayersArray, AEAudioFilePlayerModule *, player) {
             if ( AEAudioFilePlayerModuleGetPlaying(player) ) {
                 
                 AEModuleProcess(player, context);
@@ -215,7 +215,7 @@ static NSMutableArray *clipURLs;
                 AEBufferStackMixToBufferList(context->stack, 0,context->output);
                 AEBufferStackPop(context->stack, 1);
             }
-        });
+        };
         
         
     };

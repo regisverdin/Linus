@@ -36,7 +36,7 @@
 #import "TimelineModel.h"
 #import "TrackModel.h"
 #import "Timepoint.h"
-#import "AETime.h"
+#import <TheAmazingAudioEngine/AETime.h>
 
 @interface TimelineScene ()
 

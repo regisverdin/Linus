@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <SpriteKit/SpriteKit.h>
-#import "AETime.h"
+#import <TheAmazingAudioEngine/AETime.h>
 
 @interface TimePoint : NSObject
 

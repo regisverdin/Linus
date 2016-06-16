@@ -110,7 +110,6 @@
     [toolBar setItems:[NSArray arrayWithObjects:cancelButton, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], doneButton, nil]];
     self.pickerTextField.inputAccessoryView = toolBar;
 
-    
 }
 
 -(IBAction)toggleAssignClipMode:(id)sender {

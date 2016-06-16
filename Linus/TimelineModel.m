@@ -11,7 +11,7 @@
 #import "TrackModel.h"
 #import <SpriteKit/SpriteKit.h>
 #import "TimelineScene.h"
-#import "TheAmazingAudioEngine.h"
+#import <TheAmazingAudioEngine/TheAmazingAudioEngine.h>
 
 @interface TimelineModel ()
 
