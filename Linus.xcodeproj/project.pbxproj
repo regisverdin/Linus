@@ -999,7 +999,7 @@
 					};
 					395FC0FF1C7A849C00ED1E51 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 66RRVHUV28;
+						DevelopmentTeam = UH989KZ8UK;
 					};
 				};
 			};
@@ -1452,6 +1452,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rv.Linus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -1474,6 +1475,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rv.Linus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

@@ -8,7 +8,7 @@
 
 #import "AudioController.h"
 #import "TimePoint.h"
-#import "TheAmazingAudioEngine/AETime.h"
+#import <TheAmazingAudioEngine/AETime.h>
 #import "TrackModel.h"
 @import AVFoundation;
 
@@ -164,15 +164,6 @@ static NSMutableArray *clipURLs;
 
 
 - (BOOL)start:(NSError *__autoreleasing *)error {
-    // Request a 128 frame hardware duration, for minimal latency
-    AVAudioSession * session = [AVAudioSession sharedInstance];
-    [session setPreferredIOBufferDuration:128.0/session.sampleRate error:NULL];
-    
-    // Start the session
-    if ( ![self setAudioSessionCategory:error] || ![session setActive:YES error:error] ) {
-        return NO;
-    }
-    
     //    Make NSarray of players
     
     _players = [[NSMutableArray alloc]init];

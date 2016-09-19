@@ -95,7 +95,7 @@
         return 0;
     }
     
-    //Sorted insert, using bisection (for fun)
+    //Sorted insert, using binary search
     int i = 0;
     int start = 0;
     int end = len - 1;

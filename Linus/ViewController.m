@@ -88,7 +88,7 @@
 
 
 - (IBAction)changeVolume:(id)sender {
-    NSLog(@"%f", self.volumeSlider.value);
+//    NSLog(@"%f", self.volumeSlider.value);
 }
 
 

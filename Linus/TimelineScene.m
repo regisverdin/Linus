@@ -256,7 +256,6 @@ static double timeOffset;
         
         [self addGridMarkerAtLocation:CGPointMake(0, 0) onTrackNode:trackTouchNode];
     }
-    NSLog(@"Created scene");
     
 }
 
@@ -378,7 +377,6 @@ static double timeOffset;
     if(scaleMode && ([_selectedTimePoints count] > 1)) {
         
         if(_nearestNodeToTouch == _selectionLeftNode){  //Scaling case 1
-            NSLog(@"case1");
             
             int i = 0;
             for(SKSpriteNode *currentNode in _selectedTimePoints) {
@@ -397,7 +395,6 @@ static double timeOffset;
             }
             
         } else if(_nearestNodeToTouch == _selectionRightNode){  //Scaling case 2
-            NSLog(@"case2");
             
             int i = 0;
             for(SKSpriteNode *currentNode in _selectedTimePoints) {
@@ -416,7 +413,6 @@ static double timeOffset;
             }
             
         } else { //Scaling case 3 (selected node is between boundary nodes)
-            NSLog(@"case3");
             
             int i = 0;
             for(SKSpriteNode *currentNode in _selectedTimePoints) {
@@ -434,9 +430,9 @@ static double timeOffset;
                 } else if(currentNode.position.x < _selectionMidNode.position.x) {   //Do the left-side-scaling
               
                     float originalDistFromCurrentToLeftNode = currentNodeStartPosition.x - _selectionLeftNode.position.x;
-                    NSLog(@"orig %f", originalDistFromCurrentToLeftNode);
+//                    NSLog(@"orig %f", originalDistFromCurrentToLeftNode);
                     float percentageOfOrigWidthMoved = ((_touchBeganPosition.x - currentTouchPosition.x) / _startingSelectionWidthLeft);
-                    NSLog(@"perc %f", percentageOfOrigWidthMoved);
+//                    NSLog(@"perc %f", percentageOfOrigWidthMoved);
                     
                     CGPoint newNodePosition = CGPointMake(currentNodeStartPosition.x - (originalDistFromCurrentToLeftNode * (percentageOfOrigWidthMoved)), 0); //percentage of original width
                     

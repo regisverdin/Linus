@@ -1,45 +1,151 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf460
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 \margl1440\margr1440\vieww33300\viewh19280\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f0\fs32 \cf0 \
-OTHER IDEAS:\
-	- chris suggested: automating the modification movements, like scaling etc. set them in to motion!\
-	- get midi clock in and out. clock in could be used to set loops lengths.\
-	- jason suggests: save/load, especially ability to save project in some format that is compatible with other interfaces. like export to midi, etc.\
+\f0\b\fs24 \cf0 NEW DESIGN
+\b0 \
 \
-	- What if\'85 all or most of the presets in the app corresponded with equations/expressions. For example, my Fill buttons were just shortcuts for expressions describing fill patterns. Same for modification. On the front end, when the user first gets the app the backend is not apparent. However, the user can add their own named buttons to the fill section, (which could scroll when space needed). Also, I like the idea of having a repository of these equations.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \ul \ulc0 main idea:\ulnone \
+	rhythmic effects, and complex rhythms. Make rhythms that humans can make, but computers are bad at. Making computers rhythm sound less robotic. Anti industrial? More organic. Synthetic, hybrid.\
+\
+\ul big questions:\ulnone \
+	Should I focus on simplicity? Or make a big app.\
+	How to simplify, in either case?\
+	how to synchronize different loops?\
+	if looping is prioritized, how to do long rhythmic transitions and patterns?\
+\
+\ul requirements:\ulnone \
+	FUN\
+	Accessible\
+	Get rid of 2 step process\'85 defining grid then placing sounds. allow both to be done, but default should to add clips / combine them. have default grids, which user can then mess with?\
+	Sync with other apps/gear\
+	generative?\
+	Implement in Swift. Look into different animation engine\'85 playhead presented problems.\
+\
+\
+\
+\ul ideas (decide which to keep):\
+	\ulnone \
+	
+\b need to have rests!
+\b0 \
+	
+\b idea of chaining together rhythmic snippets of different lengths, like additive rhythm
+\b0 \
+	interpolation tool\
+	tap rhythm in with drumpads (how to make drum pad big enough? take up entire bottom panel?)\
+		- automatically choose a grid based on the tapped in rhythm? could be a button that does this.\
+	automation of transitions between grids\
+	automated modification movements: set the rhythmic effects in motion\
+	automatic choice of audio clips from library. (based on analysis, spec centroid / pitch height, etc.)\
+		- import from freesound?{\field{\*\fldinst{HYPERLINK "https://github.com/ffont/Freesound-iOS"}}{\fldrslt https://github.com/ffont/Freesound-iOS}}\
+	- IMPORTANT!!!: have a button that \'93evaluates\'94 changes in your timeline. the audio only gets updated when you press this!! (could also have a fader that transitions in your new material, and out the old\'85 also consider how to implement a feature for previewing your new stuff, like a dj headphone monitor\'85 only for multitrack output?). Make this into a setting, which is off by default. Show unevaluated clips with more transparency.\
+	effects:\
+		accelerando\
+	expressions for generating rhythms, using series notation:\
+		e.g. type n1 = n0 + 0.5.  n for 1->20\
+	option to shift pattern so it shows correct downbeat at beginning\
+	sample-based? subtractive rhythms\'85\
+	focus on live application rhythmic effects to looping rhythms\
+		- have a set of sliders/nobs/buttons on another screen? then map them to different elements in the timeline/loop view.. also, could control these with external midi device.\
+	randomization\
+	dynamics linked to grid\
+	undo! this is essential\
+	copy paste. repeat n times. effect transition across repetitions\'85\
+	save/load, especially in formats that allow project to be used in other interfaces (midi export, etc.)\
+	built in presets for drum samples, etc. Who designs this library?\
+	for dropdown menu, use \'93popover\'94 populated by tableview\
+	get midi clock in/out. clock in could be used to set loop lengths\
+	What if all or most of the presets in the app corresponded with equations/expressions. For example, my Fill buttons were just shortcuts for expressions describing fill patterns. Same for modification. On the front end, when the user first gets the app the backend is not apparent. However, the user can add 		their own named buttons to the fill section, (which could scroll when space needed). Also, I like the idea of having a repository of these equations.\
+		- can interpolation be defined in this way??\
+		- how to have a visual interface for different equations that is suitable?\
 \
 	- use scaling and other UI stuff to control other parameters, like an additive synth, filter, etc.\
 	- be able to type in c-code (or similar) to generate a series/sequence. for example, an equation that produces the harmonic series. or exponential increase. user says how many iterations to go through, etc. come with presets for these.\
 \
-	- IMPORTANT!!!: have a button that \'93evaluates\'94 changes in your timeline. the audio only gets updated when you press this!! (could also have a fader that transitions in your new material, and out the old\'85 also consider how to implement a feature for previewing your new stuff, like a dj headphone monitor\'85 only for multitrack output?).\
 	- grid height could also indicate an effect other than amplitude. choose an effect, and the grid heights change. \
 	- {\field{\*\fldinst{HYPERLINK "http://stackoverflow.com/questions/8298610/waveform-on-ios"}}{\fldrslt http://stackoverflow.com/questions/8298610/waveform-on-ios}}\
 	- limit grid marker height to 2 or 3 steps? so that accent patterns are clear? have a mode for this\'85\
-\
 	- midi/clip buttons should be a circle split in two. top is audio file name, bottom is midi note number\
-\
-\
 	- NEED A LOOPING MECHANISM. FOR LIVE PLAYBACK AND COMPOSITION. \
 		- need a view that contains all of the tracks (for zooming, like ableton).\
 		- one loop control per track.\
 			- hold loopstart button to add loop start (subject to grid rules). same for loop end\
 			- what happens when playheads go out of sync w/different loop lengths on each track? (need make master playhead button on each track, or something like this)\
-\
-\
-\
-How to combine initial grid definition phase with grid editing phase? So there aren\'92t 2 modes\'85.\
+	How to combine initial grid definition phase with grid editing phase? So there aren\'92t 2 modes\'85.\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\b \cf0 	need subdivision definer, and interpolation.\
-	need to be able to apply a grid to all future times. (also distinguish overwrite and up to next grid event, or for a period of time)\
-	\
+\b \cf0 		need subdivision definer, and interpolation.\
+		need to be able to apply a grid to all future times. (also distinguish overwrite and up to next grid event, or for a period of time)
+\b0 \
+\
+\
+\
 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-{\field{\*\fldinst{HYPERLINK "http://melodi.ee.washington.edu/~bilmes/mypubs/bilmes1992-musryth.pdf"}}{\fldrslt \cf0 http://melodi.ee.washington.edu/~bilmes/mypubs/bilmes1992-musryth.pdf}}\
+\cf0 \ul final ideas:\ulnone \
+keep daw-like timeline. but also focus on short groups.\
+user can create a group (a rhythmic unit). have default groups? yes!\
+user can also store groups of groups (this is the highest level of nesting allowed\'85 basically a sequence). only single track? or multiple\'85\
+\
+\
+\
+\
+short loop based (but can be long)\
+rhythms can be for sample playback, midi, or audio effect automation.\
+	- apply effects automation to other audio tracks?\
+\
+\
+\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97---------------------------------------------------------------------------------------------\
+\
+\
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b \cf0 Old Notes on bugs
+\b0 \
+\
+- fix clip display (get length of audio file, or time for next grid marker)\
+	- need to get length of audio file somehow! should be accessible to many classes\'85.\
+- some kind of copy/paste/tile\'85 repeat n times? using current clip number?\
+- midi: fix so not random note number.\
+- eliminate lots of nested for loops by keeping _selectedTimePoints sorted!\
+\pard\tx720\tx1440\tx2160\tx2440\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 - fix subdivide (messes up on more than two time points)\
+- fix issue with scaling to the point where selection is reversed. how to handle clip assignment? clips should stay on same grid marker, but flipped around.\
+- focus on live manipulation of looping rhythms? have an interpolater tool, tool for adjusting randomization on the fly, etc. How to reconcile this with the grid idea.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\
+BETA TESTER: Henry Johnson.\
+\
+\
+\
+Layout details: \
+6\'94 high\
+2.5\'94 bottom panel - 41.666666%\
+1/2\'94 for top bar - 8.33333%\
+1.5\'94 per track - 25% * 2\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\fs32 \cf0 \
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+\
+\
+References\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "http://melodi.ee.washington.edu/~bilmes/mypubs/bilmes1992-musryth.pdf"}}{\fldrslt 
+\b \cf0 http://melodi.ee.washington.edu/~bilmes/mypubs/bilmes1992-musryth.pdf}}
+\b \
 \
 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
 \

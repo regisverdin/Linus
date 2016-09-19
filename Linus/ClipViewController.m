@@ -61,8 +61,8 @@
         
         CGFloat xPos = ((clipGridWidth/4.0) * (i%4)) + (clipGridWidth / 8) + clipGridXOffset;
         CGFloat yPos = ( windowHeight / 4.0 ) * ceil( (i+1)/4.0 ) - (windowHeight / 8);
-        NSLog(@"%f", yPos);
-        NSLog(@"%f", ceil( (i+1.0)/4.0 ));
+//        NSLog(@"%f", yPos);
+//        NSLog(@"%f", ceil( (i+1.0)/4.0 ));
         button.frame = CGRectMake(0.f, 0.f, windowWidth/8, windowWidth/8);
         [button setCenter:CGPointMake(xPos, yPos)];
         
